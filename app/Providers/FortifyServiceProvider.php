@@ -35,7 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-		
+
 		Fortify::loginView(function () {
 			return view('auth.login');
 		});
@@ -51,15 +51,18 @@ class FortifyServiceProvider extends ServiceProvider
 		Fortify::resetPasswordView(function () {
 			return view('auth.passwords.reset');
         });
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify');
+        });
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->username)
                         ->orWhere('username', $request->username)->first();
-        
+
             if ($user &&
                 Hash::check($request->password, $user->password)) {
                 return $user;
             }
         });
     }
-	
+
 }
