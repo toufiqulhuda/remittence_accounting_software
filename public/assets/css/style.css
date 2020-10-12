@@ -598,7 +598,7 @@ p:last-child{
     background: linear-gradient(90deg,#ee0979 0,#ff6a00 100%);
     border-radius: 4px;
 }
-.navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item.active a,.navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item:hover a{
+.navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item.active a,.navbar-area.is-sticky .luvion-nav .navbar .navbar-nav /*.nav-item:hover a*/{
     color:#FFF
 }
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a{
