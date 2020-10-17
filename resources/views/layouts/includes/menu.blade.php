@@ -35,7 +35,7 @@
     <li class="nav-item dropdown">
         <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Settings</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown">
-            <a class="dropdown-item" href="#">Users</a>
+            <a class="dropdown-item" href="{{ url('/users') }}">Users</a>
             <a class="dropdown-item" href="#">Role</a>
             <a class="dropdown-item" href="#">Country</a>
             <a class="dropdown-item" href="#">Currency</a>

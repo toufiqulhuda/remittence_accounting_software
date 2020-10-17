@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +42,12 @@ Route::get('/', function () {
     return view('auth.login');
 });//->middleware(['auth']);
 
-Route::view('home','home')->middleware(['verified']);
+// Route::get('/users', function () {
+//     return view('pages.users.index');
+// });
 
+// Route::view('home','home')->middleware(['auth']);
+Route::get('users', [UserController::class,'index']);
+Route::get('users/show', [UserController::class,'show'])->name('show');
+Route::get('users/edit', [UserController::class,'edit'])->name('edit');
+//Route::get('users/destroy', [UserController::class,'']);
