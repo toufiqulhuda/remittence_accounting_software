@@ -3,12 +3,16 @@
     <li class="nav-item dropdown">
         <a id="houseKeepingDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">House Keeping</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="houseKeepingDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Group Accounts</a>
+            <a class="dropdown-item" href="#">Sub Group Accounts</a>
+            <a class="dropdown-item" href="#">Chart of Accounts</a>
+            <a class="dropdown-item" href="#">Auto Tranx Account</a>
+            <a class="dropdown-item" href="#">Branch Info</a>
+            <a class="dropdown-item" href="#">Employee Information</a>
+            <!-- <div class="dropdown-divider"></div>
             <h6 class="dropdown-header"><b>Dropdown header</b></h6>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
     </li>
     <li class="nav-item dropdown">
