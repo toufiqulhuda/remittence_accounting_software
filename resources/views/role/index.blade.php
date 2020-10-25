@@ -121,12 +121,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>

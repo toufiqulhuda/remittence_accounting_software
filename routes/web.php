@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CurrencyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +17,13 @@ use App\Http\Controllers\UserController;
 |
 */
 // clear application cache
+Route::get('/clear-all', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    
+    return "Application cache-route-view clear";
+});
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Application cache flushed";
@@ -39,15 +48,36 @@ Route::get('/clear-config-cache', function() {
 });
 
 Route::get('/', function () {
-    return view('auth.login');
+    //return view('auth.login');
+    return redirect('login');
 });//->middleware(['auth']);
 
-// Route::get('/users', function () {
-//     return view('pages.users.index');
-// });
 
-// Route::view('home','home')->middleware(['auth']);
+
+Route::view('home','home')->name('home');
+/************************************
+  User route
+*************************************/
 Route::get('users', [UserController::class,'index']);
 Route::get('users/show', [UserController::class,'show'])->name('show');
 Route::get('users/edit', [UserController::class,'edit'])->name('edit');
+Route::get('users/create', [UserController::class,'create'])->name('create');
 //Route::get('users/destroy', [UserController::class,'']);
+/************************************
+  role route
+*************************************/
+Route::get('role', [RoleController::class,'index']);
+Route::get('role/edit', [RoleController::class,'edit'])->name('edit');
+Route::get('role/create', [RoleController::class,'create'])->name('create');
+/************************************
+  Country route
+*************************************/
+Route::get('country', [CountryController::class,'index']);
+Route::get('country/edit', [CountryController::class,'edit'])->name('edit');
+Route::get('country/create', [CountryController::class,'create'])->name('create');
+/************************************
+  Currency route
+*************************************/
+Route::get('currency', [CurrencyController::class,'index']);
+Route::get('currency/edit', [CurrencyController::class,'edit'])->name('edit');
+Route::get('currency/create', [CurrencyController::class,'create'])->name('create');

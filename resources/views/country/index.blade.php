@@ -125,7 +125,7 @@
                                     <th>Username</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
-                                    <th>Status</th>
+                                    <th>Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
