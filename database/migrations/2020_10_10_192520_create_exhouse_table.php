@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCurrencydetailTable extends Migration
+class CreateExhouseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,17 @@ class CreateCurrencydetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('currencydetail', function (Blueprint $table) {
-            $table->increments('CurrencyID');
-            $table->string('CurrencyName');
+        Schema::create('exhouse', function (Blueprint $table) {
+            $table->string('ExHouseID');
+            $table->string('ExHouseName');
+            $table->string('ExParentID');
+            $table->string('Address');
             $table->bigInteger('CountryID');
+            $table->date('TnxDate');
+            $table->date('PrevDate');
+            $table->string('RespExID');
             $table->string('ShortName');
+
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
@@ -32,6 +38,6 @@ class CreateCurrencydetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currencydetail');
+        Schema::dropIfExists('exhouse');
     }
 }

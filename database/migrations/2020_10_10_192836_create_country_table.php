@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExhousedetailTable extends Migration
+class CreateCountryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,10 @@ class CreateExhousedetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('exhousedetail', function (Blueprint $table) {
-            $table->string('ExHouseID');
-            $table->string('ExHouseName');
-            $table->string('ExParentID');
-            $table->string('Address');
-            $table->bigInteger('CountryID');
-            $table->date('TnxDate');
-            $table->date('PrevDate');
-            $table->string('RespExID');
-            $table->string('ShortName');
-
+        Schema::create('country', function (Blueprint $table) {
+            $table->increments('CountryID');
+            $table->string('CountryName');
+            $table->bigInteger('CurrencyID')->nullable(); 
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
@@ -38,6 +31,6 @@ class CreateExhousedetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exhousedetail');
+        Schema::dropIfExists('country');
     }
 }

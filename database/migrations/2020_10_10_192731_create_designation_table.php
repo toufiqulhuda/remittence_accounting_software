@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountrydetailTable extends Migration
+class CreateDesignationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCountrydetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('countrydetail', function (Blueprint $table) {
-            $table->increments('CountryID');
-            $table->string('CountryName');
-            $table->bigInteger('CurrencyID')->nullable(); 
+        Schema::create('designation', function (Blueprint $table) {
+            $table->increments('DegId');
+            $table->string('Degname');
+            $table->integer('Slno');
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
@@ -31,6 +31,6 @@ class CreateCountrydetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countrydetail');
+        Schema::dropIfExists('designation');
     }
 }

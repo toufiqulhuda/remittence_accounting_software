@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-2 ">
+                    <div class=" layout-sidebar-large row p-2 ">
                         <div class="sidebar-left open " >
                             <ul class="navigation-left">
                                 
@@ -55,7 +55,110 @@
                     <!-- / sidebar menu-->
                     <!-- content -->
                     
-                    <div id="inner-content" class="d-inline-flex p-2">{{ __('User edit page') }}</div>
+                    <!-- <div id="inner-content" class="d-inline-flex p-3"> -->
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                    <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <!-- <fieldset class="border p-2">
+                            <legend class="w-auto">{{ __('Create User') }}</legend> -->
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name" class="col-md-12 col-form-label text-md-left">{{ __('Full Name') }}</label>
+
+                                    <div class="col-md-12">
+                                        <input id="name" type="text" class="form-control input-sm @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="email" class="col-md-12 col-form-label text-md-left">{{ __('E-Mail Address') }}</label>
+
+                                    <div class="col-md-12">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="exHouse" class="col-md-12 col-form-label text-md-left">{{ __('exHouse') }}</label>
+
+                                    <div class="col-md-12">
+                                        <!-- <input id="exHouse" type="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" value="{{ old('exHouse') }}" required autocomplete="exHouse"> -->
+                                        <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
+                                            <option selected>Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                        @error('exHouse')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="country" class="col-md-12 col-form-label text-md-left">{{ __('Country') }}</label>
+
+                                    <div class="col-md-12">
+                                        <!-- <input id="country" type="country" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country"> -->
+                                        <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
+                                            <option selected>Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                        @error('country')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="role" class="col-md-12 col-form-label text-md-left">{{ __('User Role') }}</label>
+                                <div class="col-md-12">
+                                    <!-- <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus> -->
+                                    <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autofocus>
+                                        <option selected>Choose...</option>
+                                        <option>...</option>
+                                    </select>
+                                    @error('role')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <div class="col-md-12 ">
+                                    <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                        {{ __('Save') }}
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-redo"></i>
+                                        {{ __('Clear') }}
+                                    </button>
+                                </div>
+                            </div>
+                               
+                            <!-- </fieldset> -->
+                        </form>
+                    </div>
+                    </div>
+                    </div>
                     
                     <!-- /contect -->
                     

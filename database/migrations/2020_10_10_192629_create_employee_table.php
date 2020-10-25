@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDegdetailTable extends Migration
+class CreateEmployeeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class CreateDegdetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('degdetail', function (Blueprint $table) {
-            $table->increments('DegId');
-            $table->string('Degname');
-            $table->integer('Slno');
+        Schema::create('employee', function (Blueprint $table) {
+            $table->bigIncrements('EmpId');
+            $table->string('EmpName');
+            $table->string('ExHouseID');
+            $table->string('ContactNo');
+            $table->string('PassportNo');
+            $table->string('PermanentAddress');
+            $table->string('PresentAddress');
+            $table->date('JoinDate');
+            $table->bigInteger('DegId');
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
@@ -31,6 +37,6 @@ class CreateDegdetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('degdetail');
+        Schema::dropIfExists('employee');
     }
 }
