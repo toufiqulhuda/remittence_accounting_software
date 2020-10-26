@@ -8,7 +8,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">{{ __('User Management') }}</div>
+                <div class="card-header">{{ __('User Information') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -22,10 +22,10 @@
                         </div>
                     @endif
                     <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-2 ">
+                    <div class=" layout-sidebar-large d-inline-flex p-1 ">
                         <div class="sidebar-left open " >
                             <ul class="navigation-left">
-                                
+
                                 <li class="nav-item ">
                                     <a class="nav-item-hold" href="{{ url('/users/create') }}">
                                         <i class="fas fa-user-plus"></i>
@@ -48,14 +48,14 @@
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
-                            </ul>                  
+                            </ul>
                         </div>
                     </div>
 
                     <!-- / sidebar menu-->
                     <!-- content -->
                     <!-- <div id="inner-content" class="d-inline-flex p-2"> -->
-                    <div class="col-md-8">
+                    <div class="col-md-8 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
                             <div class="row">
@@ -105,11 +105,11 @@
                             </div>
                         </div>
                     <!-- </div> -->
-                    
-                
-                    
+
+
+
                     <!-- /contect -->
-                    
+
                 </div>
             </div>
         </div>

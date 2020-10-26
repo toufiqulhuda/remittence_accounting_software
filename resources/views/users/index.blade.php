@@ -89,7 +89,7 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-}        
+}
 </style>
 
 <div class="container">
@@ -139,21 +139,21 @@
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->CreatedBy }}</td>
                                 <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->isactive }} 
+                                <td>{{ $user->isactive }}
                                 <form action="" method="POST">
                                     <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
                                 </form>
                                 </td>
                                 <td>
                                     <form action="" method="POST">
-                    
-                                        <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a>
-                                        <a class="badge badge-primary" href="{{ route('edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('edit',$user->id) }}">Reset</a>
-                    
+
+                                        <a class="badge badge-light" href="{{ route('users-show',$user->id) }}">View</a>
+                                        <a class="badge badge-primary" href="{{ route('users-edit',$user->id) }}">Edit</a>
+                                        <a class="badge badge-primary" href="{{ route('users-edit',$user->id) }}">Reset</a>
+
                                         @csrf
                                         <!-- @@method('DELETE') -->
-                        
+
                                         <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
                                     </form>
                                 </td>
@@ -162,10 +162,10 @@
                             @endif
                             </tbody>
                         </table>
-                   
+
                     <!-- /dataTable -->
                     <!-- /contect -->
-                    
+
                 </div>
             </div>
         </div>

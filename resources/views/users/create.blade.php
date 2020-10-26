@@ -22,10 +22,10 @@
                         </div>
                     @endif
                     <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-2 ">
+                    <div class=" layout-sidebar-large d-inline-flex p-1 ">
                         <div class="sidebar-left open " >
                             <ul class="navigation-left">
-                                
+
                                 <li class="nav-item active">
                                     <a class="nav-item-hold" href="{{ url('/users/create') }}">
                                         <i class="fas fa-user-plus"></i>
@@ -48,13 +48,16 @@
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
-                            </ul>                  
+                            </ul>
                         </div>
                     </div>
 
                     <!-- / sidebar menu-->
                     <!-- content -->
-                    <div id="inner-content" class="d-inline-flex p-3">
+                    {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
+                        <div class="col-md-8 p-1 float-left" >
+                            <div class="card mb-3">
+                        <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <!-- <fieldset class="border p-2">
@@ -138,8 +141,8 @@
                                 </div>
                             </div>
 
-                            
-                            
+
+
                                 <div class="form-group ">
                                     <label for="username" class="col-md-12 col-form-label text-md-left">{{ __('Username') }}</label>
 
@@ -153,8 +156,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                             
-                            
+
+
                                 <div class="form-group ">
                                     <label for="password" class="col-md-12 col-form-label text-md-left">{{ __('Password') }}</label>
 
@@ -168,8 +171,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                            
-                            
+
+
                                 <div class="form-group ">
                                     <label for="password-confirm" class="col-md-12 col-form-label text-md-left">{{ __('Confirm Password') }}</label>
 
@@ -177,7 +180,7 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
                                 </div>
-                            
+
                                 <div class="form-group mb-0">
                                     <div class="col-md-12 ">
                                         <button type="submit" class="btn btn-primary">
@@ -190,12 +193,14 @@
                                         </button>
                                     </div>
                                 </div>
-                               
+
                             <!-- </fieldset> -->
                         </form>
                     </div>
+                            </div>
+                        </div>
                     <!-- /contect -->
-                    
+
                 </div>
             </div>
         </div>

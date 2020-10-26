@@ -16,20 +16,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#userTable').DataTable( {
+        $('#roleTable').DataTable( {
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         } );
-        $('input[type="checkbox"]').click(function(){
-            if($(this).prop("checked") == true){
-                console.log("Checkbox is checked.");
-            }
-            else if($(this).prop("checked") == false){
-                console.log("Checkbox is unchecked.");
-            }
-        });
+
     } );
 </script>
 <style rel="stylesheet">
@@ -73,7 +66,7 @@
     width: 100%;
     padding: 9px 0;
     color: #47404f; } */
-#userTable_wrapper .dt-button{
+#roleTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
     display: inline-block;
@@ -89,7 +82,7 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-}        
+}
 </style>
 
 <div class="container">
@@ -98,7 +91,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">{{ __('User Management') }}</div>
+                <div class="card-header">{{ __('role Management') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -116,41 +109,33 @@
                     <!-- content -->
 
                     <!-- dataTable -->
-                        <table id="userTable" class="table table-bordered">
+                        <table id="roleTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
+                                    <th>Role Name</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($users))
-                            @foreach ($users as $user)
+                            @if(isset($roles))
+                            @foreach ($roles as $role)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->CreatedBy }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->isactive }} 
-                                <form action="" method="POST">
-                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
-                                </form>
-                                </td>
+                                <td>{{ $role->role_name }}</td>
+                                <td>{{ $role->CreatedBy }}</td>
+                                <td>{{ $role->created_at }}</td>
                                 <td>
                                     <form action="" method="POST">
-                    
-                                        <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a>
-                                        <a class="badge badge-primary" href="{{ route('edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('edit',$user->id) }}">Reset</a>
-                    
+
+                                        <a class="badge badge-light" href="{{ route('role-create',$role->id) }}">Create</a>
+                                        <a class="badge badge-primary" href="{{ route('role-edit',$role->id) }}">Edit</a>
+
                                         @csrf
                                         <!-- @@method('DELETE') -->
-                        
+
                                         <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
                                     </form>
                                 </td>
@@ -159,10 +144,10 @@
                             @endif
                             </tbody>
                         </table>
-                   
+
                     <!-- /dataTable -->
                     <!-- /contect -->
-                    
+
                 </div>
             </div>
         </div>

@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\QueryException;
+use App\Models\Role;
+// use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Database\QueryException;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Schema;
+// use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Http\Request;
 
@@ -24,11 +24,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        
-        // $users = User::latest()->paginate(5);
-        // //dd($allUsers);
-        // return view('users.index',compact('users'))
-        //     ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        $roles = Role::latest()->paginate(5);
+        return view('role.index',compact('roles'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 
     /**
@@ -38,7 +38,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        // return view('users.create');
+         return view('role.create');
     }
 
     /**
@@ -53,10 +53,10 @@ class RoleController extends Controller
         //     'name' => 'required',
         //     'email' => 'required',
         // ]);
-    
+
         // User::create($request->all());
-     
-        // return redirect()->route('users.index')
+
+        // return redirect()->route('role.index')
         //                 ->with('success','Product created successfully.');
     }
 
@@ -66,7 +66,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Role $role)
     {
         // return view('users.show',compact('user'));
     }
@@ -77,9 +77,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Role $role)
     {
-        // return view('users.edit',compact('user'));
+        //dd($role);
+         return view('role.edit',compact('role'));
     }
 
     /**
@@ -95,9 +96,9 @@ class RoleController extends Controller
         //     'name' => 'required',
         //     'detail' => 'required',
         // ]);
-    
+
         // $user->update($request->all());
-    
+
         // return redirect()->route('users.index')
         //                 ->with('success','Product updated successfully');
     }
@@ -111,7 +112,7 @@ class RoleController extends Controller
     public function destroy(User $user)
     {
         // $user->delete();
-    
+
         // return redirect()->route('users.index')
         //                 ->with('success','Product deleted successfully');
     }
