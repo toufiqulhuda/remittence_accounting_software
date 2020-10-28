@@ -24,10 +24,10 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        
+
         $users = User::latest()->paginate(5);
         //dd($allUsers);
-        return view('users.index',compact('users'))
+        return view('currency.index',compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -38,7 +38,7 @@ class CurrencyController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('currency.create');
     }
 
     /**
@@ -49,15 +49,15 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-        ]);
-    
-        User::create($request->all());
-     
-        return redirect()->route('users.index')
-                        ->with('success','Product created successfully.');
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        // ]);
+
+        // User::create($request->all());
+
+        // return redirect()->route('users.index')
+        //                 ->with('success','Product created successfully.');
     }
 
     /**
@@ -68,7 +68,7 @@ class CurrencyController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show',compact('user'));
+        // return view('currency.show',compact('user'));
     }
 
     /**
@@ -79,7 +79,7 @@ class CurrencyController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit',compact('user'));
+        return view('currency.edit',compact('user'));
     }
 
     /**
@@ -91,15 +91,15 @@ class CurrencyController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-    
-        $user->update($request->all());
-    
-        return redirect()->route('users.index')
-                        ->with('success','Product updated successfully');
+        // $request->validate([
+        //     'name' => 'required',
+        //     'detail' => 'required',
+        // ]);
+
+        // $user->update($request->all());
+
+        // return redirect()->route('currency.index')
+        //                 ->with('success','Product updated successfully');
     }
 
     /**
@@ -111,7 +111,7 @@ class CurrencyController extends Controller
     public function destroy(User $user)
     {
         // $user->delete();
-    
+
         // return redirect()->route('users.index')
         //                 ->with('success','Product deleted successfully');
     }

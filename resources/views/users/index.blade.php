@@ -98,7 +98,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">{{ __('User Management') }}</div>
+                <div class="card-header"><i class="fas fa-user-cog"></i>&nbsp;{{ __('User Management') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))

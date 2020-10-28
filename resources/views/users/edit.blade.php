@@ -8,7 +8,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">{{ __('Edit User') }}</div>
+                <div class="card-header"><i class="fas fa-user-edit"></i>&nbsp;{{ __('Edit User') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -144,11 +144,11 @@
                             <div class="form-group mb-0">
                                 <div class="col-md-12 ">
                                     <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i>
+                                    <i class="fas fa-check"></i>
                                         {{ __('Save') }}
                                     </button>
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-redo"></i>
+                                        <i class="fas fa-broom"></i>
                                         {{ __('Clear') }}
                                     </button>
                                 </div>

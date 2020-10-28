@@ -8,7 +8,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-edit"></i>&nbsp;{{ __('Edit Role') }}</div>
+                <div class="card-header"><i class="far fa-edit"></i>&nbsp;{{ __('Edit Currency') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -34,12 +34,12 @@
                             <legend class="w-auto">{{ __('Create User') }}</legend> -->
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="roleName" class="col-md-12 col-form-label text-md-left">{{ __('Role Name') }}</label>
+                                    <label for="currencyName" class="col-md-12 col-form-label text-md-left">{{ __('Currency Name') }}</label>
 
                                     <div class="col-md-12">
-                                        <input id="roleName" type="text" class="form-control input-sm @error('roleName') is-invalid @enderror" roleName="roleName" value="{{ $role->role_name }}" required autocomplete="roleName" autofocus>
+                                        <input id="currencyName" type="text" class="form-control input-sm @error('currencyName') is-invalid @enderror" currencyName="currencyName" value="" required autocomplete="currencyName" autofocus>
 
-                                        @error('roleName')
+                                        @error('currencyName')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -74,16 +74,16 @@
                             <ul class="navigation-left">
 
                                 <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/role/create') }}">
-                                        <i class="fas fa-plus-square"></i>
-                                        <span class="nav-text">Create Role</span>
+                                    <a class="nav-item-hold" href="{{ url('/currency/create') }}">
+                                        <i class="far fa-plus-square"></i>
+                                        <span class="nav-text">Add Currency</span>
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/role/edit') }}">
-                                        <i class="fas fa-edit"></i>
-                                        <span class="nav-text">Edit Role</span>
+                                    <a class="nav-item-hold" href="{{ url('/currency/edit') }}">
+                                        <i class="far fa-edit"></i>
+                                        <span class="nav-text">Edit Currency</span>
                                     </a>
                                     <div class="triangle"></div>
                                 </li>

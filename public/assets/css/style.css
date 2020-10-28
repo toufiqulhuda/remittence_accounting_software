@@ -362,8 +362,9 @@ p:last-child{
     border-radius: 4px;
 }
 .luvion-nav .navbar .navbar-nav .nav-item a i{
-    font-size:10px;
-    margin-left:1px
+    font-size:15px;
+    margin-left:1px;
+    margin-right:1px;
 }
 .luvion-nav .navbar .navbar-nav .nav-item:last-child a{
     margin-right:0

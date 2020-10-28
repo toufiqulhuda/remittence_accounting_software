@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ExhouseController extends Controller
@@ -13,7 +13,10 @@ class ExhouseController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::latest()->paginate(5);
+        //dd($allUsers);
+        return view('exhouse.index',compact('users'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -23,7 +26,7 @@ class ExhouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('exhouse.create');
     }
 
     /**
@@ -54,9 +57,9 @@ class ExhouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('exhouse.edit',compact('user'));
     }
 
     /**

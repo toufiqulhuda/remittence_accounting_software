@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\ExhouseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,3 +83,9 @@ Route::get('country/create', [CountryController::class,'create'])->name('country
 Route::get('currency', [CurrencyController::class,'index']);
 Route::get('currency/edit', [CurrencyController::class,'edit'])->name('currency-edit');
 Route::get('currency/create', [CurrencyController::class,'create'])->name('currency-create');
+/************************************
+  Exhouse route
+*************************************/
+Route::get('exhouse', [ExhouseController::class,'index']);
+Route::get('exhouse/edit', [ExhouseController::class,'edit'])->name('exhouse-edit');
+Route::get('exhouse/create', [ExhouseController::class,'create'])->name('exhouse-create');

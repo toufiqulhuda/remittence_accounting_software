@@ -8,7 +8,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">{{ __('Create Role') }}</div>
+                <div class="card-header"><i class="far fa-plus-square"></i>&nbsp;{{ __('Add Country') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -27,16 +27,16 @@
                             <ul class="navigation-left">
 
                                 <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/role/create') }}">
-                                        <i class="fas fa-plus-square"></i>
-                                        <span class="nav-text">Create Role</span>
+                                    <a class="nav-item-hold" href="{{ url('/country/create') }}">
+                                        <i class="far fa-plus-square"></i>
+                                        <span class="nav-text">Add Country</span>
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/role/edit') }}">
-                                        <i class="fas fa-edit"></i>
-                                        <span class="nav-text">Edit Role</span>
+                                    <a class="nav-item-hold" href="{{ url('/country/edit') }}">
+                                        <i class="far fa-edit"></i>
+                                        <span class="nav-text">Edit Country</span>
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
@@ -56,12 +56,12 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="roleName" class="col-md-12 col-form-label text-md-left">{{ __('Role Name') }}</label>
+                                    <label for="countryName" class="col-md-12 col-form-label text-md-left">{{ __('Country Name') }}</label>
 
                                     <div class="col-md-12">
-                                        <input id="roleName" type="text" class="form-control input-sm @error('roleName') is-invalid @enderror" roleName="roleName" value="{{ old('roleName') }}" required autocomplete="roleName" autofocus>
+                                        <input id="countryName" type="text" class="form-control input-sm @error('countryName') is-invalid @enderror" countryName="countryName" value="{{ old('countryName') }}" required autocomplete="countryName" autofocus>
 
-                                        @error('roleName')
+                                        @error('countryName')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

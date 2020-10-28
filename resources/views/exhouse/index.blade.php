@@ -16,13 +16,20 @@
 
 <script>
     $(document).ready(function() {
-        $('#roleTable').DataTable( {
+        $('#userTable').DataTable( {
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         } );
-
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                console.log("Checkbox is checked.");
+            }
+            else if($(this).prop("checked") == false){
+                console.log("Checkbox is unchecked.");
+            }
+        });
     } );
 </script>
 <style rel="stylesheet">
@@ -66,7 +73,7 @@
     width: 100%;
     padding: 9px 0;
     color: #47404f; } */
-#roleTable_wrapper .dt-button{
+#userTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
     display: inline-block;
@@ -91,7 +98,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-users-cog"></i>&nbsp;{{ __('Role Management') }}</div>
+                <div class="card-header"><i class="fas fa-store"></i>&nbsp;{{ __('Exhouse Management') }}</div>
 
                 <div class="card-body">
                     <!-- @if (session('status'))
@@ -109,29 +116,40 @@
                     <!-- content -->
 
                     <!-- dataTable -->
-                        <table id="roleTable" class="table table-bordered">
+                        <table id="userTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Role Name</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Active</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($roles))
-                            @foreach ($roles as $role)
+                            @if(isset($users))
+                            @foreach ($users as $user)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $role->role_name }}</td>
-                                <td>{{ $role->CreatedBy }}</td>
-                                <td>{{ $role->created_at }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->CreatedBy }}</td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->isactive }}
+                                <form action="" method="POST">
+                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
+                                </form>
+                                </td>
                                 <td>
                                     <form action="" method="POST">
 
-                                        <a class="badge badge-light" href="{{ route('role-create',$role->id) }}">Create</a>
-                                        <a class="badge badge-primary" href="{{ route('role-edit',$role->id) }}">Edit</a>
+                                        {{-- <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a> --}}
+                                        <a class="badge badge-primary" href="{{ route('exhouse-edit',$user->id) }}">Edit</a>
+                                        <a class="badge badge-primary" href="{{ route('exhouse-edit',$user->id) }}">Reset</a>
 
                                         @csrf
                                         <!-- @@method('DELETE') -->

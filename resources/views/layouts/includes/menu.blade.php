@@ -39,10 +39,11 @@
     <li class="nav-item dropdown">
         <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Settings</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown">
-            <a class="dropdown-item" href="{{ url('/users') }}">Users</a>
-            <a class="dropdown-item" href="{{ url('/role') }}">Role</a>
-            <a class="dropdown-item" href="#">Country</a>
-            <a class="dropdown-item" href="#">Currency</a>
+            <a class="dropdown-item" href="{{ url('/users') }}"><i class="fas fa-users"></i>&nbsp;Users</a>
+            <a class="dropdown-item" href="{{ url('/role') }}"><i class="fas fa-users-cog"></i>&nbsp;Role</a>
+            <a class="dropdown-item" href="{{ url('/country') }}"><i class="fas fa-flag-usa"></i>&nbsp;Country</a>
+            <a class="dropdown-item" href="{{ url('/currency') }}"><i class="fas fa-dollar-sign"></i>&nbsp;Currency</a>
+            <a class="dropdown-item" href="{{ url('/exhouse') }}"><i class="fas fa-store"></i>&nbsp;Exhouse</a>
         </div>
     </li>
     <li class="nav-item dropdown">
@@ -50,11 +51,11 @@
                 {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    <i class="fas fa-sign-out-alt"></i>&nbsp;{{ __('Logout') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
