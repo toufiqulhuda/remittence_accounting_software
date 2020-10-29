@@ -383,7 +383,7 @@ p:last-child{
     border:none;
     top:80px;
     left:0;
-    width:190px;
+    width:210px;
     z-index:99;
     display:block;
     opacity:0;
@@ -4978,4 +4978,7 @@ p:last-child{
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1.25rem;
+}
+.form-group label span.mandatory {
+    color: red !important;
 }

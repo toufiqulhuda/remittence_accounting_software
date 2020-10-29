@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ExhouseController;
+use App\Http\Controllers\HouseKeepingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,3 +90,21 @@ Route::get('currency/create', [CurrencyController::class,'create'])->name('curre
 Route::get('exhouse', [ExhouseController::class,'index']);
 Route::get('exhouse/edit', [ExhouseController::class,'edit'])->name('exhouse-edit');
 Route::get('exhouse/create', [ExhouseController::class,'create'])->name('exhouse-create');
+/************************************
+  GroupAccount route
+*************************************/
+//Route::get('groupAccount', [HouseKeepingController::class,'groupAccountCreate']);
+Route::get('groupAccount/edit', [HouseKeepingController::class,'groupAccountEdit'])->name('groupAccount-edit');
+Route::get('groupAccount/create', [HouseKeepingController::class,'groupAccountCreate'])->name('groupAccount-create');
+/************************************
+  SubGroupAccount route
+*************************************/
+//Route::get('exhouse', [HouseKeepingController::class,'index']);
+Route::get('subGroupAccount/edit', [HouseKeepingController::class,'subGroupAccountEdit'])->name('subGroupAccount-edit');
+Route::get('subGroupAccount/create', [HouseKeepingController::class,'subGroupAccountCreate'])->name('subGroupAccount-create');
+/************************************
+  ChartOfAccount route
+*************************************/
+//Route::get('exhouse', [HouseKeepingController::class,'index']);
+Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
+Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
