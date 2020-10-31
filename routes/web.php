@@ -8,6 +8,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ExhouseController;
 use App\Http\Controllers\HouseKeepingController;
+use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,3 +109,8 @@ Route::get('subGroupAccount/create', [HouseKeepingController::class,'subGroupAcc
 //Route::get('exhouse', [HouseKeepingController::class,'index']);
 Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
 Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
+/************************************
+  Transaction route
+*************************************/
+Route::get('transaction/account', [TransactionController::class,'accountTransactionCreate'])->name('transaction-account');
+Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');

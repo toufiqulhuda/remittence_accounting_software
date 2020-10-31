@@ -1,6 +1,13 @@
 <ul class="navbar-nav">
     <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link active"><i class="fas fa-home"></i>&nbsp;Home</a></li>
     <li class="nav-item dropdown">
+        <a id="transactionDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transaction</a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="TransactionDropdown">
+            <a class="dropdown-item" href="{{ url('/transaction/account') }}">Account Transaction</a>
+            <a class="dropdown-item" href="{{ url('/transaction/reverse') }}">Reverse Transaction</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
         <a id="houseKeepingDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">House Keeping</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="houseKeepingDropdown">
             <a class="dropdown-item" href="{{ url('/groupAccount/create') }}">Group Accounts</a>
