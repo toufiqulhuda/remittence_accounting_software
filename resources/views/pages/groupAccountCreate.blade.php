@@ -47,20 +47,22 @@
                     <!-- / sidebar menu-->
                     <!-- content -->
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
-                        <div class="col-md-8 p-1 float-left" >
+                        <div class="col-md-10 p-1 float-left" >
                             <div class="card mb-3">
                         <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
 
                                 <div class="form-group row">
-                                    <label for="ExhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Exchange House Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                    <label for="exhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Exchange House Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                     <div class="col-md-9">
-                                        <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
-
-                                        @error('ExhouseName')
+                                        <select id="exhouseName" class="form-control @error('exhouseName') is-invalid @enderror" name="exhouseName" required autofocus>
+                                            <option selected>Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                        @error('exhouseName')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -70,22 +72,22 @@
                                 <div class="form-group row">
                                     <div class=" col-md-12">
                                         <div class="row">
-                                        <label for="ExhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Account Group Code') }}</label>
+                                        <label for="accountGCode" class="col-md-3 col-form-label text-md-left">{{ __('Account Group Code') }}&nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-md-3">
-                                            <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+                                            <input id="accountGCode" type="text" class="form-control input-sm @error('accountGCode') is-invalid @enderror" accountGCode="accountGCode" value="{{ old('accountGCode') }}" required autocomplete="accountGCode" autofocus>
 
-                                            @error('ExhouseName')
+                                            @error('accountGCode')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
-                                        <label for="ExhouseName" class="col-md-4 col-form-label text-md-left">{{ __('Account Group Code') }}</label>
+                                        <label for="accountGName" class="col-md-3 col-form-label text-md-left">{{ __('Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                        <div class="col-md-2">
-                                            <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+                                        <div class="col-md-3">
+                                            <input id="accountGName" type="text" class="form-control input-sm @error('accountGName') is-invalid @enderror" accountGName="accountGName" value="{{ old('accountGName') }}" required autocomplete="accountGName" autofocus>
 
-                                            @error('ExhouseName')
+                                            @error('accountGName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -93,27 +95,16 @@
                                         </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
-                                        <label for="ExhouseName" class="col-md-6 col-form-label text-md-left">{{ __('Account Group Name') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
-
-                                            @error('ExhouseName')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 <div class="form-group row">
-                                    <label for="ExhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Account Head Type') }}</label>
+                                    <label for="accountHeadType" class="col-md-3 col-form-label text-md-left">{{ __('Account Head Type') }}&nbsp;<span class="mandatory">*</span></label>
 
                                     <div class="col-md-9">
-                                        <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
-
-                                        @error('ExhouseName')
+                                        <select id="accountHeadType" class="form-control @error('accountHeadType') is-invalid @enderror" name="accountHeadType" required autofocus>
+                                            <option selected>Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                        @error('accountHeadType')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

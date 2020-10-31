@@ -38,7 +38,7 @@ class HouseKeepingController extends Controller
     }
     public function subGroupAccountEdit()
     {
-        return view('exhouse.subGroupAccountEdit');
+        return view('pages.subGroupAccountEdit');
     }
     public function subGroupAccountUpdate()
     {
@@ -49,7 +49,7 @@ class HouseKeepingController extends Controller
     ***********************************/
     public function chartOfAccountCreate()
     {
-        return view('exhouse.chartOfAccountCreate');
+        return view('pages.chartOfAccountCreate');
     }
     public function chartOfAccountStore()
     {
@@ -57,7 +57,7 @@ class HouseKeepingController extends Controller
     }
     public function chartOfAccountEdit()
     {
-        return view('exhouse.chartOfAccountEdit');
+        return view('pages.chartOfAccountEdit');
     }
     public function chartOfAccountUpdate()
     {
