@@ -114,8 +114,139 @@
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
                     <!-- content -->
+                    <div class="col-md-12 p-1 float-left" >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name" class="col-md-12 col-form-label text-md-left">{{ __('Full Name') }}</label>
 
+                                            <div class="col-md-12">
+                                                <input id="name" type="text" class="form-control input-sm @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="email" class="col-md-12 col-form-label text-md-left">{{ __('E-Mail Address') }}</label>
+
+                                            <div class="col-md-12">
+                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exHouse" class="col-md-12 col-form-label text-md-left">{{ __('ExHouse') }}</label>
+
+                                            <div class="col-md-12">
+                                                <!-- <input id="exHouse" type="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" value="{{ old('exHouse') }}" required autocomplete="exHouse"> -->
+                                                <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
+                                                    <option selected>Choose...</option>
+                                                    <option>...</option>
+                                                </select>
+                                                @error('exHouse')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="role" class="col-md-12 col-form-label text-md-left">{{ __('User Role') }}</label>
+
+                                            <div class="col-md-12">
+                                                <!-- <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus> -->
+                                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autofocus>
+                                                    <option selected>...</option>
+                                                    @foreach ($roles as $key => $value)
+                                                        <option value="{{ $value->roleid }}">{{ $value->role_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('role')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="username" class="col-md-12 col-form-label text-md-left">{{ __('Username') }}</label>
+
+                                            <div class="col-md-12">
+                                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+
+                                                @error('username')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="password" class="col-md-12 col-form-label text-md-left">{{ __('Password') }}</label>
+
+                                                <div class="col-md-12">
+                                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-md-6">
+                                                <label for="password-confirm" class="col-md-12 col-form-label text-md-left">{{ __('Confirm Password') }}</label>
+
+                                                <div class="col-md-12">
+                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <div class="col-md-12 ">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Save') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-broom"></i>
+                                                    {{ __('Clear') }}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    <!-- </fieldset> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>&nbsp;
                     <!-- dataTable -->
+                    <div class="table-responsive">
                         <table id="userTable" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -147,9 +278,10 @@
                                 <td>
                                     <form action="" method="POST">
 
-                                        <a class="badge badge-light" href="{{ route('users-show',$user->id) }}">View</a>
-                                        <a class="badge badge-primary" href="{{ route('users-edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('users-edit',$user->id) }}">Reset</a>
+                                        <a class="badge badge-light" href="{{ route('users.create') }}">Create</a>
+                                        <a class="badge badge-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
+                                        <a class="badge badge-light" href="{{ route('users.show',$user->user_id) }}">View</a>
+                                        <a class="badge badge-primary" href="{{ route('users.edit',$user->user_id) }}">Reset</a>
 
                                         @csrf
                                         <!-- @@method('DELETE') -->
@@ -162,7 +294,8 @@
                             @endif
                             </tbody>
                         </table>
-
+                        {!! $users->links() !!}
+                    </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

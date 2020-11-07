@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+use App\Models\Exhouse;
 use Illuminate\Http\Request;
 
 class ExhouseController extends Controller
@@ -13,9 +13,9 @@ class ExhouseController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate(5);
+        $exhouses = Exhouse::latest()->paginate(5);
         //dd($allUsers);
-        return view('exhouse.index',compact('users'))
+        return view('exhouse.index',compact('exhouses'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

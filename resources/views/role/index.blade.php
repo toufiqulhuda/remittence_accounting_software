@@ -94,21 +94,67 @@
                 <div class="card-header"><i class="fas fa-users-cog"></i>&nbsp;{{ __('Role Management') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
                     <!-- content -->
+                    <div class="col-md-12 p-1 float-left" >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('roles.store') }}">
+                                    @csrf
+                                    @method('POST')
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="roleName" class="col-md-12 col-form-label text-md-left">{{ __('Role Name') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                            <div class="col-md-12">
+                                                <input id="roleName" type="text" class="form-control input-sm @error('roleName') is-invalid @enderror" name="roleName" value="{{ old('roleName') }}" required autocomplete="roleName" autofocus>
+
+                                                @error('roleName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                        <div class="form-group mb-0">
+                                            <div class="col-md-12 ">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Save') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-broom"></i>
+                                                    {{ __('Clear') }}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    <!-- </fieldset> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- dataTable -->
+                    &nbsp;<hr>&nbsp;
+                    <div class="table-responsive">
                         <table id="roleTable" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -117,6 +163,7 @@
                                     <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Active</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,24 +174,27 @@
                                 <td>{{ $role->role_name }}</td>
                                 <td>{{ $role->CreatedBy }}</td>
                                 <td>{{ $role->created_at }}</td>
-                                <td>
+                                <td>{{ $role->isactive }}
                                     <form action="" method="POST">
-
-                                        <a class="badge badge-light" href="{{ route('role-create',$role->id) }}">Create</a>
-                                        <a class="badge badge-primary" href="{{ route('role-edit',$role->id) }}">Edit</a>
+                                        <input type="checkbox"  name="isactive" id="isactive" value="{{ $role->isactive }}" {{ ($role->isactive==1)? ' checked': '' }} />
+                                    </form>
+                                </td>
+                                <td>
+                                    <!--<form action="" method="POST">-->
+                                        <a class="badge badge-primary" href="{{ route('roles.edit',$role->roleid) }}">Edit</a>
 
                                         @csrf
                                         <!-- @@method('DELETE') -->
 
                                         <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
-                                    </form>
+                                    <!--</form>-->
                                 </td>
                             </tr>
                             @endforeach
                             @endif
                             </tbody>
                         </table>
-
+                    </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

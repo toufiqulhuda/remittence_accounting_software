@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountryTable extends Migration
+class CreateAccountMainHeadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateCountryTable extends Migration
      */
     public function up()
     {
-        Schema::create('country', function (Blueprint $table) {
-            $table->string('CountryID',4)->primary();
-            $table->string('CountryName',50);
-            $table->bigInteger('CurrencyID')->nullable();
-            $table->tinyInteger('isactive')->default(0);
+        Schema::create('account_main_head', function (Blueprint $table) {
+            $table->string('AccHdID',1)->primary();
+            $table->string('AcctHdName',50);
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->bigInteger('UpdatedBy')->nullable();
@@ -33,6 +31,6 @@ class CreateCountryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('country');
+        Schema::dropIfExists('account_main_head');
     }
 }

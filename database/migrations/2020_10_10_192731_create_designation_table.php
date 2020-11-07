@@ -14,11 +14,12 @@ class CreateDesignationTable extends Migration
     public function up()
     {
         Schema::create('designation', function (Blueprint $table) {
-            $table->increments('DegId');
-            $table->string('Degname');
-            $table->integer('Slno');
+            $table->increments('DegId',2);
+            $table->string('Degname',50);
+            $table->integer('Slno')->nullable();
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
         });

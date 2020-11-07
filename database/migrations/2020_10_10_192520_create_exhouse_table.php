@@ -14,18 +14,22 @@ class CreateExhouseTable extends Migration
     public function up()
     {
         Schema::create('exhouse', function (Blueprint $table) {
-            $table->string('ExHouseID');
-            $table->string('ExHouseName');
-            $table->string('ExParentID');
+            $table->string('ExHouseID',11)->primary();
+            $table->string('ExHouseName',100);
+            $table->string('ExParentID',11);
             $table->string('Address');
-            $table->bigInteger('CountryID');
+            //$table->bigInteger('CountryID')->unsigned();
+            $table->foreignId('CountryID')->constrained('country')->onDelete('cascade');
+            //$table->bigInteger('CurrencyID')->unsigned();
+            $table->foreignId('CurrencyID')->constrained('currency')->onDelete('cascade');
             $table->date('TnxDate');
             $table->date('PrevDate');
-            $table->string('RespExID');
-            $table->string('ShortName');
-
+            $table->string('RespExID',11);
+            $table->string('ShortName',50);
+            $table->tinyInteger('isactive')->default(0);
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
         });

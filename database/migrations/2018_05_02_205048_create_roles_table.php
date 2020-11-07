@@ -15,12 +15,14 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('roleid');
-            $table->string('role_name')->unique();
+            $table->string('role_name',20)->unique();
+            $table->tinyInteger('isactive')->default(0);
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
-            
+
         });
     }
 

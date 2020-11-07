@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountryTable extends Migration
+class CreateAccountSubGroupDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateCountryTable extends Migration
      */
     public function up()
     {
-        Schema::create('country', function (Blueprint $table) {
-            $table->string('CountryID',4)->primary();
-            $table->string('CountryName',50);
-            $table->bigInteger('CurrencyID')->nullable();
-            $table->tinyInteger('isactive')->default(0);
+        Schema::create('account_sub_group_detail', function (Blueprint $table) {
+            $table->increments('AccSbGrID');
+            $table->char('AccSbGrCode',5);
+            $table->string('AccSbGrName',100);
+            $table->integer('AccGrID');
+            $table->char('ExHouseID',11);
+
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
+
         });
     }
 
@@ -33,6 +36,6 @@ class CreateCountryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('country');
+        Schema::dropIfExists('account_sub_group_detail');
     }
 }

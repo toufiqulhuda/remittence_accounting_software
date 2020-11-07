@@ -61,36 +61,35 @@ Route::view('home','home')->name('home');
 /************************************
   User route
 *************************************/
-Route::get('users', [UserController::class,'index']);
-Route::get('users/show', [UserController::class,'show'])->name('users-show');
-Route::get('users/edit', [UserController::class,'edit'])->name('users-edit');
-Route::get('users/create', [UserController::class,'create'])->name('users-create');
+Route::resource('users', UserController::class);
+// Route::get('users', [UserController::class,'index']);
+// Route::get('users/show', [UserController::class,'show'])->name('users-show');
+// Route::get('users/edit', [UserController::class,'edit'])->name('users-edit');
+// Route::get('users/create', [UserController::class,'create'])->name('users-create');
 //Route::get('users/reset', [UserController::class,'users-reset']);
 //Route::get('users/destroy', [UserController::class,'']);
 /************************************
   role route
 *************************************/
-Route::get('role', [RoleController::class,'index']);
-Route::get('role/edit', [RoleController::class,'edit'])->name('role-edit');
-Route::get('role/create', [RoleController::class,'create'])->name('role-create');
+Route::resource('roles', RoleController::class);
 /************************************
   Country route
 *************************************/
-Route::get('country', [CountryController::class,'index']);
+Route::get('countries', [CountryController::class,'index']);
 Route::get('country/edit', [CountryController::class,'edit'])->name('country-edit');
 Route::get('country/create', [CountryController::class,'create'])->name('country-create');
 /************************************
   Currency route
 *************************************/
-Route::get('currency', [CurrencyController::class,'index']);
+Route::get('currencies', [CurrencyController::class,'index']);
 Route::get('currency/edit', [CurrencyController::class,'edit'])->name('currency-edit');
 Route::get('currency/create', [CurrencyController::class,'create'])->name('currency-create');
 /************************************
   Exhouse route
 *************************************/
-Route::get('exhouse', [ExhouseController::class,'index']);
-Route::get('exhouse/edit', [ExhouseController::class,'edit'])->name('exhouse-edit');
-Route::get('exhouse/create', [ExhouseController::class,'create'])->name('exhouse-create');
+Route::resource('exhouses', ExhouseController::class);
+// Route::get('exhouse/edit', [ExhouseController::class,'edit'])->name('exhouse-edit');
+// Route::get('exhouse/create', [ExhouseController::class,'create'])->name('exhouse-create');
 /************************************
   GroupAccount route
 *************************************/

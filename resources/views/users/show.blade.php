@@ -33,13 +33,13 @@
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
-                                <li class="nav-item ">
+                                {{-- <li class="nav-item ">
                                     <a class="nav-item-hold" href="{{ url('/users/edit') }}">
                                         <i class="fas fa-user-edit"></i>
                                         <span class="nav-text">Edit User</span>
                                     </a>
                                     <div class="triangle"></div>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item active">
                                     <a class="nav-item-hold" href="{{ url('/users/show') }}">

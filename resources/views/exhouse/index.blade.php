@@ -114,15 +114,62 @@
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
                     <!-- content -->
+                    <div class="col-md-12 p-1 float-left" >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('exhouses.store') }}">
+                                    @csrf
+                                    @method('POST')
 
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="ExhouseName" class="col-md-12 col-form-label text-md-left">{{ __('Exhouse Name') }}</label>
+
+                                            <div class="col-md-12">
+                                                <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+
+                                                @error('ExhouseName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                        <div class="form-group mb-0">
+                                            <div class="col-md-12 ">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Save') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-broom"></i>
+                                                    {{ __('Clear') }}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    <!-- </fieldset> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <!-- dataTable -->
+                    <div class="table-responsive">
                         <table id="userTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
+                                    <th>ExHouseID</th>
+                                    <th>Exhouse Name</th>
+                                    <th>ExParent</th>
+                                    <th>Address</th>
+                                    <th>Country</th>
+                                    <th>Currency</th>
+                                    <th>TnxDate</th>
+                                    <th>PrevDate</th>
+                                    <th>RespExHouse</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
                                     <th>Active</th>
@@ -130,16 +177,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($users))
-                            @foreach ($users as $user)
+                            @if(isset($exhouses))
+                            @foreach ($exhouses as $exhouse)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->CreatedBy }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->isactive }}
+                                <td>{{ $exhouse->name }}</td>
+                                <td>{{ $exhouse->email }}</td>
+                                <td>{{ $exhouse->username }}</td>
+                                <td>{{ $exhouse->CreatedBy }}</td>
+                                <td>{{ $exhouse->created_at }}</td>
+                                <td>{{ $exhouse->isactive }}
                                 <form action="" method="POST">
                                     <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
                                 </form>
@@ -162,7 +209,7 @@
                             @endif
                             </tbody>
                         </table>
-
+                    </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     @include('layouts.includes.head')
-    
+
 </head>
 <body>
 <div class=preloader>
@@ -30,19 +30,21 @@
                 background: -webkit-gradient(linear,left top,right top,from(#ee0979),to(#ff6a00));
                 background: linear-gradient(90deg,#ee0979 0,#ff6a00 100%); */
                 top: 100px;
-                position: relative;
-                left: 0;">
+                /* position: relative; */
+                left: 0;
+                float: left;
+                margin-top: 100px;">
         @else
-            <main class="py-4"> 
-        @endif        
+            <main class="py-4">
+        @endif
                 @yield('content')
 
         </main>
-       
+
         @if (Auth::user())
             @include('layouts.includes.footer')
         @endif
     </div>
-    
+
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -24,10 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+
+        $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
         $users = User::latest()->paginate(5);
         //dd($allUsers);
-        return view('users.index',compact('users'))
+        return view('users.index',compact('users','roles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -38,7 +40,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        //$roles = DB::table('roles')->select('roleid', 'role_name')->orderBy('roleid')->get();
+        $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -53,9 +57,9 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
         ]);
-    
+
         User::create($request->all());
-     
+
         return redirect()->route('users.index')
                         ->with('success','Product created successfully.');
     }
@@ -95,9 +99,9 @@ class UserController extends Controller
             'name' => 'required',
             'detail' => 'required',
         ]);
-    
+
         $user->update($request->all());
-    
+
         return redirect()->route('users.index')
                         ->with('success','Product updated successfully');
     }
@@ -111,7 +115,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // $user->delete();
-    
+
         // return redirect()->route('users.index')
         //                 ->with('success','Product deleted successfully');
     }

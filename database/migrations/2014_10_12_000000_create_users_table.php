@@ -15,18 +15,24 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('user_id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name',50);
+            $table->string('email',50)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('username');
+            $table->string('username',20);
             $table->string('password');
-            $table->tinyInteger('isactive')->default(0);            
-            $table->string('ExHouseID')->nullable();       
-            $table->bigInteger('EmpId')->nullable();
-            $table->bigInteger('CountryID')->nullable();          
-            $table->bigInteger('roleid')->nullable(); 
+            $table->tinyInteger('isactive')->default(0);
+            $table->string('ExHouseID',11)->unsigned()->nullable();
+            $table->foreignId('ExHouseID')->constrained('exhouse')->nullable()->onDelete('cascade');
+            $table->bigInteger('EmpId')->unsigned()->nullable();
+            $table->foreignId('EmpId')->constrained('employee')->nullable()->onDelete('cascade');
+            $table->string('CountryID',5)->unsigned()->nullable();
+            $table->foreignId('CountryID')->constrained('country')->nullable()->onDelete('cascade');
+            $table->bigInteger('roleid')->unsigned()->nullable();
+            $table->foreignId('roleid')->constrained('roles')->nullable()->onDelete('cascade');
+
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
             //$table->timestamps();
