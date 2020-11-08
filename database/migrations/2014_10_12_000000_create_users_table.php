@@ -21,14 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('username',20);
             $table->string('password');
             $table->tinyInteger('isactive')->default(0);
-            $table->string('ExHouseID',11)->unsigned()->nullable();
-            $table->foreignId('ExHouseID')->constrained('exhouse')->nullable()->onDelete('cascade');
-            $table->bigInteger('EmpId')->unsigned()->nullable();
-            $table->foreignId('EmpId')->constrained('employee')->nullable()->onDelete('cascade');
-            $table->string('CountryID',5)->unsigned()->nullable();
-            $table->foreignId('CountryID')->constrained('country')->nullable()->onDelete('cascade');
-            $table->bigInteger('roleid')->unsigned()->nullable();
-            $table->foreignId('roleid')->constrained('roles')->nullable()->onDelete('cascade');
+            $table->string('ExHouseID',11)->nullable();
+            //$table->foreignId('ExHouseID')->constrained('exhouse')->nullable()->onDelete('cascade');
+            $table->bigInteger('EmpId')->nullable();
+            //$table->foreignId('EmpId')->constrained('employee')->nullable()->onDelete('cascade');
+            $table->string('CountryID',5)->nullable();
+            //$table->foreignId('CountryID')->constrained('country')->nullable()->onDelete('cascade');
+            $table->bigInteger('roleid')->nullable();
+            //$table->foreignId('roleid')->constrained('roles')->nullable()->onDelete('cascade');
 
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();

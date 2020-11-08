@@ -18,10 +18,10 @@ class CreateExhouseTable extends Migration
             $table->string('ExHouseName',100);
             $table->string('ExParentID',11);
             $table->string('Address');
-            //$table->bigInteger('CountryID')->unsigned();
-            $table->foreignId('CountryID')->constrained('country')->onDelete('cascade');
-            //$table->bigInteger('CurrencyID')->unsigned();
-            $table->foreignId('CurrencyID')->constrained('currency')->onDelete('cascade');
+            $table->bigInteger('CountryID');
+            //$table->foreignId('CountryID')->constrained('country')->onDelete('cascade');
+            $table->bigInteger('CurrencyID');
+            //$table->foreignId('CurrencyID')->constrained('currency')->onDelete('cascade');
             $table->date('TnxDate');
             $table->date('PrevDate');
             $table->string('RespExID',11);
