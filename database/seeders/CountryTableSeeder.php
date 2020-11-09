@@ -14,7 +14,7 @@ class CountryTableSeeder extends Seeder
     {
         DB::table('country')->insert([
             [
-                'CountryID' => '01',
+                'CountryID' => '001',
                 'CountryName' => 'America',
                 'CurrencyID' => '8',
                 'CreatedBy' => '1',
@@ -24,7 +24,7 @@ class CountryTableSeeder extends Seeder
             ],
 
             [
-                'CountryID' => '06',
+                'CountryID' => '060',
                 'CountryName' => 'Malaysia',
                 'CurrencyID' => '2',
                 'CreatedBy' => '1',
@@ -34,7 +34,7 @@ class CountryTableSeeder extends Seeder
             ],
 
             [
-                'CountryID' => '65',
+                'CountryID' => '065',
                 'CountryName' => 'Singapore',
                 'CurrencyID' => '1',
                 'CreatedBy' => '1',

@@ -121,34 +121,124 @@
                                     @csrf
                                     @method('POST')
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="ExhouseName" class="col-md-12 col-form-label text-md-left">{{ __('Exhouse Name') }}</label>
 
-                                            <div class="col-md-12">
-                                                <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+                                    <div class="form-group row">
+                                        <div class=" col-md-12">
+                                            <div class="row">
+                                                <label for="ExhouseCode" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Code') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                @error('ExhouseName')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <div class="col-md-4">
+                                                    <input id="ExhouseCode" type="text" class="form-control input-sm @error('ExhouseCode') is-invalid @enderror" name="ExhouseCode" value="{{ old('ExhouseCode') }}" required autocomplete="ExhouseCode" autofocus>
+
+                                                    @error('ExhouseCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="ExhouseName" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Name') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" name="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+
+                                                    @error('ExhouseName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                        <div class="form-group mb-0">
-                                            <div class="col-md-12 ">
-                                                <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-check"></i>
-                                                    {{ __('Save') }}
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fas fa-broom"></i>
-                                                    {{ __('Clear') }}
-                                                </button>
+                                    <div class="form-group row">
+                                        <div class=" col-md-12">
+                                            <div class="row">
+                                                <label for="ExparentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExParent Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <!--<input id="ExparentCode" type="text" class="form-control input-sm @error('ExparentCode') is-invalid @enderror" name="ExparentCode" value="{{ old('ExparentCode') }}" required autocomplete="ExparentCode" autofocus>-->
+                                                    <select id="ExparentCode" class="form-control @error('ExparentCode') is-invalid @enderror" name="ExparentCode" required autofocus>
+                                                        <option selected>Choose...</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                    @error('ExparentCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="address" class="col-md-2 col-form-label text-md-left">{{ __('Address') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    {{-- <input id="address" type="text" class="form-control input-sm @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus> --}}
+                                                    <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                                                    @error('address')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class=" col-md-12">
+                                            <div class="row">
+                                                <label for="country" class="col-md-2 col-form-label text-md-left">{{ __('Country') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <!--<input id="country" type="text" class="form-control input-sm @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" autofocus>-->
+                                                    <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
+                                                        <option selected>Choose...</option>
+                                                        <option>...</option>
+                                                    </select>
+
+                                                    @error('country')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="tnxDate" class="col-md-2 col-form-label text-md-left">{{ __('Transaction Date') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <input id="tnxDate" type="text" class="form-control input-sm @error('tnxDate') is-invalid @enderror" name="tnxDate" value="{{ old('tnxDate') }}" required autocomplete="tnxDate" autofocus>
+
+                                                    @error('tnxDate')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                        <div class="col-md-2">
+                                            <input id="shortName" type="text" class="form-control input-sm @error('shortName') is-invalid @enderror" name="shortName" value="{{ old('shortName') }}" required autocomplete="shortName" autofocus>
+
+                                            @error('shortName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-10 offset-md-2">
+                                            <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-check"></i>
+                                                {{ __('Save') }}
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-broom"></i>
+                                                {{ __('Clear') }}
+                                            </button>
+                                        </div>
+                                    </div>
 
                                     <!-- </fieldset> -->
                                 </form>

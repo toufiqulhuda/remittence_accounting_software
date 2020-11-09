@@ -16,7 +16,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#userTable').DataTable( {
+        $('#countryTable').DataTable( {
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
@@ -73,7 +73,7 @@
     width: 100%;
     padding: 9px 0;
     color: #47404f; } */
-#userTable_wrapper .dt-button{
+#countryTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
     display: inline-block;
@@ -116,7 +116,7 @@
                     <!-- content -->
 
                     <!-- dataTable -->
-                        <table id="userTable" class="table table-bordered">
+                        <table id="countryTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

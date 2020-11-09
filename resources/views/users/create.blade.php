@@ -186,7 +186,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <hr>
                                 <div class="form-group mb-0">
                                     <div class="col-md-12 ">
                                         <button type="submit" class="btn btn-primary">
