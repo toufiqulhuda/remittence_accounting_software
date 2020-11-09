@@ -21,13 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('username',20);
             $table->string('password');
             $table->tinyInteger('isactive')->default(0);
-            $table->string('ExHouseID',11)->nullable();
+            $table->string('ExHouseID',11);
             //$table->foreignId('ExHouseID')->constrained('exhouse')->nullable()->onDelete('cascade');
-            $table->bigInteger('EmpId')->nullable();
+            $table->bigInteger('EmpId');
             //$table->foreignId('EmpId')->constrained('employee')->nullable()->onDelete('cascade');
-            $table->string('CountryID',5)->nullable();
+            $table->string('CountryID',5);
             //$table->foreignId('CountryID')->constrained('country')->nullable()->onDelete('cascade');
-            $table->bigInteger('roleid')->nullable();
+            $table->bigInteger('roleid');
             //$table->foreignId('roleid')->constrained('roles')->nullable()->onDelete('cascade');
 
             $table->bigInteger('CreatedBy');

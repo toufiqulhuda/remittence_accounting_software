@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+use App\Models\Currency;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +25,9 @@ class CurrencyController extends Controller
     public function index()
     {
 
-        $users = User::latest()->paginate(5);
+        $currencies = Currency::latest()->paginate(5);
         //dd($allUsers);
-        return view('currency.index',compact('users'))
+        return view('currency.index',compact('currencies'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

@@ -9,10 +9,10 @@ class Country extends Model
 {
     use HasFactory;
     protected $table = 'country';
-    //protected $primaryKey = 'roleid';
+    protected $primaryKey = 'CountryID';
     protected $fillable = [
-        'ExHouseID','ExHouseName','ExParentID','Address','CountryID','CurrencyID','TnxDate','PrevDate','RespExID',
-        'ShortName', 'isactive','CreatedBy',
+        'CountryName','CurrencyID',
+        'isactive','CreatedBy',
         'created_at','UpdatedBy','updated_at',
     ];
     protected $hidden = [

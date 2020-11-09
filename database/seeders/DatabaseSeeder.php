@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleTableSeeder::class,
             AccountMainHeadTableSeeder::class,
+            CountryTableSeeder::class,
+            CurrencyTableSeeder::class,
+
          ]);
 
     }

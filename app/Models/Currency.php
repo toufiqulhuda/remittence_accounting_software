@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Currency extends Model
 {
     use HasFactory;
-    protected $table = 'exhouse';
-    //protected $primaryKey = 'roleid';
+    protected $table = 'currency';
+    protected $primaryKey = 'CurrencyID';
     protected $fillable = [
-        'ExHouseID','ExHouseName','ExParentID','Address','CountryID','CurrencyID','TnxDate','PrevDate','RespExID',
+        'CurrencyName','CountryID',
         'ShortName', 'isactive','CreatedBy',
         'created_at','UpdatedBy','updated_at',
     ];

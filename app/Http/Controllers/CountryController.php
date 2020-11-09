@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Requests;
+use App\Models\Country;
 use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Http\Request;
@@ -25,9 +26,9 @@ class CountryController extends Controller
     public function index()
     {
 
-        $users = User::latest()->paginate(5);
+        $countries = Country::latest()->paginate(5);
         //dd($allUsers);
-        return view('country.index',compact('users'))
+        return view('country.index',compact('countries'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

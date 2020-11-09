@@ -22,7 +22,7 @@ class CreateEmployeeTable extends Migration
             $table->string('PermanentAddress');
             $table->string('PresentAddress');
             $table->date('JoinDate');
-            $table->bigInteger('DegId',2);
+            $table->bigInteger('DegId');
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
             $table->bigInteger('UpdatedBy')->nullable();

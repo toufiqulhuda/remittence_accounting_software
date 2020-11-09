@@ -120,36 +120,40 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
+                                    <th>Currency Name</th>
+                                    <th>Country</th>
+                                    <th>ShortName</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
+                                    <th>Updated By</th>
+                                    <th>Updated Date</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($users))
-                            @foreach ($users as $user)
+                            @if(isset($currencies))
+                            @foreach ($currencies as $currency)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->CreatedBy }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->isactive }}
+                                <td>{{ $currency->CurrencyName }}</td>
+                                <td>{{ $currency->CountryID }}</td>
+                                <td>{{ $currency->ShortName }}</td>
+                                <td>{{ $currency->CreatedBy }}</td>
+                                <td>{{ $currency->created_at }}</td>
+                                <td>{{ $currency->UpdatedBy }}</td>
+                                <td>{{ $currency->updated_at }}</td>
+                                <td>{{ $currency->isactive }}
                                 <form action="" method="POST">
-                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
+                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $currency->isactive }}" {{ ($currency->isactive==1)? ' checked': '' }} />
                                 </form>
                                 </td>
                                 <td>
                                     <form action="" method="POST">
 
-                                        {{-- <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a> --}}
-                                        <a class="badge badge-primary" href="{{ route('currency-edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('currency-edit',$user->id) }}">Reset</a>
+                                        {{-- <a class="badge badge-light" href="{{ route('show',$currency->id) }}">View</a> --}}
+                                        <a class="badge badge-primary" href="{{ route('currency-edit',$currency->CurrencyID) }}">Edit</a>
+                                        {{-- <a class="badge badge-primary" href="{{ route('currency-edit',$currency->CurrencyID) }}">Reset</a> --}}
 
                                         @csrf
                                         <!-- @@method('DELETE') -->

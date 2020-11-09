@@ -120,36 +120,38 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
+                                    <th>Country Name</th>
+                                    <th>Currency</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
+                                    <th>Updated By</th>
+                                    <th>Updated Date</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($users))
-                            @foreach ($users as $user)
+                            @if(isset($countries))
+                            @foreach ($countries as $country)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->CreatedBy }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->isactive }}
+                                <td>{{ $country->CountryName }}</td>
+                                <td>{{ $country->CurrencyID }}</td>
+                                <td>{{ $country->CreatedBy }}</td>
+                                <td>{{ $country->created_at }}</td>
+                                <td>{{ $country->UpdatedBy }}</td>
+                                <td>{{ $country->updated_at }}</td>
+                                <td>{{ $country->isactive }}
                                 <form action="" method="POST">
-                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
+                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $country->isactive }}" {{ ($country->isactive==1)? ' checked': '' }} />
                                 </form>
                                 </td>
                                 <td>
                                     <form action="" method="POST">
 
-                                        {{-- <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a> --}}
-                                        <a class="badge badge-primary" href="{{ route('country-edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('country-edit',$user->id) }}">Reset</a>
+                                        {{-- <a class="badge badge-light" href="{{ route('show',$country->id) }}">View</a> --}}
+                                        <a class="badge badge-primary" href="{{ route('country-edit',$country->id) }}">Edit</a>
+                                        {{-- <a class="badge badge-primary" href="{{ route('country-edit',$country->id) }}">Reset</a> --}}
 
                                         @csrf
                                         <!-- @@method('DELETE') -->
