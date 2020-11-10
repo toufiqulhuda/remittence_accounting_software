@@ -13,20 +13,11 @@ class CurrencyTableSeeder extends Seeder
     public function run()
     {
         DB::table('currency')->insert([
-            [
 
-                'CurrencyName' => 'Singapore Dollar',
-                'CountryID' => '065',
-                'ShortName' => 'SGD',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy' => null,
-                'updated_at' => null,
-            ],
 
             [
                 'CurrencyName' => 'Malaysian Ringgit',
-                'CountryID' => '060',
+                'ISO_CODE' => 'MYR',
                 'ShortName' => 'RM',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -34,47 +25,20 @@ class CurrencyTableSeeder extends Seeder
                 'updated_at' => null,
                 //timestamps();
             ],
-
             [
-                'CurrencyName' => 'Rufiyaa',
-                'CountryID' => '960',
-                'ShortName' => 'MRF',
+
+                'CurrencyName' => 'Singapore Dollar',
+                'ISO_CODE' => 'SGD',
+                'ShortName' => 'SGD',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'UpdatedBy' => null,
                 'updated_at' => null,
-
             ],
-            [
-                'CurrencyName' => 'OMR',
-                'CountryID' => '968',
-                'ShortName' => 'RO',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy' => null,
-                'updated_at' => null,
 
-            ],
-            [
-                'CurrencyName' => 'Euro',
-                'CountryID' => '030',
-                'ShortName' => 'EURO',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy' => null,
-                'updated_at' => null,
 
-            ],
-            [
-                'CurrencyName' => 'USD',
-                'CountryID' => '01',
-                'ShortName' => 'USD',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy' => null,
-                'updated_at' => null,
 
-            ],
+
         ]);
 
     }

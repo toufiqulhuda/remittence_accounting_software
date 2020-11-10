@@ -13,56 +13,31 @@ class CountryTableSeeder extends Seeder
     public function run()
     {
         DB::table('country')->insert([
-            [
-                'CountryID' => '001',
-                'CountryName' => 'America',
-                'CurrencyID' => '8',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy'  => null,
-                'updated_at' => null,
-            ],
+
 
             [
-                'CountryID' => '060',
+                'CountryCode' => '060',
                 'CountryName' => 'Malaysia',
-                'CurrencyID' => '2',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy'  => null,
-                'updated_at' => null,
-            ],
-
-            [
-                'CountryID' => '065',
-                'CountryName' => 'Singapore',
+                'iso_code' => 'MYS',
                 'CurrencyID' => '1',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'UpdatedBy'  => null,
                 'updated_at' => null,
-
             ],
+
             [
-                'CountryID' => '960',
-                'CountryName' => 'Maldives',
-                'CurrencyID' => '3',
+                'CountryCode' => '065',
+                'CountryName' => 'Singapore',
+                'iso_code' => 'SGP',
+                'CurrencyID' => '2',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'UpdatedBy'  => null,
                 'updated_at' => null,
 
             ],
-            [
-                'CountryID' => '968',
-                'CountryName' => 'Oman',
-                'CurrencyID' => '4',
-                'CreatedBy' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'UpdatedBy'  => null,
-                'updated_at' => null,
 
-            ],
 
         ]);
 
