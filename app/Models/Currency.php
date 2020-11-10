@@ -11,11 +11,14 @@ class Currency extends Model
     protected $table = 'currency';
     protected $primaryKey = 'CurrencyID';
     protected $fillable = [
-        'CurrencyName','CountryID',
+        'CurrencyName','ISO_CODE',
         'ShortName', 'isactive','CreatedBy',
         'created_at','UpdatedBy','updated_at',
     ];
     protected $hidden = [
         'remember_token',
     ];
+    public function country(){
+        return $this->hasOne(Country::class);
+    }
 }

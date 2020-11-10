@@ -11,11 +11,14 @@ class Country extends Model
     protected $table = 'country';
     protected $primaryKey = 'CountryID';
     protected $fillable = [
-        'CountryName','CurrencyID',
+        'CountryCode','CountryName','iso_code','CurrencyID',
         'isactive','CreatedBy',
         'created_at','UpdatedBy','updated_at',
     ];
     protected $hidden = [
         'remember_token',
     ];
+    public function currency(){
+        return $this->belongsTo(currency::class);
+    }
 }
