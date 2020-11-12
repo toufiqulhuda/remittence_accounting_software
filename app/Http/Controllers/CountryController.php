@@ -26,21 +26,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $currency = Country::find(1)->currency;
-        // get user and mobile data from User model
-        $country = Country::find(1);
-        var_dump($country->CountryName);
-        var_dump($country->currency->currency);
 
-        // get user data from Mobile model
-        $country = Currency::find(1)->country;
-        dd($country);
-
-        // get mobile number from User model
-        $currency = Country::find(1)->currency;
-        dd($currency);
-
-        dd($currency);
         $countries = Country::latest()->paginate(5);
         //dd($allUsers);
         return view('country.index',compact('countries'))

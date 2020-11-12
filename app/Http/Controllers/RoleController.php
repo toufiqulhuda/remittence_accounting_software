@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Role;
-// use Illuminate\Support\Facades\DB;
+ use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +22,14 @@ class RoleController extends Controller
     public function index()
     {
 
-        $roles = Role::latest()->paginate(5);
+        //$roles = Role::latest()->paginate(5);
+        $roles = DB::table('roles AS r')
+                        ->leftJoin('users AS cr', 'r.CreatedBy', '=', 'cr.user_id')
+                        ->leftJoin('users AS up', 'r.UpdatedBy', '=', 'up.user_id')
+                        ->select('r.roleid','r.role_name','r.isactive',
+                        'cr.username AS CreatedBy','r.created_at','up.username AS UpdatedBy','r.updated_at',
+                        'r.isactive' )
+                        ->paginate(5);
         return view('role.index',compact('roles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
 
@@ -51,7 +58,8 @@ class RoleController extends Controller
                 $role->role_name = $data['roleName'];
                 //$role->isactive = '';
 				$role->CreatedBy = $user->user_id;
-				$role->created_at = date('Y-m-d H:i:s');
+                $role->created_at = date('Y-m-d H:i:s');
+                $role->UpdatedBy = null;
 				$role->updated_at = null;
 				$role->remember_token = $data['_token'];
 				$role->save();

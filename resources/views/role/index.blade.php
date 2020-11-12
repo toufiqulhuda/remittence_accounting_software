@@ -163,6 +163,8 @@
                                     <th>Role Name</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
+                                    <th>Updated By</th>
+                                    <th>Updated Date</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
@@ -175,6 +177,8 @@
                                 <td>{{ $role->role_name }}</td>
                                 <td>{{ $role->CreatedBy }}</td>
                                 <td>{{ $role->created_at }}</td>
+                                <td>{{ $role->UpdatedBy }}</td>
+                                <td>{{ $role->updated_at }}</td>
                                 <td>{{ $role->isactive }}
                                     <form action="" method="POST">
                                         <input type="checkbox"  name="isactive" id="isactive" value="{{ $role->isactive }}" {{ ($role->isactive==1)? ' checked': '' }} />

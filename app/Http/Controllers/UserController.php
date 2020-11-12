@@ -27,8 +27,15 @@ class UserController extends Controller
     {
 
         $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
-        $users = User::latest()->paginate(5);
-        //dd($allUsers);
+        //$users = User::latest()->paginate(5);
+        $users = DB::table('users AS u')
+                    ->leftJoin('users AS cr', 'cr.CreatedBy', '=', 'u.user_id')
+                    ->leftJoin('users AS up', 'up.UpdatedBy', '=', 'u.user_id')
+                    ->select('u.user_id','u.name','u.email','u.username','u.ExHouseID','u.CountryID','u.roleid',
+                    'cr.username AS CreatedBy','u.created_at','u.username AS UpdatedBy','u.updated_at',
+                    'u.isactive' )
+                    ->paginate(5);
+        //dd($users);
         return view('users.index',compact('users','roles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
