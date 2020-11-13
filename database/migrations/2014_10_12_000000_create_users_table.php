@@ -23,9 +23,9 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('isactive')->default(0);
             $table->string('ExHouseID',11);
             //$table->foreignId('ExHouseID')->constrained('exhouse')->nullable()->onDelete('cascade');
-            $table->bigInteger('EmpId');
+            $table->bigInteger('EmpId')->nullable();
             //$table->foreignId('EmpId')->constrained('employee')->nullable()->onDelete('cascade');
-            $table->string('CountryID',5);
+            $table->string('CountryID',5)->nullable();
             //$table->foreignId('CountryID')->constrained('country')->nullable()->onDelete('cascade');
             $table->bigInteger('roleid');
             //$table->foreignId('roleid')->constrained('roles')->nullable()->onDelete('cascade');

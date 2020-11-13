@@ -119,7 +119,7 @@
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('users.store') }}">
                                     @csrf
                                     @method('POST')
 
@@ -129,7 +129,7 @@
                                                 <label for="name" class="col-md-2 col-form-label text-md-left">{{ __('Full Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                 <div class="col-md-4">
-                                                    <input id="name" type="text" class="form-control input-sm @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                                    <input id="name" type="text" class="form-control text-capitalize input-sm @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                                     @error('name')
                                                         <span class="invalid-feedback" role="alert">
@@ -160,8 +160,11 @@
                                                 <div class="col-md-4">
                                                     <!-- <input id="exHouse" type="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" value="{{ old('exHouse') }}" required autocomplete="exHouse"> -->
                                                     <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
-                                                        <option selected>Choose...</option>
                                                         <option>...</option>
+                                                        @foreach ($exHouse as $key => $value)
+                                                            <option value="{{ $value->ExHouseID }}">{{ $value->ExHouseName }}</option>
+                                                        @endforeach
+
                                                     </select>
                                                     @error('exHouse')
                                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +183,7 @@
                                                 <div class="col-md-4">
                                                     <!-- <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus> -->
                                                     <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autofocus>
-                                                        <option selected>...</option>
+                                                        <option>...</option>
                                                         @foreach ($roles as $key => $value)
                                                             <option value="{{ $value->roleid }}">{{ $value->role_name }}</option>
                                                         @endforeach

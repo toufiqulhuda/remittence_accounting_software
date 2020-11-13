@@ -107,7 +107,7 @@ class CountryController extends Controller
             $data = $request->input();
             try{
                 $user = Auth::user();
-                $country = country::find($CountryID);
+                $country = Country::find($CountryID);
 				//$role = new Role;
                 $country->CountryCode = !empty($data['countryCode']) ? $data['countryCode'] : '' ;
                 $country->CountryName = !empty($data['countryName']) ? $data['countryName'] : '' ;
