@@ -101,20 +101,107 @@
                 <div class="card-header"><i class="fas fa-flag-usa"></i>&nbsp;{{ __('Country Management') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
-                    <!-- content -->
+                    <div class="col-md-12 p-1 float-left" >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('countries.store') }}">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label for="countryName" class="col-md-3 col-form-label text-md-left">{{ __('Country Name') }}&nbsp;<span class="mandatory">*</span></label>
 
+                                                <div class="col-md-4">
+                                                    <input id="countryName" type="text" class="form-control text-capitalize input-sm @error('countryName') is-invalid @enderror" Name="countryName" value="{{ old('countryName') }}" required autocomplete="countryName" autofocus>
+
+                                                    @error('countryName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="countryCode" class="col-md-3 col-form-label text-md-left">{{ __('Country Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-2">
+                                                    <input id="countryCode" type="text" class="form-control input-sm @error('countryCode') is-invalid @enderror" name="countryCode" value="{{ old('countryCode') }}" required autocomplete="countryCode" autofocus>
+
+                                                    @error('countryCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label for="countryID" class="col-md-3 col-form-label text-md-left">{{ __('Currency') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <select id="currencyID" class="form-control @error('currencyID') is-invalid @enderror" name="currencyID" required autofocus>
+                                                        <option selected>...</option>
+                                                        @foreach ($currency as $key => $value)
+                                                            <option value="{{ $value->CurrencyID }}" {{ old('currencyID')== $value->currencyID ? 'selected' : '' }}>{{ $value->CurrencyName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('currencyID')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-2">
+                                                    <input id="isoCode" type="text" class="form-control text-uppercase input-sm @error('isoCode') is-invalid @enderror" name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
+
+                                                    @error('isoCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-10 offset-md-3">
+                                            <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-check"></i>
+                                                {{ __('Save') }}
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-broom"></i>
+                                                {{ __('Clear') }}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- </fieldset> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content -->
+                    &nbsp;<hr>&nbsp;
                     <!-- dataTable -->
                         <table id="countryTable" class="table table-bordered">
                             <thead>
@@ -136,7 +223,7 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $country->CountryName }}</td>
-                                <td>{{ $country->CurrencyID }}</td>
+                                <td>{{ $country->CurrencyName }}</td>
                                 <td>{{ $country->CreatedBy }}</td>
                                 <td>{{ $country->created_at }}</td>
                                 <td>{{ $country->UpdatedBy }}</td>
@@ -150,7 +237,7 @@
                                     <form action="" method="POST">
 
                                         {{-- <a class="badge badge-light" href="{{ route('show',$country->id) }}">View</a> --}}
-                                        <a class="badge badge-primary" href="{{ route('country-edit',$country->id) }}">Edit</a>
+                                        <a class="badge badge-primary" href="{{ route('countries.edit',$country->CountryID) }}">Edit</a>
                                         {{-- <a class="badge badge-primary" href="{{ route('country-edit',$country->id) }}">Reset</a> --}}
 
                                         @csrf

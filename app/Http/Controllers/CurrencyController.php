@@ -3,112 +3,125 @@
 namespace App\Http\Controllers;
 use App\Models\Currency;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+
 
 use Illuminate\Http\Request;
 
 class CurrencyController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-
-        $currencies = Currency::latest()->paginate(5);
+        $currencies = DB::table('currency AS curr')
+                        ->leftJoin('users AS cr', 'cr.user_id', '=', 'curr.CreatedBy')
+                        ->leftJoin('users AS up', 'up.user_id', '=', 'curr.UpdatedBy')
+                        ->select('curr.CurrencyID','curr.CurrencyName','curr.ISO_CODE','curr.ShortName',
+                        'cr.username AS CreatedBy','curr.created_at','up.username AS UpdatedBy','curr.updated_at',
+                        'curr.isactive' )
+                        ->paginate(5);
         //dd($allUsers);
         return view('currency.index',compact('currencies'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('currency.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required',
-        // ]);
-
-        // User::create($request->all());
-
-        // return redirect()->route('users.index')
-        //                 ->with('success','Product created successfully.');
+        //dd($request);
+        $rules = [
+			'currencyName' => 'required|unique:Currency|string',
+			'isoCode' => 'required|string',
+			'shortName' => 'required|string',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect()->route('currencies.index')->withInput()->withErrors($validator);
+		}else{
+            $data = $request->input();
+            try{
+                $user = Auth::user();
+				$currency = new Currency;
+                $currency->CurrencyName = !empty($data['currencyName']) ? $data['currencyName'] : '' ;
+                $currency->ISO_CODE = !empty($data['isoCode'])?$data['isoCode']:'';
+                $currency->ShortName = !empty($data['shortName'])?$data['shortName']:'';
+                //$currency->isactive = '';
+				$currency->CreatedBy = $user->user_id;
+                $currency->created_at = Carbon::now();
+                $currency->UpdatedBy = null;
+				$currency->updated_at = null;
+				$currency->remember_token = $data['_token'];
+				$currency->save();
+                return redirect()->route('currencies.index')
+                                ->with('status','Currency created successfully.');
+			}
+			catch(Exception $e){
+				return redirect()->route('currencies.index')->with('failed',"operation failed");
+			}
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
         // return view('currency.show',compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
+
+    public function edit(Currency $currency)
     {
-        return view('currency.edit',compact('user'));
+        return view('currency.edit',compact('currency'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+
+    public function update(Request $request,$CurrencyID)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
-
-        // $user->update($request->all());
-
-        // return redirect()->route('currency.index')
-        //                 ->with('success','Product updated successfully');
+        //dd($request);
+        $rules = [
+			'currencyName' => 'required|string',
+			'isoCode' => 'required|string',
+			'shortName' => 'required|string',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect()->route('currencies.edit',$CurrencyID)->withInput()->withErrors($validator);
+		}else{
+            $data = $request->input();
+            try{
+                $user = Auth::user();
+                $currency = Currency::find($CurrencyID);
+				//$role = new Role;
+                $currency->CurrencyName = !empty($data['currencyName']) ? $data['currencyName'] : '' ;
+                $currency->ISO_CODE = !empty($data['isoCode'])?$data['isoCode']:'';
+                $currency->ShortName = !empty($data['shortName'])?$data['shortName']:'';
+                //$role->isactive = '';
+				$currency->UpdatedBy = $user->user_id;
+				$currency->updated_at = Carbon::now();
+				$currency->remember_token = $data['_token'];
+                $currency->save();
+                $currency->update($request->all());
+                return redirect()->route('currencies.index')
+                                ->with('status','Currency update successfully.');
+			}
+			catch(Exception $e){
+				return redirect()->route('currencies.edit',$CurrencyID)->with('failed',"operation failed");
+            }
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+
+    public function destroy(Currency $currency)
     {
         // $user->delete();
 

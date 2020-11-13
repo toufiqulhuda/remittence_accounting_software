@@ -75,21 +75,18 @@ Route::resource('roles', RoleController::class);
 /************************************
   Country route
 *************************************/
-Route::get('countries', [CountryController::class,'index']);
-Route::get('country/edit', [CountryController::class,'edit'])->name('country-edit');
-Route::get('country/create', [CountryController::class,'create'])->name('country-create');
+Route::resource('countries', CountryController::class);
+
 /************************************
   Currency route
 *************************************/
-Route::get('currencies', [CurrencyController::class,'index']);
-Route::get('currency/edit', [CurrencyController::class,'edit'])->name('currency-edit');
-Route::get('currency/create', [CurrencyController::class,'create'])->name('currency-create');
+Route::resource('currencies', CurrencyController::class);
+
 /************************************
   Exhouse route
 *************************************/
 Route::resource('exhouses', ExhouseController::class);
-// Route::get('exhouse/edit', [ExhouseController::class,'edit'])->name('exhouse-edit');
-// Route::get('exhouse/create', [ExhouseController::class,'create'])->name('exhouse-create');
+
 /************************************
   GroupAccount route
 *************************************/

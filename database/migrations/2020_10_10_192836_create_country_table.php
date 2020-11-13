@@ -16,7 +16,7 @@ class CreateCountryTable extends Migration
         Schema::create('country', function (Blueprint $table) {
             $table->bigIncrements('CountryID');
             $table->string('CountryCode',4);
-            $table->string('CountryName',50);
+            $table->string('CountryName',50)->unique();
             $table->string('iso_code',4);
             $table->bigInteger('CurrencyID')->nullable();
             $table->tinyInteger('isactive')->default(0);

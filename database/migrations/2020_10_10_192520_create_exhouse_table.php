@@ -16,16 +16,16 @@ class CreateExhouseTable extends Migration
         Schema::create('exhouse', function (Blueprint $table) {
             $table->string('ExHouseID',11)->primary();
             $table->string('ExHouseName',100);
-            $table->string('ExParentID',11);
-            $table->string('Address');
+            $table->string('ExParentID',11)->nullable();
+            $table->string('Address',255);
             $table->bigInteger('CountryID');
             //$table->foreignId('CountryID')->constrained('country')->onDelete('cascade');
-            $table->bigInteger('CurrencyID');
+            //$table->bigInteger('CurrencyID');
             //$table->foreignId('CurrencyID')->constrained('currency')->onDelete('cascade');
             $table->date('TnxDate');
             $table->date('PrevDate');
-            $table->string('RespExID',11);
-            $table->string('ShortName',50);
+            $table->string('RespExID',11)->nullable();
+            $table->string('ShortName',50)->nullable();
             $table->tinyInteger('isactive')->default(0);
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();

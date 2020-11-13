@@ -18,7 +18,5 @@ class Currency extends Model
     protected $hidden = [
         'remember_token',
     ];
-    public function country(){
-        return $this->hasOne(Country::class);
-    }
+
 }

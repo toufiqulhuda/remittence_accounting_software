@@ -101,15 +101,17 @@
                 <div class="card-header"><i class="fas fa-store"></i>&nbsp;{{ __('Exhouse Management') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
@@ -125,7 +127,8 @@
                                     <div class="form-group row">
                                         <div class=" col-md-12">
                                             <div class="row">
-                                                <label for="ExhouseCode" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                {{-- <label for="ExhouseCode" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Code') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                 <div class="col-md-4">
                                                     <input id="ExhouseCode" type="text" class="form-control input-sm @error('ExhouseCode') is-invalid @enderror" name="ExhouseCode" value="{{ old('ExhouseCode') }}" required autocomplete="ExhouseCode" autofocus>
@@ -135,13 +138,30 @@
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
-                                                </div>
-                                                <label for="ExhouseName" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                                </div> --}}
+                                                <label for="exHouseName" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                 <div class="col-md-4">
-                                                    <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" name="ExhouseName" value="{{ old('ExhouseName') }}" required autocomplete="ExhouseName" autofocus>
+                                                    <input id="exHouseName" type="text" class="form-control input-sm @error('exHouseName') is-invalid @enderror" name="exHouseName" value="{{ old('exHouseName') }}" required autocomplete="exHouseName" autofocus>
 
-                                                    @error('ExhouseName')
+                                                    @error('exHouseName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="country" class="col-md-2 col-form-label text-md-left">{{ __('Country') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-4">
+                                                    <!--<input id="country" type="text" class="form-control input-sm @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" autofocus>-->
+                                                    <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
+                                                        <option>Choose...</option>
+                                                        @foreach ($country as $key => $value)
+                                                            <option value="{{ $value->CountryID }}" {{ old('country')== $value->CountryID ? 'selected' : '' }}>{{ $value->CountryName }}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                    @error('country')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -153,15 +173,16 @@
                                     <div class="form-group row">
                                         <div class=" col-md-12">
                                             <div class="row">
-                                                <label for="ExparentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExParent Code') }}&nbsp;<span class="mandatory">*</span></label>
-
+                                                <label for="exParentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse Parent') }}&nbsp;<span class="mandatory">*</span></label>
                                                 <div class="col-md-4">
-                                                    <!--<input id="ExparentCode" type="text" class="form-control input-sm @error('ExparentCode') is-invalid @enderror" name="ExparentCode" value="{{ old('ExparentCode') }}" required autocomplete="ExparentCode" autofocus>-->
-                                                    <select id="ExparentCode" class="form-control @error('ExparentCode') is-invalid @enderror" name="ExparentCode" required autofocus>
-                                                        <option selected>Choose...</option>
-                                                        <option>...</option>
+                                                    <select id="exParentCode" class="form-control @error('exParentCode') is-invalid @enderror" name="exParentCode" required autofocus>
+                                                        <option>Choose...</option>
+                                                        <option value="self">Self</option>
+                                                        @foreach ($exParent as $key => $value)
+                                                            <option value="{{ $value->ExHouseID }}" {{ (old('exParentCode') == $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
+                                                        @endforeach
                                                     </select>
-                                                    @error('ExparentCode')
+                                                    @error('exParentCode')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -181,7 +202,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    {{-- <div class="form-group row">
                                         <div class=" col-md-12">
                                             <div class="row">
                                                 <label for="country" class="col-md-2 col-form-label text-md-left">{{ __('Country') }}&nbsp;<span class="mandatory">*</span></label>
@@ -189,8 +210,10 @@
                                                 <div class="col-md-4">
                                                     <!--<input id="country" type="text" class="form-control input-sm @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" autofocus>-->
                                                     <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
-                                                        <option selected>Choose...</option>
-                                                        <option>...</option>
+                                                        <option>Choose...</option>
+                                                        @foreach ($country as $key => $value)
+                                                            <option value="{{ $value->CountryID }}">{{ $value->CountryName }}</option>
+                                                        @endforeach
                                                     </select>
 
                                                     @error('country')
@@ -198,8 +221,8 @@
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
-                                                </div>
-                                                <label for="tnxDate" class="col-md-2 col-form-label text-md-left">{{ __('Transaction Date') }}&nbsp;<span class="mandatory">*</span></label>
+                                                </div> --}}
+                                                {{-- <label for="tnxDate" class="col-md-2 col-form-label text-md-left">{{ __('Transaction Date') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                 <div class="col-md-4">
                                                     <input id="tnxDate" type="text" class="form-control input-sm @error('tnxDate') is-invalid @enderror" name="tnxDate" value="{{ old('tnxDate') }}" required autocomplete="tnxDate" autofocus>
@@ -213,7 +236,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    {{-- <div class="form-group row">
                                         <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                         <div class="col-md-2">
@@ -225,7 +248,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <hr>
                                     <div class="form-group row mb-0">
                                         <div class="col-md-10 offset-md-2">
@@ -245,6 +268,7 @@
                             </div>
                         </div>
                     </div>
+                    &nbsp;<hr> &nbsp;
                     <!-- dataTable -->
                     <div class="table-responsive">
                         <table id="userTable" class="table table-bordered">
@@ -253,15 +277,16 @@
                                     <th>No</th>
                                     <th>ExHouseID</th>
                                     <th>Exhouse Name</th>
-                                    <th>ExParent</th>
                                     <th>Address</th>
                                     <th>Country</th>
-                                    <th>Currency</th>
                                     <th>TnxDate</th>
                                     <th>PrevDate</th>
+                                    <th>ExParent</th>
                                     <th>RespExHouse</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
+                                    <th>Updated By</th>
+                                    <th>Updated Date</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
@@ -271,24 +296,30 @@
                             @foreach ($exhouses as $exhouse)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $exhouse->name }}</td>
-                                <td>{{ $exhouse->email }}</td>
-                                <td>{{ $exhouse->username }}</td>
+                                <td>{{ $exhouse->ExHouseID }}</td>
+                                <td>{{ $exhouse->ExHouseName }}</td>
+                                <td>{{ $exhouse->Address }}</td>
+                                <td>{{ $exhouse->CountryName }}</td>
+                                <td>{{ $exhouse->TnxDate }}</td>
+                                <td>{{ $exhouse->PrevDate }}</td>
+                                <td>{{ $exhouse->ExParentName }}</td>
+                                <td>{{ $exhouse->RespExID }}</td>
                                 <td>{{ $exhouse->CreatedBy }}</td>
                                 <td>{{ $exhouse->created_at }}</td>
+                                <td>{{ $exhouse->UpdatedBy }}</td>
+                                <td>{{ $exhouse->updated_at }}</td>
                                 <td>{{ $exhouse->isactive }}
                                 <form action="" method="POST">
-                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
+                                    <input type="checkbox"  name="isactive" id="isactive" value="{{ $exhouse->isactive }}" {{ ($exhouse->isactive==1)? ' checked': '' }} />
                                 </form>
                                 </td>
                                 <td>
                                     <form action="" method="POST">
 
-                                        {{-- <a class="badge badge-light" href="{{ route('show',$user->id) }}">View</a> --}}
-                                        <a class="badge badge-primary" href="{{ route('exhouse-edit',$user->id) }}">Edit</a>
-                                        <a class="badge badge-primary" href="{{ route('exhouse-edit',$user->id) }}">Reset</a>
+                                        <a class="badge badge-primary" href="{{ route('exhouses.edit',$exhouse->ExHouseID) }}">Edit</a>
 
-                                        @csrf
+
+
                                         <!-- @@method('DELETE') -->
 
                                         <!-- <button type="submit" class="btn btn-danger">Delete</button> -->

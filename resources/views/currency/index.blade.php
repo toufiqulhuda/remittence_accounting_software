@@ -101,27 +101,98 @@
                 <div class="card-header"><i class="fas fa-dollar-sign"></i>&nbsp;{{ __('Currency Management') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
-                    <!-- content -->
+                    <div class="col-md-12 p-1 float-left" >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('currencies.store') }}">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label for="currencyName" class="col-md-3 col-form-label text-md-left">{{ __('Currency Name') }}&nbsp;<span class="mandatory">*</span></label>
 
+                                                <div class="col-md-9">
+                                                    <input id="currencyName" type="text" class="form-control input-sm @error('currencyName') is-invalid @enderror" Name="currencyName" value="{{ old('currencyName') }}" required autocomplete="currencyName" autofocus>
+
+                                                    @error('currencyName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                <div class="col-md-3">
+                                                    <input id="isoCode" type="text" class="form-control input-sm @error('isoCode') is-invalid @enderror" Name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
+
+                                                    @error('isoCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                                <div class="col-md-4">
+                                                    <input id="shortName" type="text" class="form-control input-sm @error('shortName') is-invalid @enderror" Name="shortName" value="{{ old('shortName') }}" required autocomplete="shortName" autofocus>
+
+                                                    @error('shortName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-10 offset-md-3">
+                                            <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-check"></i>
+                                                {{ __('Save') }}
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-broom"></i>
+                                                {{ __('Clear') }}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- </fieldset> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content -->
+                    &nbsp;<hr>&nbsp;
                     <!-- dataTable -->
                         <table id="userTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Currency Name</th>
-                                    <th>Country</th>
+                                    <th>ISO Code</th>
                                     <th>ShortName</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
@@ -137,7 +208,7 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $currency->CurrencyName }}</td>
-                                <td>{{ $currency->CountryID }}</td>
+                                <td>{{ $currency->ISO_CODE }}</td>
                                 <td>{{ $currency->ShortName }}</td>
                                 <td>{{ $currency->CreatedBy }}</td>
                                 <td>{{ $currency->created_at }}</td>
@@ -152,7 +223,7 @@
                                     <form action="" method="POST">
 
                                         {{-- <a class="badge badge-light" href="{{ route('show',$currency->id) }}">View</a> --}}
-                                        <a class="badge badge-primary" href="{{ route('currency-edit',$currency->CurrencyID) }}">Edit</a>
+                                        <a class="badge badge-primary" href="{{ route('currencies.edit',$currency->CurrencyID) }}">Edit</a>
                                         {{-- <a class="badge badge-primary" href="{{ route('currency-edit',$currency->CurrencyID) }}">Reset</a> --}}
 
                                         @csrf

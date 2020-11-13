@@ -9,7 +9,7 @@ class Exhouse extends Model
 {
     use HasFactory;
     protected $table = 'exhouse';
-    //protected $primaryKey = 'roleid';
+    protected $primaryKey = 'ExHouseID';
     protected $fillable = [
         'ExHouseID','ExHouseName','ExParentID','Address','CountryID','CurrencyID','TnxDate','PrevDate','RespExID',
         'ShortName', 'isactive','CreatedBy',

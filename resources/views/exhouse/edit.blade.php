@@ -11,62 +11,172 @@
                 <div class="card-header"><i class="far fa-edit"></i>&nbsp;{{ __('Edit Exhouse') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
 
                     <!-- content -->
 
                     <!-- <div id="inner-content" class="d-inline-flex p-3"> -->
-                    <div class="col-md-8 p-1 float-left" >
+                    <div class="col-md-10 p-1 float-left" >
                         <div class="card mb-3">
-                    <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                            @csrf
-                            <!-- <fieldset class="border p-2">
-                            <legend class="w-auto">{{ __('Create User') }}</legend> -->
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="ExhouseName" class="col-md-12 col-form-label text-md-left">{{ __('Exhouse Name') }}</label>
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('exhouses.update',$exhouse->ExHouseID) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group row">
+                                            <div class=" col-md-12">
+                                                <div class="row">
 
-                                    <div class="col-md-12">
-                                        <input id="ExhouseName" type="text" class="form-control input-sm @error('ExhouseName') is-invalid @enderror" ExhouseName="ExhouseName" value="" required autocomplete="ExhouseName" autofocus>
+                                                    {{-- <label for="ExhouseCode" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Code') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                        @error('ExhouseName')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input id="ExhouseCode" type="text" class="form-control input-sm @error('ExhouseCode') is-invalid @enderror" name="ExhouseCode" value="{{ old('ExhouseCode') }}" required autocomplete="ExhouseCode" autofocus>
+
+                                                        @error('ExhouseCode')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div> --}}
+                                                    <label for="exHouseName" class="col-md-2 col-form-label text-md-left">{{ __('Exhouse Name') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <div class="col-md-4">
+                                                        <input id="exHouseName" type="text" class="form-control input-sm @error('exHouseName') is-invalid @enderror" name="exHouseName" value="{{ $exhouse->ExHouseName }}" required autocomplete="exHouseName" autofocus>
+
+                                                        @error('exHouseName')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <label for="country" class="col-md-2 col-form-label text-md-left">{{ __('Country') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <div class="col-md-4">
+
+                                                        <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
+                                                            <option>...</option>
+                                                            @foreach ($country as $key => $value)
+                                                                <option value="{{ $value->CountryID }}" {{ $exhouse->CountryID == $value->CountryID ? 'selected' : '' }}>{{ $value->CountryName }}</option>
+                                                            @endforeach
+                                                        </select>
+
+                                                        @error('country')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class=" col-md-12">
+                                                <div class="row">
+                                                    <label for="exParentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse Parent') }}&nbsp;<span class="mandatory">*</span></label>
+                                                    <div class="col-md-4">
+                                                        <select id="exParentCode" class="form-control @error('exParentCode') is-invalid @enderror" name="exParentCode" required autofocus>
+                                                            <option>...</option>
+                                                            <option value="self">Self</option>
+                                                            @foreach ($exParent as $key => $value)
+                                                                <option value="{{ $value->ExHouseID }}" {{ ($exhouse->ExHouseID == $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('exParentCode')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <label for="address" class="col-md-2 col-form-label text-md-left">{{ __('Address') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <div class="col-md-4">
+
+                                                    <textarea class="form-control" id="address" name="address" rows="3">{{$exhouse->Address}}</textarea>
+                                                        @error('address')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="form-group row">
+                                            <div class=" col-md-12">
+                                                <div class="row">
+                                                    <label for="country" class="col-md-2 col-form-label text-md-left">{{ __('Country') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <div class="col-md-4">
+                                                        <!--<input id="country" type="text" class="form-control input-sm @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" autofocus>-->
+                                                        <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
+                                                            <option>Choose...</option>
+                                                            @foreach ($country as $key => $value)
+                                                                <option value="{{ $value->CountryID }}">{{ $value->CountryName }}</option>
+                                                            @endforeach
+                                                        </select>
+
+                                                        @error('country')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div> --}}
+                                                    {{-- <label for="tnxDate" class="col-md-2 col-form-label text-md-left">{{ __('Transaction Date') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <div class="col-md-4">
+                                                        <input id="tnxDate" type="text" class="form-control input-sm @error('tnxDate') is-invalid @enderror" name="tnxDate" value="{{ old('tnxDate') }}" required autocomplete="tnxDate" autofocus>
+
+                                                        @error('tnxDate')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="form-group row">
+                                            <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                            <div class="col-md-2">
+                                                <input id="shortName" type="text" class="form-control input-sm @error('shortName') is-invalid @enderror" name="shortName" value="{{ old('shortName') }}" required autocomplete="shortName" autofocus>
+
+                                                @error('shortName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div> --}}
+                                        <hr>
+                                        <div class="form-group row mb-0">
+                                            <div class="col-md-10 offset-md-2">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Save') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-broom"></i>
+                                                    {{ __('Clear') }}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- </fieldset> -->
+                                    </form>
                                 </div>
-
                             </div>
-                            <hr>
-                                <div class="form-group mb-0">
-                                    <div class="col-md-12 ">
-                                        <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-check"></i>
-                                            {{ __('Save') }}
-                                        </button>
-                                        <button type="button" class="btn btn-primary">
-                                            <i class="fas fa-broom"></i>
-                                            {{ __('Clear') }}
-                                        </button>
-                                    </div>
-                                </div>
-
-                            <!-- </fieldset> -->
-                        </form>
-                    </div>
-                    </div>
-                    </div>
+                        </div>
 
                     <!-- /contect -->
                     <!-- sidebar menu  -->
@@ -75,14 +185,14 @@
                             <ul class="navigation-left">
 
                                 <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/exhouse/create') }}">
+                                    <a class="nav-item-hold" href="{{ route('exhouses.index') }}">
                                         <i class="far fa-plus-square"></i>
                                         <span class="nav-text">Add Exhouse</span>
                                     </a>
                                     <div class="triangle"></div>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/exhouse/edit') }}">
+                                    <a class="nav-item-hold" href="">
                                         <i class="far fa-edit"></i>
                                         <span class="nav-text">Edit Exhouse</span>
                                     </a>
