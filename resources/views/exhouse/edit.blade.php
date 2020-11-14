@@ -64,7 +64,7 @@
                                                     <div class="col-md-4">
 
                                                         <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
-                                                            <option>...</option>
+                                                            <option value="">...</option>
                                                             @foreach ($country as $key => $value)
                                                                 <option value="{{ $value->CountryID }}" {{ $exhouse->CountryID == $value->CountryID ? 'selected' : '' }}>{{ $value->CountryName }}</option>
                                                             @endforeach
@@ -85,10 +85,10 @@
                                                     <label for="exParentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse Parent') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
                                                         <select id="exParentCode" class="form-control @error('exParentCode') is-invalid @enderror" name="exParentCode" required autofocus>
-                                                            <option>...</option>
+                                                            <option value="">...</option>
                                                             <option value="self">Self</option>
-                                                            @foreach ($exParent as $key => $value)
-                                                                <option value="{{ $value->ExHouseID }}" {{ ($exhouse->ExHouseID == $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
+                                                            @foreach ($exParent as $key => $valueParent)
+                                                                <option value="{{ $valueParent->ExHouseID }}" {{ ($exhouse->ExHouseID == $valueParent->ExHouseID) ? 'selected' : '' }}>{{ $valueParent->ExHouseName }}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('exParentCode')

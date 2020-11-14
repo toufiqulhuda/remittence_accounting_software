@@ -23,11 +23,12 @@ class UserController extends Controller
 
         $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
+        //dd($exHouse);
         $users = DB::table('users AS u')
-                    ->leftJoin('users AS cr', 'cr.CreatedBy', '=', 'u.user_id')
-                    ->leftJoin('users AS up', 'up.UpdatedBy', '=', 'u.user_id')
-                    ->select('u.user_id','u.name','u.email','u.username','u.ExHouseID','u.CountryID','u.roleid',
-                    'cr.username AS CreatedBy','u.created_at','u.username AS UpdatedBy','u.updated_at',
+                    ->leftJoin('users AS cr', 'u.CreatedBy', '=', 'cr.user_id')
+                    ->leftJoin('users AS up', 'u.UpdatedBy', '=', 'up.user_id')
+                    ->select('u.user_id','u.name','u.email','u.username','u.ExHouseID','u.roleid',
+                    'cr.username AS CreatedBy','u.created_at','up.username AS UpdatedBy','u.updated_at',
                     'u.isactive' )
                     ->paginate(5);
         //dd($users);
@@ -46,7 +47,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request);
+        dd($request);
         $rules = [
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',

@@ -44,8 +44,9 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request);
         $rules = [
-			'roleName' => 'required|unique:Role|string'
+			'roleName' => 'required|string|max:50'
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -90,7 +91,7 @@ class RoleController extends Controller
     {
         //dd($request);
         $rules = [
-			'roleName' => 'required|unique:Role|string'
+			'roleName' => 'required|string|max:50'
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {

@@ -11,11 +11,12 @@ class Exhouse extends Model
     protected $table = 'exhouse';
     protected $primaryKey = 'ExHouseID';
     protected $fillable = [
-        'ExHouseID','ExHouseName','ExParentID','Address','CountryID','CurrencyID','TnxDate','PrevDate','RespExID',
+        'ExHouseName','ExParentID','Address','CountryID','CurrencyID','TnxDate','PrevDate','RespExID',
         'ShortName', 'isactive','CreatedBy',
         'created_at','UpdatedBy','updated_at',
     ];
     protected $hidden = [
         'remember_token',
     ];
+    public $incrementing = false;
 }

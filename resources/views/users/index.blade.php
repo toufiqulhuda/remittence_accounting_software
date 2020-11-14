@@ -160,9 +160,9 @@
                                                 <div class="col-md-4">
                                                     <!-- <input id="exHouse" type="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" value="{{ old('exHouse') }}" required autocomplete="exHouse"> -->
                                                     <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
-                                                        <option>...</option>
-                                                        @foreach ($exHouse as $key => $value)
-                                                            <option value="{{ $value->ExHouseID }}">{{ $value->ExHouseName }}</option>
+                                                        <option value="">...</option>
+                                                        @foreach ($exHouse as  $value)
+                                                            <option value="{{ $value->ExHouseID }}">{{ $value->ExHouseID. '| '.$value->ExHouseName }}</option>
                                                         @endforeach
 
                                                     </select>
@@ -259,22 +259,30 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Username</th>
+                                    <th>ExHouse</th>
+                                    <th>Role</th>
                                     <th>Created By</th>
                                     <th>Create Date</th>
+                                    <th>Updated By</th>
+                                    <th>Updated Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(isset($users))
+                            @if(isset($users) && (is_array($users) || is_object($users)))
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->username }}</td>
+                                <td>{{ $user->ExHouseID }}</td>
+                                <td>{{ $user->roleid }}</td>
                                 <td>{{ $user->CreatedBy }}</td>
                                 <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->UpdatedBy }}</td>
+                                <td>{{ $user->updated_at }}</td>
                                 <td>{{ $user->isactive }}
                                 <form action="" method="POST">
                                     <input type="checkbox"  name="isactive" id="isactive" value="{{ $user->isactive }}" {{ ($user->isactive==1)? ' checked': '' }} />
@@ -299,7 +307,7 @@
                             @endif
                             </tbody>
                         </table>
-                        {!! $users->links() !!}
+                        {{-- {!! $users->links() !!} --}}
                     </div>
                     <!-- /dataTable -->
                     <!-- /contect -->

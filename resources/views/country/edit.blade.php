@@ -70,7 +70,7 @@
 
                                                 <div class="col-md-4">
                                                     <select id="currencyID" class="form-control @error('currencyID') is-invalid @enderror" name="currencyID" required autofocus>
-                                                        <option>...</option>
+                                                        <option value="">...</option>
                                                         @foreach ($currency as $key => $value)
                                                             <option value="{{ $value->CurrencyID }}" {{ $country->CurrencyID == $value->CurrencyID ? 'selected' : ''}}>{{ $value->CurrencyName }}</option>
                                                         @endforeach

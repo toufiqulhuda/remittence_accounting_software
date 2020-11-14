@@ -155,7 +155,7 @@
                                                 <div class="col-md-4">
                                                     <!--<input id="country" type="text" class="form-control input-sm @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" autofocus>-->
                                                     <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
-                                                        <option>Choose...</option>
+                                                        <option value="">Choose...</option>
                                                         @foreach ($country as $key => $value)
                                                             <option value="{{ $value->CountryID }}" {{ old('country')== $value->CountryID ? 'selected' : '' }}>{{ $value->CountryName }}</option>
                                                         @endforeach
@@ -176,7 +176,7 @@
                                                 <label for="exParentCode" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse Parent') }}&nbsp;<span class="mandatory">*</span></label>
                                                 <div class="col-md-4">
                                                     <select id="exParentCode" class="form-control @error('exParentCode') is-invalid @enderror" name="exParentCode" required autofocus>
-                                                        <option>Choose...</option>
+                                                        <option value="">Choose...</option>
                                                         <option value="self">Self</option>
                                                         @foreach ($exParent as $key => $value)
                                                             <option value="{{ $value->ExHouseID }}" {{ (old('exParentCode') == $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>

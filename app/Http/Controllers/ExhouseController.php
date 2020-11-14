@@ -103,7 +103,7 @@ class ExhouseController extends Controller
     {
         //dd($request);
         $rules = [
-			'exHouseName' => 'required|unique:Exhouse|string|max:50',
+			'exHouseName' => 'required|string|max:50',
 			'country' => 'required|string|max:3',
 			'exParentCode' => 'required|string|max:11',
 			'address' => 'required|string|max:255',
@@ -115,6 +115,7 @@ class ExhouseController extends Controller
             $data = $request->input();
             try{
                 $user = Auth::user();
+                //dd($user);
                 $exHouse = Exhouse::find($ExHouseID);
 
                 //$exHouse->ExHouseID =  !empty($exH_ID['EXHOUSE_ID']) ? $exH_ID['EXHOUSE_ID'] : '';
