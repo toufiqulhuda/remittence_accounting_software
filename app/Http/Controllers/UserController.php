@@ -27,9 +27,11 @@ class UserController extends Controller
         $users = DB::table('users AS u')
                     ->leftJoin('users AS cr', 'u.CreatedBy', '=', 'cr.user_id')
                     ->leftJoin('users AS up', 'u.UpdatedBy', '=', 'up.user_id')
-                    ->select('u.user_id','u.name','u.email','u.username','u.ExHouseID','u.roleid',
+                    ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
+                    ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
+                    ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name',
                     'cr.username AS CreatedBy','u.created_at','up.username AS UpdatedBy','u.updated_at',
-                    'u.isactive' )
+                    'u.isactive')
                     ->paginate(5);
         //dd($users);
         return view('users.index',compact('users','roles','exHouse'))
@@ -47,14 +49,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         $rules = [
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'exHouse' => 'required|string|max:11',
             'role' => 'required|integer',
             'username' => 'required|string|max:20',
-            'password' => 'required|min:6|string|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|confirmed',
+            'password' => 'required|min:6|string|confirmed', //regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|
             'password_confirmation' => 'required|same:password',
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -85,44 +87,67 @@ class UserController extends Controller
 				return redirect()->route('users.index')->with('failed',"operation failed");
 			}
         }
-        // User::create($request->all());
 
-        // return redirect()->route('users.index')
-        //                 ->with('success','Product created successfully.');
     }
 
 
     public function show(User $user)
     {
-        return view('users.show',compact('user'));
+        //return view('users.show',compact('user'));
     }
 
 
     public function edit(User $user)
     {
-        return view('users.edit',compact('user'));
+        $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
+        $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
+
+        return view('users.edit',compact('user','exHouse','roles'));
     }
 
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user_id)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        //dd($request);
+        $rules = [
+			'name' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'exHouse' => 'required|string|max:11',
+            'role' => 'required|integer',
 
-        $user->update($request->all());
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect()->route('users.edit',$user_id)->withInput()->withErrors($validator);
+		}else{
+            $data = $request->input();
+            try{
+                $user = Auth::user();
+                //dd($user);
+                $user = User::find($user_id);
 
-        return redirect()->route('users.index')
-                        ->with('success','Product updated successfully');
+                $user->name = !empty($data['name']) ? $data['name'] : '' ;
+                $user->email = !empty($data['email']) ? $data['email'] : '' ;
+                $user->ExHouseID = !empty($data['exHouse']) ? $data['exHouse'] : '';
+                $user->roleid = !empty($data['role']) ? $data['role'] : '';
+
+				$user->UpdatedBy = $user->user_id;
+				$user->updated_at = Carbon::now();
+				$user->remember_token = $data['_token'];
+                $user->save();
+                $user->update($request->all());
+                return redirect()->route('users.index')
+                                ->with('status','User update successfully.');
+			}
+			catch(Exception $e){
+				return redirect()->route('users.edit',$user_id)->with('failed',"operation failed");
+            }
+        }
     }
 
 
-    public function destroy(User $user)
+    public function reset($user_id)
     {
-        // $user->delete();
-
-        // return redirect()->route('users.index')
-        //                 ->with('success','Product deleted successfully');
+        dd($user_id);
     }
 }

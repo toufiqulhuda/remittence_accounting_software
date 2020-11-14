@@ -66,7 +66,7 @@ Route::resource('users', UserController::class);
 // Route::get('users/show', [UserController::class,'show'])->name('users-show');
 // Route::get('users/edit', [UserController::class,'edit'])->name('users-edit');
 // Route::get('users/create', [UserController::class,'create'])->name('users-create');
-//Route::get('users/reset', [UserController::class,'users-reset']);
+Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
 //Route::get('users/destroy', [UserController::class,'']);
 /************************************
   role route

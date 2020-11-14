@@ -162,7 +162,7 @@
                                                     <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
                                                         <option value="">...</option>
                                                         @foreach ($exHouse as  $value)
-                                                            <option value="{{ $value->ExHouseID }}">{{ $value->ExHouseID. '| '.$value->ExHouseName }}</option>
+                                                            <option value="{{ $value->ExHouseID }}" {{ old('exHouse')== $value->ExHouseID ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
                                                         @endforeach
 
                                                     </select>
@@ -185,7 +185,7 @@
                                                     <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autofocus>
                                                         <option>...</option>
                                                         @foreach ($roles as $key => $value)
-                                                            <option value="{{ $value->roleid }}">{{ $value->role_name }}</option>
+                                                            <option value="{{ $value->roleid }}" {{ old('role')== $value->roleid ? 'selected' : '' }}>{{ $value->role_name }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('role')
@@ -277,8 +277,8 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->username }}</td>
-                                <td>{{ $user->ExHouseID }}</td>
-                                <td>{{ $user->roleid }}</td>
+                                <td>{{ $user->ExHouseName }}</td>
+                                <td>{{ $user->role_name }}</td>
                                 <td>{{ $user->CreatedBy }}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->UpdatedBy }}</td>
@@ -289,17 +289,17 @@
                                 </form>
                                 </td>
                                 <td>
-                                    <form action="" method="POST">
+                                    <form action="{{ url('users/reset/'.$user->user_id) }}" method="POST">
 
-                                        <a class="badge badge-light" href="{{ route('users.create') }}">Create</a>
+
                                         <a class="badge badge-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
-                                        <a class="badge badge-light" href="{{ route('users.show',$user->user_id) }}">View</a>
-                                        <a class="badge badge-primary" href="{{ route('users.edit',$user->user_id) }}">Reset</a>
+                                        <a class="badge badge-success" href="{{ route('users.show',$user->user_id) }}">View</a>
+                                        {{-- <a class="badge badge-warning" type="submit">Reset</a> --}}
 
                                         @csrf
-                                        <!-- @@method('DELETE') -->
+                                        @method('PUT')
 
-                                        <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+                                        <button type="submit" class="badge badge-warning">Reset</button>
                                     </form>
                                 </td>
                             </tr>

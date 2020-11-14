@@ -115,6 +115,7 @@
                     @endif
                     <!-- sidebar menu  -->
                     <!-- / sidebar menu-->
+                    <?php //var_dump($exParent);?>
                     <!-- content -->
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
@@ -122,8 +123,6 @@
                                 <form method="POST" action="{{ route('exhouses.store') }}">
                                     @csrf
                                     @method('POST')
-
-
                                     <div class="form-group row">
                                         <div class=" col-md-12">
                                             <div class="row">
@@ -178,9 +177,10 @@
                                                     <select id="exParentCode" class="form-control @error('exParentCode') is-invalid @enderror" name="exParentCode" required autofocus>
                                                         <option value="">Choose...</option>
                                                         <option value="self">Self</option>
-                                                        @foreach ($exParent as $key => $value)
-                                                            <option value="{{ $value->ExHouseID }}" {{ (old('exParentCode') == $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
+                                                        @foreach ($exParent as  $key =>$valueParent)
+                                                            <option value="{{ $valueParent->ExHouseID }}" {{ old('exParentCode') == $valueParent->ExHouseID ? 'selected' : '' }}>{{ $valueParent->ExHouseName }}</option>
                                                         @endforeach
+
                                                     </select>
                                                     @error('exParentCode')
                                                         <span class="invalid-feedback" role="alert">

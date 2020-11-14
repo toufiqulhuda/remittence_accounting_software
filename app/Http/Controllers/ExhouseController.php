@@ -16,7 +16,9 @@ class ExhouseController extends Controller
     public function index()
     {
         $country = Country::select('CountryID', 'CountryName')->where('isactive','1')->orderBy('CountryID')->get();
-        $exParent = Exhouse::select('ExHouseID','ExHouseName')->where('ExParentID','ExHouseID')->orderBy('ExHouseID')->get();
+        //$exParent = Ex::select('ExHouseID','ExHouseName')->where('ExParentID','=','ExHouseID')->orderBy('ExHouseID')->get();
+        $exParent = DB::select("SELECT exhouse.ExHouseID,exhouse.ExHouseName FROM exhouse WHERE exhouse.ExParentID=exhouse.ExHouseID");
+        //dd($exParent);
         $exhouses = DB::table('exhouse AS h')
                         ->leftJoin('users AS cr', 'cr.user_id', '=', 'h.CreatedBy')
                         ->leftJoin('users AS up', 'up.user_id', '=', 'h.UpdatedBy')
