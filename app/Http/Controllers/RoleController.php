@@ -46,7 +46,7 @@ class RoleController extends Controller
     {
         //dd($request);
         $rules = [
-			'roleName' => 'required|string|max:50'
+			'role_name' => 'required|unique:roles|string|max:50'
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -56,7 +56,7 @@ class RoleController extends Controller
             try{
                 $user = Auth::user();
 				$role = new Role;
-                $role->role_name = $data['roleName'];
+                $role->role_name = $data['role_name'];
                 //$role->isactive = '';
 				$role->CreatedBy = $user->user_id;
                 $role->created_at = Carbon::now();

@@ -119,12 +119,12 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="roleName" class="col-md-12 col-form-label text-md-left">{{ __('Role Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                            <label for="role_name" class="col-md-12 col-form-label text-md-left">{{ __('Role Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                             <div class="col-md-12">
-                                                <input id="roleName" type="text" class="form-control input-sm @error('roleName') is-invalid @enderror" name="roleName" value="{{ old('roleName') }}" required autocomplete="roleName" autofocus>
+                                                <input id="role_name" type="text" class="form-control input-sm @error('role_name') is-invalid @enderror" name="role_name" value="{{ old('role_name') }}" required autocomplete="role_name" autofocus>
 
-                                                @error('roleName')
+                                                @error('role_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

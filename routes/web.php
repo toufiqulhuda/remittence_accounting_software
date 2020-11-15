@@ -7,7 +7,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ExhouseController;
-use App\Http\Controllers\HouseKeepingController;
+use App\Http\Controllers\GroupAccountController;
+use App\Http\Controllers\SubGroupAccountController;
+use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
@@ -62,12 +64,8 @@ Route::view('home','home')->name('home');
   User route
 *************************************/
 Route::resource('users', UserController::class);
-// Route::get('users', [UserController::class,'index']);
-// Route::get('users/show', [UserController::class,'show'])->name('users-show');
-// Route::get('users/edit', [UserController::class,'edit'])->name('users-edit');
-// Route::get('users/create', [UserController::class,'create'])->name('users-create');
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
-//Route::get('users/destroy', [UserController::class,'']);
+
 /************************************
   role route
 *************************************/
@@ -90,9 +88,10 @@ Route::resource('exhouses', ExhouseController::class);
 /************************************
   GroupAccount route
 *************************************/
-//Route::get('groupAccount', [HouseKeepingController::class,'groupAccountCreate']);
-Route::get('groupAccount/edit', [HouseKeepingController::class,'groupAccountEdit'])->name('groupAccount-edit');
-Route::get('groupAccount/create', [HouseKeepingController::class,'groupAccountCreate'])->name('groupAccount-create');
+Route::resource('groupAccount', GroupAccountController::class);
+//Route::get('groupAccount/edit', [HouseKeepingController::class,'groupAccountEdit'])->name('groupAccount-edit');
+//Route::get('groupAccount/create', [HouseKeepingController::class,'groupAccountCreate'])->name('groupAccount-create');
+//Route::post('groupAccount/store', [HouseKeepingController::class,'groupAccountStore'])->name('groupAccount-store');
 /************************************
   SubGroupAccount route
 *************************************/

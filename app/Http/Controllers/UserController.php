@@ -145,9 +145,19 @@ class UserController extends Controller
         }
     }
 
-
-    public function reset($user_id)
+    public function reset(Request $request,$user_id)
     {
-        dd($user_id);
+        //dd($request);
+        $data = $request->input();
+        $authUuser = Auth::user();
+        $user = User::find($user_id);
+        $user->password = Hash::make('sgqpay#123');
+        $user->UpdatedBy = $authUuser->user_id;
+        $user->updated_at = Carbon::now();
+        $user->remember_token = $data['_token'];
+        $user->save();
+        $user->update($request->all());
+        return redirect()->route('users.index')
+                                ->with('status','User reset successfully.');
     }
 }

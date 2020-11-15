@@ -28,6 +28,7 @@ class CreateChartOfAccountTable extends Migration
 
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('UpdatedBy');
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
 

@@ -122,48 +122,44 @@
                                     @csrf
                                     @method('POST')
                                     <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <label for="currencyName" class="col-md-3 col-form-label text-md-left">{{ __('Currency Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                <div class="col-md-9">
-                                                    <input id="currencyName" type="text" class="form-control input-sm @error('currencyName') is-invalid @enderror" Name="currencyName" value="{{ old('currencyName') }}" required autocomplete="currencyName" autofocus>
+                                        <label for="currencyName" class="col-md-3 col-form-label text-md-left">{{ __('Currency Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                    @error('currencyName')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                        <div class="col-md-9">
+                                            <input id="currencyName" type="text" class="form-control input-sm @error('currencyName') is-invalid @enderror" Name="currencyName" value="{{ old('currencyName') }}" required autocomplete="currencyName" autofocus>
+
+                                            @error('currencyName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                <div class="col-md-3">
-                                                    <input id="isoCode" type="text" class="form-control input-sm @error('isoCode') is-invalid @enderror" Name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
+                                        <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                    @error('isoCode')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
-                                                <div class="col-md-4">
-                                                    <input id="shortName" type="text" class="form-control input-sm @error('shortName') is-invalid @enderror" Name="shortName" value="{{ old('shortName') }}" required autocomplete="shortName" autofocus>
+                                        <div class="col-md-3">
+                                            <input id="isoCode" type="text" class="form-control input-sm @error('isoCode') is-invalid @enderror" Name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
 
-                                                    @error('shortName')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                            @error('isoCode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
+                                        <label for="shortName" class="col-md-2 col-form-label text-md-left">{{ __('Short Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                        <div class="col-md-4">
+                                            <input id="shortName" type="text" class="form-control input-sm @error('shortName') is-invalid @enderror" Name="shortName" value="{{ old('shortName') }}" required autocomplete="shortName" autofocus>
+
+                                            @error('shortName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                     <hr>
                                     <div class="form-group row mb-0">

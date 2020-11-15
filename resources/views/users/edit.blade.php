@@ -66,8 +66,7 @@
                                         @method('PUT')
 
                                         <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <div class="row">
+                                            
                                                     <label for="name" class="col-md-2 col-form-label text-md-left">{{ __('Full Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                     <div class="col-md-4">
@@ -89,14 +88,12 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-                                                </div>
-                                            </div>
+
                                         </div>
 
 
                                         <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <div class="row">
+
                                                     <label for="exHouse" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
                                                         <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
@@ -125,8 +122,7 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                             {{-- <div class="form-group col-md-6">
                                                 <label for="country" class="col-md-12 col-form-label text-md-left">{{ __('Country') }}</label>

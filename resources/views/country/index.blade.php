@@ -122,64 +122,60 @@
                                     @csrf
                                     @method('POST')
                                     <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <label for="countryName" class="col-md-3 col-form-label text-md-left">{{ __('Country Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                <div class="col-md-4">
-                                                    <input id="countryName" type="text" class="form-control text-capitalize input-sm @error('countryName') is-invalid @enderror" Name="countryName" value="{{ old('countryName') }}" required autocomplete="countryName" autofocus>
+                                        <label for="countryName" class="col-md-3 col-form-label text-md-left">{{ __('Country Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                    @error('countryName')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <label for="countryCode" class="col-md-3 col-form-label text-md-left">{{ __('Country Code') }}&nbsp;<span class="mandatory">*</span></label>
+                                        <div class="col-md-4">
+                                            <input id="countryName" type="text" class="form-control text-capitalize input-sm @error('countryName') is-invalid @enderror" Name="countryName" value="{{ old('countryName') }}" required autocomplete="countryName" autofocus>
 
-                                                <div class="col-md-2">
-                                                    <input id="countryCode" type="text" class="form-control input-sm @error('countryCode') is-invalid @enderror" name="countryCode" value="{{ old('countryCode') }}" required autocomplete="countryCode" autofocus>
-
-                                                    @error('countryCode')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                            @error('countryName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
+                                        <label for="countryCode" class="col-md-3 col-form-label text-md-left">{{ __('Country Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                        <div class="col-md-2">
+                                            <input id="countryCode" type="text" class="form-control input-sm @error('countryCode') is-invalid @enderror" name="countryCode" value="{{ old('countryCode') }}" required autocomplete="countryCode" autofocus>
+
+                                            @error('countryCode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <label for="countryID" class="col-md-3 col-form-label text-md-left">{{ __('Currency') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                <div class="col-md-4">
-                                                    <select id="currencyID" class="form-control @error('currencyID') is-invalid @enderror" name="currencyID" required autofocus>
-                                                        <option value="">...</option>
-                                                        @foreach ($currency as $key => $value)
-                                                            <option value="{{ $value->CurrencyID }}" {{ old('currencyID')== $value->currencyID ? 'selected' : '' }}>{{ $value->CurrencyName }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('currencyID')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
+                                        <label for="countryID" class="col-md-3 col-form-label text-md-left">{{ __('Currency') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                <div class="col-md-2">
-                                                    <input id="isoCode" type="text" class="form-control text-uppercase input-sm @error('isoCode') is-invalid @enderror" name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
-
-                                                    @error('isoCode')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <select id="currencyID" class="form-control @error('currencyID') is-invalid @enderror" name="currencyID" required autofocus>
+                                                <option value="">...</option>
+                                                @foreach ($currency as $key => $value)
+                                                    <option value="{{ $value->CurrencyID }}" {{ old('currencyID')== $value->currencyID ? 'selected' : '' }}>{{ $value->CurrencyName }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('currencyID')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
+                                        <label for="isoCode" class="col-md-3 col-form-label text-md-left">{{ __('ISO Code') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                        <div class="col-md-2">
+                                            <input id="isoCode" type="text" class="form-control text-uppercase input-sm @error('isoCode') is-invalid @enderror" name="isoCode" value="{{ old('isoCode') }}" required autocomplete="isoCode" autofocus>
+
+                                            @error('isoCode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                     <hr>
                                     <div class="form-group row mb-0">
