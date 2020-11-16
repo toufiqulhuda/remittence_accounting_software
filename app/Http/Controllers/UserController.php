@@ -55,7 +55,7 @@ class UserController extends Controller
             'email' => 'required|email|max:50',
             'exHouse' => 'required|string|max:11',
             'role' => 'required|integer',
-            'username' => 'required|string|max:20',
+            'username' => 'required|unique:users|string|max:20',
             'password' => 'required|min:6|string|confirmed', //regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|
             'password_confirmation' => 'required|same:password',
         ];
