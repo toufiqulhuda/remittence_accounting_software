@@ -91,7 +91,7 @@
                                                         <select id="accountHeadType" class="form-control @error('accountHeadType') is-invalid @enderror" name="accountHeadType" required autofocus>
                                                             <option value="">Choose...</option>
                                                             @foreach ($accHeadType as  $value)
-                                                                <option value="{{ $value->AccHdID }}" {{ old('exHouse')== $value->AccHdID ? 'selected' : '' }}>{{ $value->AcctHdName }}</option>
+                                                                <option value="{{ $value->AccHdID }}" {{ old('accountHeadType')== $value->AccHdID ? 'selected' : '' }}>{{ $value->AcctHdName }}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('accountHeadType')

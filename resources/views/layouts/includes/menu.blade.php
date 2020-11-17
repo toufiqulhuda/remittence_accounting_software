@@ -11,8 +11,8 @@
         <a id="houseKeepingDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">House Keeping</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="houseKeepingDropdown">
             <a class="dropdown-item" href="{{ url('/groupAccount') }}">Group Accounts</a>
-            <a class="dropdown-item" href="{{ url('/subGroupAccount/create') }}">Sub Group Accounts</a>
-            <a class="dropdown-item" href="{{ url('/chartOfAccount/create') }}">Chart of Accounts</a>
+            <a class="dropdown-item" href="{{ url('/subGroupAccount') }}">Sub Group Accounts</a>
+            <a class="dropdown-item" href="{{ url('/chartOfAccount') }}">Chart of Accounts</a>
             <a class="dropdown-item" href="#">Auto Tranx Account</a>
             <a class="dropdown-item" href="#">Branch Info</a>
             <a class="dropdown-item" href="#">Employee Information</a>

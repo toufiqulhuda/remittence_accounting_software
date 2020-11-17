@@ -95,9 +95,9 @@ Route::resource('groupAccount', GroupAccountController::class);
 /************************************
   SubGroupAccount route
 *************************************/
-//Route::get('exhouse', [HouseKeepingController::class,'index']);
-Route::get('subGroupAccount/edit', [HouseKeepingController::class,'subGroupAccountEdit'])->name('subGroupAccount-edit');
-Route::get('subGroupAccount/create', [HouseKeepingController::class,'subGroupAccountCreate'])->name('subGroupAccount-create');
+Route::resource('subGroupAccount', SubGroupAccountController::class);
+//Route::get('subGroupAccount/edit', [HouseKeepingController::class,'subGroupAccountEdit'])->name('subGroupAccount-edit');
+//Route::get('subGroupAccount/create', [HouseKeepingController::class,'subGroupAccountCreate'])->name('subGroupAccount-create');
 /************************************
   ChartOfAccount route
 *************************************/
