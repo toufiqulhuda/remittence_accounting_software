@@ -16,19 +16,19 @@ class CreateChartOfAccountTable extends Migration
         Schema::create('chart_of_account', function (Blueprint $table) {
             $table->string('COACode',8)->primary()->unique();
             $table->string('AccountName',100);
-            $table->integer('AccHdID');
-            $table->integer('AccGrID');
+            $table->integer('AccHdID')->nullable();
+            $table->integer('AccGrID')->nullable();
             $table->integer('AccSbGrID');
             $table->string('ExHouseID',11);
             $table->date('OpenDate');
-            $table->double('Balance', 18, 3);
+            $table->double('Balance', 18, 3)->nullable();
             $table->integer('RptHeadID')->nullable();
             $table->integer('DRptlevel')->nullable();
             $table->string('ReportType',1)->nullable();
 
             $table->bigInteger('CreatedBy');
             $table->timestamp('created_at')->useCurrent();
-            $table->bigInteger('UpdatedBy');
+            $table->bigInteger('UpdatedBy')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();
 

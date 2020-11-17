@@ -101,9 +101,9 @@ Route::resource('subGroupAccount', SubGroupAccountController::class);
 /************************************
   ChartOfAccount route
 *************************************/
-//Route::get('exhouse', [HouseKeepingController::class,'index']);
-Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
-Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
+Route::resource('chartOfAccount', ChartOfAccountController::class);
+//Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
+//Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
 /************************************
   Transaction route
 *************************************/

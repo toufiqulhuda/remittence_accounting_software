@@ -15,7 +15,7 @@ class GroupAccountController extends Controller
 
     public function index()
     {
-        $accHeadType=DB::table('account_main_head')->select('AccHdID','AcctHdName')->get();
+        $accHeadType=DB::table('account_main_head')->select('AccHdID','AcctHdName')->orderBy('AccHdID')->get();
         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
         return view('pages.groupAccountCreate',compact('accHeadType','exHouse'));
     }

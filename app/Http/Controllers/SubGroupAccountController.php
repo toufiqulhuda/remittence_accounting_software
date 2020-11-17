@@ -16,9 +16,9 @@ class SubGroupAccountController extends Controller
 
     public function index()
     {
-         $accGroupType=AccountGroup::select('AccGrID','AccGrName')->get();
-         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
-         return view('pages.subGroupAccountCreate',compact('accGroupType','exHouse'));
+        $accGroupType=AccountGroup::select('AccGrID','AccGrName')->orderBy('AccGrID')->get();
+        $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
+        return view('pages.subGroupAccountCreate',compact('accGroupType','exHouse'));
 
     }
 
@@ -42,12 +42,13 @@ class SubGroupAccountController extends Controller
 			return redirect()->route('subGroupAccount.index')->withInput()->withErrors($validator);
 		}else{
             $data = $request->input();
-            $accSbGrMax = DB::select("SELECT LPAD(IFNULL(max(AccSbGrID),0)+1,2,0) AS  AccSbGrID FROM account_sub_group_detail");
             $AccGrCode = AccountGroup::select('AccGrCode')->where('AccGrID',$data['accountGroupType'])->get();
-            $accSbGrMaxArr =(array)$accSbGrMax[0];
             $AccGrCodeData=$AccGrCode[0]->AccGrCode;
+            $accSbGrMax = DB::select("SELECT LPAD(IFNULL(max(AccSbGrID),0)+1,2,0) AS  AccSbGrID FROM account_sub_group_detail WHERE AccSbGrCode LIKE '".$AccGrCodeData."%'");
+            $accSbGrMaxArr =(array)$accSbGrMax[0];
+
             $AccSbGrCode = $AccGrCodeData.$accSbGrMaxArr['AccSbGrID'];
-            
+            //dd($AccSbGrCode);
             try{
                 $authUser = Auth::user();
 				$accountSubGroup = new AccountSubGroup;
