@@ -160,4 +160,10 @@ class UserController extends Controller
         return redirect()->route('users.index')
                                 ->with('status','User reset successfully.');
     }
+    public function status($user_id)
+    {
+        dd($user_id);
+        $user = User::find($user_id);
+
+    }
 }

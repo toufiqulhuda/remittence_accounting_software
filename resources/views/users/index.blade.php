@@ -23,12 +23,16 @@
             ]
         } );
         $('input[type="checkbox"]').click(function(){
+            let status =0;
             if($(this).prop("checked") == true){
                 console.log("Checkbox is checked.");
+                status=1;
             }
             else if($(this).prop("checked") == false){
                 console.log("Checkbox is unchecked.");
+                status=0;
             }
+            let url = "{{URL('userData/'.$userData->id)}}";
         });
     } );
 </script>
