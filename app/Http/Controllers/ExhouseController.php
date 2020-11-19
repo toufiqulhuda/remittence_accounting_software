@@ -152,4 +152,12 @@ class ExhouseController extends Controller
     {
         //
     }
+    public function isactive(Request $request)
+    {
+        //dd($request);
+        //$user = User::find($user_id);
+        $role = Exhouse::find($request->id)->update(['isactive' => $request->status]);
+        return response()->json(['success'=>'Status changed successfully.']);
+
+    }
 }

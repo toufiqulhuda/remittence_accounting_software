@@ -135,9 +135,12 @@ class RoleController extends Controller
         // return redirect()->route('users.index')
         //                 ->with('success','Product deleted successfully');
     }
-    public function status($roleid)
+    public function isactive(Request $request)
     {
-        dd($roleid);
-        $role = Role::find($roleid);
+        //dd($request);
+        //$user = User::find($user_id);
+        $role = Role::find($request->id)->update(['isactive' => $request->status]);
+        return response()->json(['success'=>'Status changed successfully.']);
+
     }
 }

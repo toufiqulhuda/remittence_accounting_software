@@ -160,10 +160,12 @@ class UserController extends Controller
         return redirect()->route('users.index')
                                 ->with('status','User reset successfully.');
     }
-    public function status($user_id)
+    public function isactive(Request $request)
     {
-        dd($user_id);
-        $user = User::find($user_id);
+        //dd($request);
+        //$user = User::find($user_id);
+        $user = User::find($request->id)->update(['isactive' => $request->status]);
+        return response()->json(['success'=>'Status changed successfully.']);
 
     }
 }

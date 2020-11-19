@@ -65,26 +65,30 @@ Route::view('home','home')->name('home');
 *************************************/
 Route::resource('users', UserController::class);
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
+Route::post('change-userstatus', [UserController::class,'isactive'])->name('change-userstatus');
 
 /************************************
   role route
 *************************************/
 Route::resource('roles', RoleController::class);
+Route::post('change-rolestatus', [RoleController::class,'isactive'])->name('change-rolestatus');
 /************************************
   Country route
 *************************************/
 Route::resource('countries', CountryController::class);
+Route::post('change-countrystatus', [CountryController::class,'isactive'])->name('change-countrystatus');
 
 /************************************
   Currency route
 *************************************/
 Route::resource('currencies', CurrencyController::class);
+Route::post('change-currencystatus', [CurrencyController::class,'isactive'])->name('change-currencystatus');
 
 /************************************
   Exhouse route
 *************************************/
 Route::resource('exhouses', ExhouseController::class);
-
+Route::post('change-exhousestatus', [ExhouseController::class,'isactive'])->name('change-exhousestatus');
 /************************************
   GroupAccount route
 *************************************/

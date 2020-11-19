@@ -128,4 +128,12 @@ class CurrencyController extends Controller
         // return redirect()->route('users.index')
         //                 ->with('success','Product deleted successfully');
     }
+    public function isactive(Request $request)
+    {
+        //dd($request);
+        //$user = User::find($user_id);
+        $role = Currency::find($request->id)->update(['isactive' => $request->status]);
+        return response()->json(['success'=>'Status changed successfully.']);
+
+    }
 }

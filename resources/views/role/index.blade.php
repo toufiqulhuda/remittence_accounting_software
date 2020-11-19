@@ -23,51 +23,39 @@
             ]
         } );
 
-        
-
     } );
+    function changeStatus(_this, id) {
+        var status = $(_this).prop('checked') == true ? 1 : 0;
+
+        if (window.confirm("Do you really want to change status?")) {
+
+            let _token = $('meta[name="csrf-token"]').attr('content');
+            let url = '/change-rolestatus';
+            let method = 'post';
+            $.ajax({
+                url: url,
+                type: method,
+                data: {
+                    _token: _token,
+                    id: id,
+                    status: status
+                },
+                success: function (result) {
+                    alert(result.success);
+                }
+            });
+        }else{
+            if (status==1){
+                $(_this).prop('checked', false);
+            }else{
+                $(_this).prop('checked', true);
+            }
+        }
+
+    }
 </script>
 <style rel="stylesheet">
-    /* .layout-sidebar-large .sidebar-left .navigation-left .nav-item .nav-item-hold .nav-text {
-    font-size: 13px;
-    display: block;
-    font-weight: 400;
-}
-.layout-sidebar-large .sidebar-left-secondary,
-.layout-sidebar-large .sidebar-left {
-    position: fixed;
-    top: 80px;
-    height: calc(100vh - 80px);
-    background: #fff;
-    box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.08); }
 
-.layout-sidebar-large .sidebar-left {
-    left: calc(-120px - 20px);
-    z-index: 90;
-    transition: all .24s ease-in-out; }
-.layout-sidebar-large .sidebar-left.open {
-    left: 0; }
-
-.layout-sidebar-large .sidebar-left .navigation-left {
-    list-style: none;
-    text-align: center;
-    width: 120px;
-    height: 100%;
-    margin: 0;
-    padding: 0; }
-.layout-sidebar-large .sidebar-left .navigation-left .nav-item {
-    position: relative;
-    display: block;
-    width: 100%;
-    color: #332e38;
-    cursor: pointer;
-    border-bottom: 1px solid #dee2e6; }
-
-.layout-sidebar-large .sidebar-left .navigation-left .nav-item .nav-item-hold {
-    display: block;
-    width: 100%;
-    padding: 9px 0;
-    color: #47404f; } */
 #roleTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
@@ -182,9 +170,9 @@
                                 <td>{{ $role->UpdatedBy }}</td>
                                 <td>{{ $role->updated_at }}</td>
                                 <td>{{ $role->isactive }}
-                                    <form action="" method="POST">
-                                        <input type="checkbox"  name="isactive" id="isactive" value="{{ $role->isactive }}" {{ ($role->isactive==1)? ' checked': '' }} />
-                                    </form>
+                                    <input type="checkbox"  name="isactive" id="isactive-{{$role->roleid}}" value="{{ $role->isactive }}"
+                                    {{ ($role->isactive)? ' checked': '' }}
+                                    onclick="changeStatus(event.target, {{ $role->roleid }});">
                                 </td>
                                 <td>
                                     <!--<form action="" method="POST">-->
