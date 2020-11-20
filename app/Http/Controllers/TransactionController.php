@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +13,8 @@ class TransactionController extends Controller
     ***********************************/
     public function accountTransactionCreate()
     {
-        return view('pages.accountTransaction');
+        $COA=ChartOfAccount::select('COACode','AccountName')->get();
+        return view('pages.accountTransaction',compact('COA'));
     }
     public function accountTransactionStore()
     {

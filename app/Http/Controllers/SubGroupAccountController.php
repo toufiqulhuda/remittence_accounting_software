@@ -18,7 +18,16 @@ class SubGroupAccountController extends Controller
     {
         $accGroupType=AccountGroup::select('AccGrID','AccGrName')->orderBy('AccGrID')->get();
         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
-        return view('pages.subGroupAccountCreate',compact('accGroupType','exHouse'));
+        $subGrpAccs = DB::table('account_sub_group_detail AS asg')
+                                ->select('asg.AccSbGrID','asg.AccSbGrCode','asg.AccSbGrName','ag.AccGrName','am.AcctHdName','ex.ExHouseName','cr.username AS CreatedBy','asg.created_at','up.username AS UpdatedBy','asg.updated_at')
+                                ->leftJoin('users AS cr', 'asg.CreatedBy', '=', 'cr.user_id')
+                                ->leftJoin('users AS up', 'asg.UpdatedBy', '=', 'up.user_id')
+                                ->leftJoin('account_group_detail AS ag', 'asg.AccGrID', '=', 'ag.AccGrID')
+                                ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
+                                ->leftJoin('exhouse AS ex', 'asg.ExHouseID', '=', 'ex.ExHouseID')
+                                ->paginate(5);
+        return view('pages.subGroupAccountCreate',compact('accGroupType','exHouse','subGrpAccs'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
 
     }
 

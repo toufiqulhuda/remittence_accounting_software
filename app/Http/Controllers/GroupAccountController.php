@@ -17,7 +17,16 @@ class GroupAccountController extends Controller
     {
         $accHeadType=DB::table('account_main_head')->select('AccHdID','AcctHdName')->orderBy('AccHdID')->get();
         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
-        return view('pages.groupAccountCreate',compact('accHeadType','exHouse'));
+        $grpAccs = DB::table('account_group_detail AS ag')
+                                ->select('ag.AccGrID','ag.AccGrCode','ag.AccGrName','am.AcctHdName','ex.ExHouseName','cr.username AS CreatedBy','ag.created_at','up.username AS UpdatedBy','ag.updated_at')
+                                ->leftJoin('users AS cr', 'ag.CreatedBy', '=', 'cr.user_id')
+                                ->leftJoin('users AS up', 'ag.UpdatedBy', '=', 'up.user_id')
+                                ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
+                                ->leftJoin('exhouse AS ex', 'ag.ExHouseID', '=', 'ex.ExHouseID')
+                                ->paginate(5);
+
+        return view('pages.groupAccountCreate',compact('accHeadType','exHouse','grpAccs'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 

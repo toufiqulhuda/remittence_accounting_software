@@ -18,7 +18,18 @@ class ChartOfAccountController extends Controller
     {
         $accSubGroupType=AccountSubGroup::select('AccSbGrID','AccSbGrName')->orderBy('AccSbGrID')->get();
         $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
-        return view('pages.chartOfAccountCreate',compact('accSubGroupType','exHouse'));
+
+        $coaAccs = DB::table('chart_of_account AS coa')
+                                ->select('coa.COACode','coa.AccountName','asg.AccSbGrCode','asg.AccSbGrName','ag.AccGrCode','ag.AccGrName','am.AcctHdName','ex.ExHouseName','cr.username AS CreatedBy','coa.created_at','up.username AS UpdatedBy','coa.updated_at')
+                                ->leftJoin('users AS cr', 'coa.CreatedBy', '=', 'cr.user_id')
+                                ->leftJoin('users AS up', 'coa.UpdatedBy', '=', 'up.user_id')
+                                ->leftJoin('account_sub_group_detail AS asg', 'asg.AccSbGrID', '=', 'coa.AccSbGrID')
+                                ->leftJoin('account_group_detail AS ag', 'asg.AccGrID', '=', 'ag.AccGrID')
+                                ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
+                                ->leftJoin('exhouse AS ex', 'coa.ExHouseID', '=', 'ex.ExHouseID')
+                                ->paginate(5);
+        return view('pages.chartOfAccountCreate',compact('accSubGroupType','exHouse','coaAccs'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
 
 
     }

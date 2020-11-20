@@ -169,7 +169,7 @@
                                 <td>{{ $role->created_at }}</td>
                                 <td>{{ $role->UpdatedBy }}</td>
                                 <td>{{ $role->updated_at }}</td>
-                                <td>{{ $role->isactive }}
+                                <td>
                                     <input type="checkbox"  name="isactive" id="isactive-{{$role->roleid}}" value="{{ $role->isactive }}"
                                     {{ ($role->isactive)? ' checked': '' }}
                                     onclick="changeStatus(event.target, {{ $role->roleid }});">

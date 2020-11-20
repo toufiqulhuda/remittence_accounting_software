@@ -9,16 +9,15 @@
             //var email = $("#email").val();
             var table = document.getElementById('accTrxTbl');
             var rowCount = table.rows.length;
-            var accountCode = '<SELECT name="country" class="form-control form-control-sm" >'+
-                                    '<OPTION value="in">India</OPTION>'+
-                                    '<OPTION value="de">Germany</OPTION>'+
-                                    '<OPTION value="fr">France</OPTION>'+
-                                    '<OPTION value="us">United States</OPTION>'+
-                                    '<OPTION value="ch">Switzerland</OPTION>'+
+            var accountCode = '<SELECT name="accountCode" class="form-control form-control-sm">'+
+
+                                    '{{ @foreach ($COA as $value ) }}'+
+                                        '<option value="{{ $value->COACode }}">{{ $value->AccountName }}</option>'+
+                                    '{{ @endforeach}}'+
                                 '</SELECT>';
-             var Particulars ='<INPUT class="form-control form-control-sm" type="text" name="txt1"/>';
-             var Debit='<INPUT class="form-control form-control-sm" type="text" name="txt2" />';
-             var Credit='<INPUT class="form-control form-control-sm" type="text" name="txt3" />';
+            var Particulars ='<INPUT class="form-control form-control-sm" type="text" name="Particulars"/>';
+            var Debit='<INPUT class="form-control form-control-sm text-right" type="text" name="DrAmt" placeholder="0.000"/>';
+            var Credit='<INPUT class="form-control form-control-sm text-right" type="text" name="CrAmt" placeholder="0.000"/>';
             var markup = "<tr>"+
                                 "<td><input type='checkbox' name='record'></td>"+
                                 "<td>"+rowCount++ +"</td>"+
@@ -99,6 +98,26 @@
     }*/
 
 </SCRIPT>
+<style rel="stylesheet">
+
+    #roleTable_wrapper .dt-button{
+        color: #fff;
+        background-color: #17a2b8;
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    }
+    </style>
 <div class="container">
 
     <div class="row justify-content-center">
@@ -108,15 +127,17 @@
                 <div class="card-header"><i class="far fa-plus-square"></i>&nbsp;{{ __('Account Transaction') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                     <!-- sidebar menu  -->
                     {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
@@ -146,20 +167,21 @@
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
                             <div class="col-md-10 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            <div class=" col-md-12">
-                                                <div class="row">
-                                                    <label for="entryType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                                    <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
-                                                        <select id="entryType" class="form-control @error('entryType') is-invalid @enderror" name="entryType" required autofocus>
-                                                            <option selected>Choose...</option>
-                                                            <option>...</option>
+                                                        <select id="TnxType" class="form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
+
+                                                            <option value="T">Transfer</option>
+                                                            <option value="C">Cash</option>
+
                                                         </select>
-                                                        @error('entryType')
+                                                        @error('TnxType')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -174,8 +196,7 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -184,8 +205,7 @@
                             <div class="col-md-10 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
-                                        {{-- <INPUT type="button" value="Add Row" onclick="addRow('accTrxTbl')" />
-                                        <INPUT type="button" value="Delete Row" onclick="deleteRow('accTrxTbl')" /> --}}
+
                                         <button type="button" class="add-row mb-3 btn-sm" value="Add Row" data-toggle="tooltip" data-placement="top" title="Add Row"><i class="fas fa-plus-circle"></i></button>
                                         <button type="button" class="delete-row mb-3 btn-sm" value="Delete Row" data-toggle="tooltip" data-placement="top" title="Delete Row"><i class="fas fa-trash-alt"></i></button>
                                         <div class="table-responsive">
@@ -234,6 +254,54 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- dataTable -->
+                        {{-- &nbsp;<hr>&nbsp;
+                        <div class="table-responsive">
+                            <table id="roleTable" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Role Name</th>
+                                        <th>Created By</th>
+                                        <th>Create Date</th>
+                                        <th>Updated By</th>
+                                        <th>Updated Date</th>
+                                        <th>Active</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(isset($roles))
+                                @foreach ($roles as $role)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $role->role_name }}</td>
+                                    <td>{{ $role->CreatedBy }}</td>
+                                    <td>{{ $role->created_at }}</td>
+                                    <td>{{ $role->UpdatedBy }}</td>
+                                    <td>{{ $role->updated_at }}</td>
+                                    <td>
+                                        <input type="checkbox"  name="isactive" id="isactive-{{$role->roleid}}" value="{{ $role->isactive }}"
+                                        {{ ($role->isactive)? ' checked': '' }}
+                                        onclick="changeStatus(event.target, {{ $role->roleid }});">
+                                    </td>
+                                    <td>
+                                        <!--<form action="" method="POST">-->
+                                            <a class="badge badge-primary" href="{{ route('roles.edit',$role->roleid) }}">Edit</a>
+
+                                            @csrf
+                                            <!-- @@method('DELETE') -->
+
+                                            <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+                                        <!--</form>-->
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /dataTable --> --}}
                     <!-- /contect -->
 
                 </div>

@@ -16,7 +16,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#userTable').DataTable( {
+        $('#currencyTable').DataTable( {
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
@@ -56,7 +56,7 @@
 </script>
 <style rel="stylesheet">
 
-#userTable_wrapper .dt-button{
+#currencyTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
     display: inline-block;
@@ -166,7 +166,7 @@
                     <!-- content -->
                     &nbsp;<hr>&nbsp;
                     <!-- dataTable -->
-                        <table id="userTable" class="table table-bordered">
+                        <table id="currencyTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

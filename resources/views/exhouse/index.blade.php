@@ -16,7 +16,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#userTable').DataTable( {
+        $('#exhouseTable').DataTable( {
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
@@ -56,7 +56,7 @@
 </script>
 <style rel="stylesheet">
 
-#userTable_wrapper .dt-button{
+#exhouseTable_wrapper .dt-button{
     color: #fff;
     background-color: #17a2b8;
     display: inline-block;
@@ -191,7 +191,7 @@
                     &nbsp;<hr> &nbsp;
                     <!-- dataTable -->
                     <div class="table-responsive">
-                        <table id="userTable" class="table table-bordered">
+                        <table id="exhouseTable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

@@ -1,7 +1,50 @@
 @extends('layouts.withHF')
 
 @section('content')
+<!-- datatable js -->
+<script src="{{ asset('assets/DataTable/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.flash.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/jszip.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/pdfmake.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/vfs_fonts.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.html5.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.print.min.js')}}"></script>
+<!-- datatable css -->
+<link href="{{ asset('assets/DataTable/css/jquery.dataTables.min.css')}}" rel=stylesheet>
+<link href="{{ asset('assets/DataTable/css/buttons.dataTables.min.css')}}" rel=stylesheet>
 
+<script>
+    $(document).ready(function() {
+        $('#coaAccTable').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+
+    } );
+</script>
+<style rel="stylesheet">
+
+    #coaAccTable_wrapper .dt-button{
+        color: #fff;
+        background-color: #17a2b8;
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    }
+</style>
 <div class="container">
 
     <div class="row justify-content-center">
@@ -24,7 +67,7 @@
                     </div>
                     @endif
                     <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-1 ">
+                    {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
                         <div class="sidebar-left open " >
                             <ul class="navigation-left">
 
@@ -44,12 +87,12 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- / sidebar menu-->
                     <!-- content -->
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
-                        <div class="col-md-10 p-1 float-left" >
+                        <div class="col-md-12 p-1 float-left" >
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('chartOfAccount.store') }}">
@@ -147,6 +190,61 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- dataTable -->
+                        &nbsp;<hr>&nbsp;
+                        <div class="table-responsive">
+                            <table id="coaAccTable" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>COA Code</th>
+                                        <th>Account Name</th>
+                                        <th>SubGroup Name</th>
+                                        <th>Group Name</th>
+                                        <th>Account Head</th>
+                                        <th>Exchange Name</th>
+                                        <th>Created By</th>
+                                        <th>Create Date</th>
+                                        <th>Updated By</th>
+                                        <th>Updated Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(isset($coaAccs))
+                                @foreach ($coaAccs as $coaAcc)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $coaAcc->COACode }}</td>
+                                    <td>{{ $coaAcc->AccountName }}</td>
+
+                                    <td>{{ $coaAcc->AccSbGrCode.'-'.$coaAcc->AccSbGrName }}</td>
+                                    <td>{{ $coaAcc->AccGrCode.'-'.$coaAcc->AccGrName }}</td>
+                                    <td>{{ $coaAcc->AcctHdName }}</td>
+                                    <td>{{ $coaAcc->ExHouseName }}</td>
+
+                                    <td>{{ $coaAcc->CreatedBy }}</td>
+                                    <td>{{ $coaAcc->created_at }}</td>
+                                    <td>{{ $coaAcc->UpdatedBy }}</td>
+                                    <td>{{ $coaAcc->updated_at }}</td>
+
+                                    <td>
+                                        <!--<form action="" method="POST">-->
+                                            <a class="badge badge-primary" href="{{ route('chartOfAccount.edit',$coaAcc->COACode) }}">Edit</a>
+
+                                            @csrf
+                                            <!-- @@method('DELETE') -->
+
+                                            <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+                                        <!--</form>-->
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /dataTable -->
                     <!-- /contect -->
 
                 </div>
