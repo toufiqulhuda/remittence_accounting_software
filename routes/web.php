@@ -112,4 +112,5 @@ Route::resource('chartOfAccount', ChartOfAccountController::class);
   Transaction route
 *************************************/
 Route::get('transaction/account', [TransactionController::class,'accountTransactionCreate'])->name('transaction-account');
+Route::post('transaction/account/store', [TransactionController::class,'accountTransactionStore'])->name('transaction-account-store');
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');

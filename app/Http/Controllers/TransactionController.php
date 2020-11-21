@@ -14,11 +14,12 @@ class TransactionController extends Controller
     public function accountTransactionCreate()
     {
         $COA=ChartOfAccount::select('COACode','AccountName')->get();
+        //dd($COA);
         return view('pages.accountTransaction',compact('COA'));
     }
-    public function accountTransactionStore()
+    public function accountTransactionStore(Request $request)
     {
-
+        dd($request);
     }
     /*public function groupAccountEdit()
     {

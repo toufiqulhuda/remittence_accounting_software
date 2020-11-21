@@ -2,7 +2,7 @@
 
 @section('content')
 <SCRIPT language="javascript">
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         $(".add-row").click(function(){
 
             //var name = $("#name").val();
@@ -11,9 +11,7 @@
             var rowCount = table.rows.length;
             var accountCode = '<SELECT name="accountCode" class="form-control form-control-sm">'+
 
-                                    '{{ @foreach ($COA as $value ) }}'+
-                                        '<option value="{{ $value->COACode }}">{{ $value->AccountName }}</option>'+
-                                    '{{ @endforeach}}'+
+
                                 '</SELECT>';
             var Particulars ='<INPUT class="form-control form-control-sm" type="text" name="Particulars"/>';
             var Debit='<INPUT class="form-control form-control-sm text-right" type="text" name="DrAmt" placeholder="0.000"/>';
@@ -42,8 +40,8 @@
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-    });
-    /*function addRow(tableID) {
+    });*/
+    function addRow(tableID) {
 
         var table = document.getElementById(tableID);
 
@@ -74,28 +72,26 @@
 
     function deleteRow(tableID) {
         try {
-        var table = document.getElementById(tableID);
-        var rowCount = table.rows.length;
+            var table = document.getElementById(tableID);
+            var rowCount = table.rows.length;
 
-        for(var i=0; i<rowCount; i++) {
-            var row = table.rows[i];
-            var chkbox = row.cells[0].childNodes[0];
-            if(null != chkbox && true == chkbox.checked) {
-                if(rowCount <= 1) {
-                    alert("Cannot delete all the rows.");
-                    break;
+            for(var i=0; i<rowCount; i++) {
+                var row = table.rows[i];
+                var chkbox = row.cells[0].childNodes[0];
+                if(null != chkbox && true == chkbox.checked) {
+                    if(rowCount <= 2) {
+                        alert("Cannot delete all the rows.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
                 }
-                table.deleteRow(i);
-                rowCount--;
-                i--;
             }
-
-
-        }
         }catch(e) {
             alert(e);
         }
-    }*/
+    }
 
 </SCRIPT>
 <style rel="stylesheet">
@@ -165,10 +161,10 @@
                     <!-- / sidebar menu-->
                     <!-- content -->
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('transaction-account-store') }}">
                             @csrf
                             @method('POST')
-                            <div class="col-md-10 p-1 float-left" >
+                            <div class="col-md-12 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
                                         <div class="form-group row">
@@ -202,48 +198,56 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-10 p-1 float-left" >
+                            <div class="col-md-12 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
 
-                                        <button type="button" class="add-row mb-3 btn-sm" value="Add Row" data-toggle="tooltip" data-placement="top" title="Add Row"><i class="fas fa-plus-circle"></i></button>
-                                        <button type="button" class="delete-row mb-3 btn-sm" value="Delete Row" data-toggle="tooltip" data-placement="top" title="Delete Row"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" class="add-row mb-3 btn-sm" value="Add Row" data-toggle="tooltip" data-placement="top" title="Add Row" onclick="addRow('accTrxTblBody');"><i class="fas fa-plus-circle"></i></button>
+                                        <button type="button" class="delete-row mb-3 btn-sm" value="Delete Row" data-toggle="tooltip" data-placement="top" title="Delete Row" onclick="deleteRow('accTrxTblBody');"><i class="fas fa-trash-alt"></i></button>
                                         <div class="table-responsive">
                                             <table id="accTrxTbl" class="table table-bordered table-sm">
                                                 <thead>
-                                                  <tr>
-                                                    <th></th>
-                                                    <th>VrNo</th>
-                                                    <th>Account Code</th>
-                                                    <th>Particulars</th>
-                                                    <th>Debit</th>
-                                                    <th>Credit</th>
+                                                  <tr >
+                                                    <th class="w-5"></th>
+                                                    <th class="w-5">VrNo</th>
+                                                    <th class="w-35">Account Code</th>
+                                                    <th class="w-35">Particulars</th>
+                                                    <th class="w-10">Debit</th>
+                                                    <th class="w-10">Credit</th>
                                                   </tr>
                                                 </thead>
-                                                <tbody>
-                                                  {{-- <tr>
-                                                    <td><input type="checkbox" name="record"></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <SELECT name="country">
-                                                            <OPTION value="in">India</OPTION>
-                                                            <OPTION value="de">Germany</OPTION>
-                                                            <OPTION value="fr">France</OPTION>
-                                                            <OPTION value="us">United States</OPTION>
-                                                            <OPTION value="ch">Switzerland</OPTION>
+                                                <tbody id="accTrxTblBody">
+                                                  <tr >
+                                                    <td ><input type="checkbox"  name="chk"></td>
+                                                    <td >1</td>
+                                                    <td >
+                                                        <SELECT name="accountCode[]" class="form-control form-control-sm" required>
+                                                            @foreach ($COA as $key => $value)
+                                                                <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
+                                                            @endforeach
                                                         </SELECT>
                                                     </td>
-                                                    <td><INPUT type="text" name="txt2"/></td>
-                                                    <td><INPUT type="text" name="txt3"/></td>
-                                                    <td><INPUT type="text" name="txt4"/></td>
-                                                  </tr> --}}
+                                                    <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
+                                                    <td ><INPUT class="form-control form-control-sm text-right" type="text" name="DrAmt[]" placeholder="0.00"/></td>
+                                                    <td ><INPUT class="form-control form-control-sm text-right" type="text" name="CrAmt[]" placeholder="0.00"/></td>
+                                                  </tr>
                                                 </tbody>
+                                                    <tr >
+                                                        <!--<td class="w-5"></td>
+                                                        <td class="w-5"></td>
+                                                        <td class="w-35"> </td>-->
+                                                        <td class="w-35 text-right"colspan="4">Total Sum : </td>
+                                                        <td class="w-10 text-right"><div>0.00</div></td>
+                                                        <td class="w-10 text-right"><div>0.00</div></td>
+                                                    </tr>
+                                                <tfoot>
+                                                </tfoot>
                                               </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-10 p-1 float-left" >
+                            <div class="col-md-12 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
                                         <div class="col-md-10 offset-md-2">
