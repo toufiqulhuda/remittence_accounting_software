@@ -14,9 +14,9 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            //$table->bigIncrements('id');
             $table->integer('VoucherNo');
-            $table->datetime('VoucherDate');
+            $table->date('VoucherDate');
             $table->string('ExHouseID',11);
             $table->string('Particulars',500)->nullable();
             $table->string('COACode',8);
@@ -32,8 +32,14 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('AuthorizeBy')->nullable();
             $table->timestamp('AuthorizeDate')->nullable();
             $table->rememberToken();
-            //$table->primary(['VoucherNo', 'VoucherDate','ExHouseID']);
+            $table->primary(['VoucherNo', 'VoucherDate','ExHouseID']);
+
         });
+
+        // Schema::table('transactions', function($table)
+        // {
+        //     $table->primary(array('VoucherNo', 'VoucherDate','ExHouseID'));
+        // });
     }
 
     /**

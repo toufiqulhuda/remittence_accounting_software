@@ -93,6 +93,52 @@
         }
     }
 
+    window.onload=function(){
+        var x = document.getElementById("DrAmt");
+        //x.addEventListener("focusin", myFocusFunction);
+        //alert(x);
+        if(x){
+            x.addEventListener("blur", rankPlayers);
+        }
+    }
+    function rankPlayers(){
+            var table=document.getElementById("accTrxTblBody");
+            //alert(table.rows.length);
+            for(var i=0; i<table.rows.length;i++){
+
+                console.log(table.rows[i].cells[4].children[0].value);
+            }
+    }
+    // function myFocusFunction() {
+    // document.getElementById("myInput").style.backgroundColor = "yellow";
+    // }
+
+    // function myBlurFunction() {
+    // document.getElementById("myInput").style.backgroundColor = "";
+    // }
+    function drsum(){
+        try{
+            const  DrAmt= parseInt(document.getElementById('DrAmt').value);
+            const  totalDR = parseInt(document.getElementById('totalDR').value);
+            const sum = totalDR+DrAmt;
+            document.getElementById('totalDR').value=sum;
+            alert(totalDR+DrAmt);
+
+        }
+        catch(e){
+            alert(e)
+        }
+
+    }
+    function crsum(crid){
+        try{
+
+        }
+        catch(e){
+            alert(e)
+        }
+    }
+
 </SCRIPT>
 <style rel="stylesheet">
 
@@ -171,7 +217,7 @@
 
                                                     <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
-                                                        <select id="TnxType" class="form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
+                                                        <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
 
                                                             <option value="T">Transfer</option>
                                                             <option value="C">Cash</option>
@@ -185,7 +231,7 @@
                                                     </div>
                                                     <label for="voucherDate" class="col-md-2 col-form-label text-md-left">{{ __('Voucher Date') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
-                                                        <input id="voucherDate" type="datetime-local" class="form-control input-sm @error('voucherDate') is-invalid @enderror" voucherDate="voucherDate" value="{{ old('voucherDate') }}" required autocomplete="voucherDate" autofocus>
+                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ $vrDate->TnxDate }}" disabled autocomplete="voucherDate" autofocus>
                                                         @error('voucherDate')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -217,28 +263,39 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody id="accTrxTblBody">
-                                                  <tr >
-                                                    <td ><input type="checkbox"  name="chk"></td>
-                                                    <td >1</td>
-                                                    <td >
-                                                        <SELECT name="accountCode[]" class="form-control form-control-sm" required>
-                                                            @foreach ($COA as $key => $value)
-                                                                <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
-                                                            @endforeach
-                                                        </SELECT>
-                                                    </td>
-                                                    <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
-                                                    <td ><INPUT class="form-control form-control-sm text-right" type="text" name="DrAmt[]" placeholder="0.00"/></td>
-                                                    <td ><INPUT class="form-control form-control-sm text-right" type="text" name="CrAmt[]" placeholder="0.00"/></td>
-                                                  </tr>
+                                                    <tr >
+                                                        <td ><input type="checkbox"  name="chk"></td>
+                                                        <td >1</td>
+                                                        <td >
+                                                            <SELECT name="accountCode[]" class="form-control form-control-sm" required>
+                                                                @foreach ($COA as $key => $value)
+                                                                    <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
+                                                                @endforeach
+                                                            </SELECT>
+                                                        </td>
+                                                        <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value="0.00"  placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="0.00" placeholder="0.00"/></td>
+                                                    </tr>
+                                                    <tr >
+                                                        <td ><input type="checkbox"  name="chk"></td>
+                                                        <td >1</td>
+                                                        <td >
+                                                            <SELECT name="accountCode[]" class="form-control form-control-sm" required>
+                                                                @foreach ($COA as $key => $value)
+                                                                    <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
+                                                                @endforeach
+                                                            </SELECT>
+                                                        </td>
+                                                        <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value="0.00"  placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="0.00" placeholder="0.00"/></td>
+                                                    </tr>
                                                 </tbody>
                                                     <tr >
-                                                        <!--<td class="w-5"></td>
-                                                        <td class="w-5"></td>
-                                                        <td class="w-35"> </td>-->
-                                                        <td class="w-35 text-right"colspan="4">Total Sum : </td>
-                                                        <td class="w-10 text-right"><div>0.00</div></td>
-                                                        <td class="w-10 text-right"><div>0.00</div></td>
+                                                        <th class="w-35 text-right"colspan="4">Total Sum : </th>
+                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right" type="text" id="totalDR" value="0.00" readonly placeholder="0.00"/></th>
+                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right" type="text" id="totalCR" value="0.00" readonly placeholder="0.00"/></th>
                                                     </tr>
                                                 <tfoot>
                                                 </tfoot>

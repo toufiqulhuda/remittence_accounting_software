@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
+    use PasswordValidationRules;
     public function index()
     {
 
@@ -56,7 +56,7 @@ class UserController extends Controller
             'exHouse' => 'required|string|max:11',
             'role' => 'required|integer',
             'username' => 'required|unique:users|string|max:20',
-            'password' => 'required|min:6|string|confirmed', //regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|
+            'password' => $this->passwordRules(),//'required|min:6|string|confirmed', //regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|
             'password_confirmation' => 'required|same:password',
         ];
         $validator = Validator::make($request->all(),$rules);
