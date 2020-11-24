@@ -564,8 +564,8 @@ p:last-child{
     background-color:#f7fafd;
     -webkit-transition:.5s;
     transition:.5s;
-    padding-top:20px;
-    padding-bottom:20px
+    padding-top:10px;
+    padding-bottom:10px
 }
 .navbar-area.is-sticky{
     position:fixed;

@@ -59,7 +59,7 @@ Route::get('/', function () {
 
 
 
-Route::view('home','home')->name('home');
+Route::view('home','home')->name('home')->middleware(['auth']);
 /************************************
   User route
 *************************************/
@@ -111,6 +111,7 @@ Route::resource('chartOfAccount', ChartOfAccountController::class);
 /************************************
   Transaction route
 *************************************/
+//Route::resource('transactions', TransactionController::class);
 Route::get('transaction/account', [TransactionController::class,'accountTransactionCreate'])->name('transaction-account');
 Route::post('transaction/account/store', [TransactionController::class,'accountTransactionStore'])->name('transaction-account-store');
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
