@@ -316,53 +316,7 @@
                             </div>
                         </form>
                         <!-- dataTable -->
-                        {{-- &nbsp;<hr>&nbsp;
-                        <div class="table-responsive">
-                            <table id="roleTable" class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Role Name</th>
-                                        <th>Created By</th>
-                                        <th>Create Date</th>
-                                        <th>Updated By</th>
-                                        <th>Updated Date</th>
-                                        <th>Active</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @if(isset($roles))
-                                @foreach ($roles as $role)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $role->role_name }}</td>
-                                    <td>{{ $role->CreatedBy }}</td>
-                                    <td>{{ $role->created_at }}</td>
-                                    <td>{{ $role->UpdatedBy }}</td>
-                                    <td>{{ $role->updated_at }}</td>
-                                    <td>
-                                        <input type="checkbox"  name="isactive" id="isactive-{{$role->roleid}}" value="{{ $role->isactive }}"
-                                        {{ ($role->isactive)? ' checked': '' }}
-                                        onclick="changeStatus(event.target, {{ $role->roleid }});">
-                                    </td>
-                                    <td>
-                                        <!--<form action="" method="POST">-->
-                                            <a class="badge badge-primary" href="{{ route('roles.edit',$role->roleid) }}">Edit</a>
 
-                                            @csrf
-                                            <!-- @@method('DELETE') -->
-
-                                            <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
-                                        <!--</form>-->
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /dataTable --> --}}
                     <!-- /contect -->
 
                 </div>
