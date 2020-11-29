@@ -13,7 +13,7 @@ class Transactions extends Model
     protected $fillable = [
         'VoucherNo','VoucherDate','ExHouseID','Particulars','COACode','TnxType','DrAmt','CrAmt','Status',
         'IsFT','VrSlNo','IsPrintable',
-        'CreatedBy','created_at','AuthorizeBy','AuthorizeDate',
+        'CreatedBy','created_at','AuthorizeBy','AuthorizeDate','CancelBy','CancelDate',
     ];
     protected $hidden = [
         'remember_token',

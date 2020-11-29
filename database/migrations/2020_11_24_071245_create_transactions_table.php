@@ -31,6 +31,8 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->bigInteger('AuthorizeBy')->nullable();
             $table->timestamp('AuthorizeDate')->nullable();
+            $table->bigInteger('CancelBy')->nullable();
+            $table->timestamp('CancelDate')->nullable();
             $table->rememberToken();
             $table->primary(['VoucherNo', 'VoucherDate','ExHouseID']);
 

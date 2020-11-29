@@ -110,7 +110,18 @@ class TransactionController extends Controller
     ***********************************/
     public function reverseTransactionCreate()
     {
-        return view('pages.reverseTransaction');
+//dd(Auth::user()->ExHouseID);
+        $tnxs = DB::table('transactions AS t')
+                        ->select('t.VoucherNo','t.VoucherDate','t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
+                        ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->leftJoin('exhouse AS ex','ex.ExHouseID','=','t.ExHouseID')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=','0650020001')
+                        ->where('t.VoucherDate','=','2020-11-29')
+                        ->paginate(5);
+//dd($tnxs);
+        return view('pages.reverseTransaction',compact('tnxs'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function reverseTransactionStore()
     {
