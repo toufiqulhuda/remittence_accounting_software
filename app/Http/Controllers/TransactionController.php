@@ -116,16 +116,28 @@ class TransactionController extends Controller
                         ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
                         ->leftJoin('exhouse AS ex','ex.ExHouseID','=','t.ExHouseID')
                         ->where('t.STATUS','=','1')
-                        ->where('t.ExHouseID','=','0650020001')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->where('t.VoucherDate','=','2020-11-29')
                         ->paginate(5);
 //dd($tnxs);
         return view('pages.reverseTransaction',compact('tnxs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    public function reverseTransactionStore()
+    public function transactionDelete(Request $request)
     {
 
+        $checkedVrNo = $request->chk;
+        //dd($checkedVrNo);
+        Transactions::whereIn('VoucherNo',$checkedVrNo)
+                    ->where('ExHouseID','0650020001')
+                    ->where('VoucherDate','2020-11-29')
+                    ->update([
+                        'Status'=>3,
+                        'CancelBy'=>Auth::user()->user_id,
+                        'CancelDate'=>Carbon::now(),
+                    ]);
+        return redirect()->route('transaction-reverse')
+                        ->with('status','Transaction(s) deleted successfully.');
     }
     /*public function subGroupAccountEdit()
     {

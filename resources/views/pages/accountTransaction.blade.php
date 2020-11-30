@@ -2,45 +2,12 @@
 
 @section('content')
 <SCRIPT language="javascript">
-    /*$(document).ready(function(){
-        $(".add-row").click(function(){
-
-            //var name = $("#name").val();
-            //var email = $("#email").val();
-            var table = document.getElementById('accTrxTbl');
-            var rowCount = table.rows.length;
-            var accountCode = '<SELECT name="accountCode" class="form-control form-control-sm">'+
-
-
-                                '</SELECT>';
-            var Particulars ='<INPUT class="form-control form-control-sm" type="text" name="Particulars"/>';
-            var Debit='<INPUT class="form-control form-control-sm text-right" type="text" name="DrAmt" placeholder="0.000"/>';
-            var Credit='<INPUT class="form-control form-control-sm text-right" type="text" name="CrAmt" placeholder="0.000"/>';
-            var markup = "<tr>"+
-                                "<td><input type='checkbox' name='record'></td>"+
-                                "<td>"+rowCount++ +"</td>"+
-                                '<td>' +accountCode+ '</td>'+
-                                '<td>' +Particulars+ '</td>'+
-                                '<td>' +Debit+'</td>'+
-                                '<td>' +Credit+ '</td>'+
-                         "</tr>";
-
-            $("table tbody").append(markup);
-
-        });
-
-        // Find and remove selected table rows
-        $(".delete-row").click(function(){
-            $("table tbody").find('input[name="record"]').each(function(){
-            	if($(this).is(":checked")){
-                    $(this).parents("tr").remove();
-                }
-            });
-        });
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });*/
+    function fromSubmit(form){
+        if(!confirm("Do you really want to do this?")) {
+            return false;
+        }
+        this.form.submit();
+    }
     function addRow(tableID) {
 
         var table = document.getElementById(tableID);
@@ -207,7 +174,7 @@
                     <!-- / sidebar menu-->
                     <!-- content -->
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
-                        <form method="POST" action="{{ route('transaction-account-store') }}">
+                        <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('transaction-account-store') }}" >
                             @csrf
                             @method('POST')
                             <div class="col-md-12 p-1 float-left" >
