@@ -1,11 +1,39 @@
 @extends('layouts.withHF')
 
 @section('content')
+<!-- datatable js -->
+<script src="{{ asset('assets/DataTable/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.flash.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/jszip.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/pdfmake.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/vfs_fonts.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.html5.min.js')}}"></script>
+<script src="{{ asset('assets/DataTable/js/buttons.print.min.js')}}"></script>
+<!-- datatable css -->
+<link href="{{ asset('assets/DataTable/css/jquery.dataTables.min.css')}}" rel=stylesheet>
+<link href="{{ asset('assets/DataTable/css/buttons.dataTables.min.css')}}" rel=stylesheet>
 <SCRIPT language="javascript">
+    $(document).ready(function() {
+        $('#accTrxRevTbl').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+
+    } );
     function fromSubmit(form){
+        var countChk = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        if (countChk == 0){
+            alert("Please select transaction to delete.");
+            return false;
+        }
+
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
+
         this.form.submit();
     }
     function addRow(tableID) {
@@ -182,7 +210,7 @@
                                     <div class="card-body">
 
                                         <div class="table-responsive">
-                                            <table id="accTrxTbl" class="table table-bordered table-sm">
+                                            <table id="accTrxRevTbl" class="table table-bordered table-sm">
                                                 <thead>
                                                   <tr >
                                                     <th class="w-5"></th>
@@ -213,14 +241,15 @@
                                                     @endforeach
                                                     @endif
                                                 </tbody>
+                                                {{-- <tfoot>
                                                     <tr >
                                                         <th class="w-35 text-right"colspan="7">Total Sum : </th>
                                                         <th class="w-10 text-right">0.00</th>
                                                         <th class="w-10 text-right">0.00</th>
                                                     </tr>
-                                                <tfoot>
-                                                </tfoot>
+                                                </tfoot> --}}
                                               </table>
+                                              {{-- {!! $tnxs->links() !!} --}}
                                         </div>
                                     </div>
                                 </div>

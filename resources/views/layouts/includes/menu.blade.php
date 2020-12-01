@@ -4,7 +4,7 @@
         <a id="transactionDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transaction</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="TransactionDropdown">
             <a class="dropdown-item" href="{{ url('/transaction/account') }}">Account Transaction</a>
-            <a class="dropdown-item" href="{{ url('/transaction/delete') }}">Reverse Transaction</a>
+            <a class="dropdown-item" href="{{ url('/transaction/reverse') }}">Reverse Transaction</a>
         </div>
     </li>
     <li class="nav-item dropdown">

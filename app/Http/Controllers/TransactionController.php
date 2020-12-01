@@ -48,8 +48,8 @@ class TransactionController extends Controller
                 $Tnx = new Transactions;
                 $Particulars = !empty($data['Particulars']) ? $data['Particulars'] : '';
                 $COACode = !empty($data['accountCode']) ? $data['accountCode'] : '';
-                $DrAmt = !empty($data['DrAmt']) ? $data['DrAmt'] : '';
-                $CrAmt = !empty($data['CrAmt']) ? $data['CrAmt'] : '';
+                $DrAmt = !empty($data['DrAmt']) ? $data['DrAmt'] : '0.00';
+                $CrAmt = !empty($data['CrAmt']) ? $data['CrAmt'] : '0.00';
                 $TnxType = !empty($data['TnxType']) ? $data['TnxType'] : '';
                 $VrNo = $VoucherNo['VoucherNo'];
                 $VrDate=$VoucherDate['TnxDate'];
@@ -72,8 +72,8 @@ class TransactionController extends Controller
                         //dd($Particulars[$i]);
                         'Particulars' => $Particulars[$i],
                         'COACode' => $COACode[$i],
-                        'DrAmt' => $DrAmt[$i],
-                        'CrAmt' => $CrAmt[$i],
+                        'DrAmt' => !empty($DrAmt[$i]) ? $DrAmt[$i] : "0.00",
+                        'CrAmt' => !empty($CrAmt[$i]) ? $CrAmt[$i] : "0.00",
                         'Status' => '1',
 
                         'CreatedBy' => $AuthUser->user_id,
@@ -118,10 +118,10 @@ class TransactionController extends Controller
                         ->where('t.STATUS','=','1')
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->where('t.VoucherDate','=','2020-11-29')
-                        ->paginate(5);
+                        ->get();
 //dd($tnxs);
-        return view('pages.reverseTransaction',compact('tnxs'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('pages.reverseTransaction',compact('tnxs'));
+            //->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function transactionDelete(Request $request)
     {

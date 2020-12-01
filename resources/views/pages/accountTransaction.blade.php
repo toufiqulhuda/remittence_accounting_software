@@ -3,6 +3,19 @@
 @section('content')
 <SCRIPT language="javascript">
     function fromSubmit(form){
+        var table=document.getElementById("accTrxTblBody");
+        var DrAmt = parseFloat(0); var CrAmt = parseFloat(0);
+        for(var i=0; i<table.rows.length;i++){
+            var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
+            var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
+            DrAmt += Dr;CrAmt += Cr;
+        }
+        document.getElementById('totalDR').value=DrAmt.toFixed(2);
+        document.getElementById('totalCR').value=CrAmt.toFixed(2);
+        if(DrAmt!=CrAmt){
+            alert("Debit and Credit amount should be equal!");
+            return false;
+        }
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
@@ -57,52 +70,6 @@
             }
         }catch(e) {
             alert(e);
-        }
-    }
-
-    window.onload=function(){
-        var x = document.getElementById("DrAmt");
-        //x.addEventListener("focusin", myFocusFunction);
-        //alert(x);
-        if(x){
-            x.addEventListener("blur", rankPlayers);
-        }
-    }
-    function rankPlayers(){
-            var table=document.getElementById("accTrxTblBody");
-            //alert(table.rows.length);
-            for(var i=0; i<table.rows.length;i++){
-
-                console.log(table.rows[i].cells[4].children[0].value);
-            }
-    }
-    // function myFocusFunction() {
-    // document.getElementById("myInput").style.backgroundColor = "yellow";
-    // }
-
-    // function myBlurFunction() {
-    // document.getElementById("myInput").style.backgroundColor = "";
-    // }
-    function drsum(){
-        try{
-            const  DrAmt= parseInt(document.getElementById('DrAmt').value);
-            const  totalDR = parseInt(document.getElementById('totalDR').value);
-            const sum = totalDR+DrAmt;
-            document.getElementById('totalDR').value=sum;
-            alert(totalDR+DrAmt);
-
-        }
-        catch(e){
-            alert(e)
-        }
-
-    }
-    function crsum(crid){
-        try{
-
-        }
-        catch(e){
-            alert(e)
         }
     }
 
@@ -241,8 +208,8 @@
                                                             </SELECT>
                                                         </td>
                                                         <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value="0.00"  placeholder="0.00"/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="0.00" placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
                                                     </tr>
                                                     <tr >
                                                         <td ><input type="checkbox"  name="chk"></td>
@@ -261,8 +228,8 @@
                                                 </tbody>
                                                     <tr >
                                                         <th class="w-35 text-right"colspan="4">Total Sum : </th>
-                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right" type="text" id="totalDR" value="0.00" readonly placeholder="0.00"/></th>
-                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right" type="text" id="totalCR" value="0.00" readonly placeholder="0.00"/></th>
+                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right font-weight-bold" type="text" id="totalDR" value="0.00" readonly placeholder="0.00"/></th>
+                                                        <th class="w-10 text-right"><input class="form-control form-control-sm text-right font-weight-bold" type="text" id="totalCR" value="0.00" readonly placeholder="0.00"/></th>
                                                     </tr>
                                                 <tfoot>
                                                 </tfoot>
