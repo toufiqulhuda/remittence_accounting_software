@@ -4,6 +4,7 @@
 <SCRIPT language="javascript">
     function fromSubmit(form){
         var table=document.getElementById("accTrxTblBody");
+        var VrDate=document.getElementById("voucherDate").value;
         var DrAmt = parseFloat(0); var CrAmt = parseFloat(0);
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
@@ -12,6 +13,10 @@
         }
         document.getElementById('totalDR').value=DrAmt.toFixed(2);
         document.getElementById('totalCR').value=CrAmt.toFixed(2);
+        if(VrDate== ""){
+            alert("Voucher Date should not be blank!");
+            return false;
+        }
         if(DrAmt!=CrAmt){
             alert("Debit and Credit amount should be equal!");
             return false;
@@ -165,7 +170,7 @@
                                                     </div>
                                                     <label for="voucherDate" class="col-md-2 col-form-label text-md-left">{{ __('Voucher Date') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
-                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ $vrDate->TnxDate }}" disabled autocomplete="voucherDate" autofocus>
+                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ ($vrDate->TnxDate)?$vrDate->TnxDate:'' }}" disabled autocomplete="voucherDate" autofocus>
                                                         @error('voucherDate')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
