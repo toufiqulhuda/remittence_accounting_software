@@ -170,7 +170,7 @@
                                                     </div>
                                                     <label for="voucherDate" class="col-md-2 col-form-label text-md-left">{{ __('Voucher Date') }}&nbsp;<span class="mandatory">*</span></label>
                                                     <div class="col-md-4">
-                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ ($vrDate->TnxDate)?$vrDate->TnxDate:'' }}" disabled autocomplete="voucherDate" autofocus>
+                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ isset($vrDate->TnxDate)?$vrDate->TnxDate:'' }}" disabled autocomplete="voucherDate" autofocus>
                                                         @error('voucherDate')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
