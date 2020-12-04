@@ -216,7 +216,9 @@
                             @endif
                             </tbody>
                         </table>
-
+                        <div class="d-flex justify-content-center">
+                            {!! $currencies->links() !!}
+                        </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

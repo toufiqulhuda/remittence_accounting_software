@@ -244,6 +244,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-center">
+                            {!! $coaAccs->links() !!}
+                        </div>
                         <!-- /dataTable -->
                     <!-- /contect -->
 

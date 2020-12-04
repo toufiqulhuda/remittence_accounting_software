@@ -251,6 +251,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="d-flex justify-content-center">
+                        {!! $exhouses->links() !!}
+                    </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

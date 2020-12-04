@@ -238,9 +238,10 @@
                                 @endif
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-center">
-                                {!! $subGrpAccs->links() !!}
-                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            {!! $subGrpAccs->links() !!}
                         </div>
 
                         <!-- /dataTable -->

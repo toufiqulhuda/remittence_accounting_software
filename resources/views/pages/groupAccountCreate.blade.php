@@ -212,6 +212,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-center">
+                            {!! $grpAccs->links() !!}
+                        </div>
                         <!-- /dataTable -->
                     <!-- /contect -->
 

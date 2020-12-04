@@ -230,7 +230,9 @@
                             @endif
                             </tbody>
                         </table>
-
+                        <div class="d-flex justify-content-center">
+                            {!! $countries->links() !!}
+                        </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 

@@ -286,6 +286,9 @@
                         </table>
                         {{-- {!! $users->links() !!} --}}
                     </div>
+                    <div class="d-flex justify-content-center">
+                        {!! $users->links() !!}
+                    </div>
                     <!-- /dataTable -->
                     <!-- /contect -->
 
