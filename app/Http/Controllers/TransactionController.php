@@ -111,26 +111,28 @@ class TransactionController extends Controller
     public function reverseTransactionCreate()
     {
 //dd(Auth::user()->ExHouseID);
+        $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
                         ->select('t.VoucherNo','t.VoucherDate','t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
                         ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
                         ->leftJoin('exhouse AS ex','ex.ExHouseID','=','t.ExHouseID')
                         ->where('t.STATUS','=','1')
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
-                        ->where('t.VoucherDate','=','2020-11-29')
-                        ->get();
+                        ->where('t.VoucherDate','=',$VoucherDate->TnxDate)
+                        ->paginate(5);
 //dd($tnxs);
-        return view('pages.reverseTransaction',compact('tnxs'));
-            //->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('pages.reverseTransaction',compact('tnxs'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function transactionDelete(Request $request)
     {
 
         $checkedVrNo = $request->chk;
         //dd($checkedVrNo);
+        $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
         Transactions::whereIn('VoucherNo',$checkedVrNo)
-                    ->where('ExHouseID','0650020001')
-                    ->where('VoucherDate','2020-11-29')
+                    ->where('ExHouseID',Auth::user()->ExHouseID)
+                    ->where('VoucherDate',$VoucherDate->TnxDate)
                     ->update([
                         'Status'=>3,
                         'CancelBy'=>Auth::user()->user_id,

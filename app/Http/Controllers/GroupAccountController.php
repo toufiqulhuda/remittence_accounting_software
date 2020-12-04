@@ -49,9 +49,12 @@ class GroupAccountController extends Controller
 			return redirect()->route('groupAccount.index')->withInput()->withErrors($validator);
 		}else{
             $data = $request->input();
-            $accGrMax = DB::select("SELECT LPAD(IFNULL(max(AccGrID),0)+1,2,0) AS  AccGrID FROM account_group_detail");
+            $accGrMax = DB::select("SELECT case when max(AccGrCode) IS NULL then CONCAT('".$data['accountHeadType']."',LPAD(IFNULL(max(AccGrCode),0)+1,2,0))
+                                    when max(AccGrCode) is NOT NULL then max(AccGrCode)+1
+                                    END AS  AccGrCode
+                                    FROM account_group_detail WHERE AccGrCode LIKE '".$data['accountHeadType']."%'");
             $accGrMaxArr =(array)$accGrMax[0];
-            $AccGrCode = $data['accountHeadType'].$accGrMaxArr['AccGrID'];
+            $AccGrCode = $accGrMaxArr['AccGrCode'];
             //dd($AccGrCode);
             try{
                 $authUser = Auth::user();

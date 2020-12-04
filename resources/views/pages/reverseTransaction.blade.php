@@ -26,7 +26,7 @@
     function fromSubmit(form){
         var countChk = document.querySelectorAll('input[type="checkbox"]:checked').length;
         if (countChk == 0){
-            alert("Please select transaction to delete.");
+            alert("Please select transaction(s) for delete.");
             return false;
         }
 
@@ -137,7 +137,7 @@
 </SCRIPT>
 <style rel="stylesheet">
 
-    #roleTable_wrapper .dt-button{
+    #accTrxRevTbl_wrapper .dt-button{
         color: #fff;
         background-color: #17a2b8;
         display: inline-block;
@@ -249,8 +249,9 @@
                                                     </tr>
                                                 </tfoot> --}}
                                               </table>
-                                              {{-- {!! $tnxs->links() !!} --}}
+
                                         </div>
+                                        <div class="d-flex justify-content-center">{!! $tnxs->links() !!}</div>
                                     </div>
                                 </div>
                             </div>

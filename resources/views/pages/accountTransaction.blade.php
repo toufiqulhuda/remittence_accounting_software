@@ -195,8 +195,8 @@
                                                   <tr >
                                                     <th class="w-5"></th>
                                                     <th class="w-5">VrNo</th>
-                                                    <th class="w-35">Account Code</th>
-                                                    <th class="w-35">Particulars</th>
+                                                    <th class="w-30">Account Code</th>
+                                                    <th class="w-40">Particulars</th>
                                                     <th class="w-10">Debit</th>
                                                     <th class="w-10">Credit</th>
                                                   </tr>

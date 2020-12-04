@@ -25,6 +25,7 @@ class SubGroupAccountController extends Controller
                                 ->leftJoin('account_group_detail AS ag', 'asg.AccGrID', '=', 'ag.AccGrID')
                                 ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
                                 ->leftJoin('exhouse AS ex', 'asg.ExHouseID', '=', 'ex.ExHouseID')
+                                ->orderBy('asg.AccSbGrID','desc')
                                 ->paginate(5);
         return view('pages.subGroupAccountCreate',compact('accGroupType','exHouse','subGrpAccs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
