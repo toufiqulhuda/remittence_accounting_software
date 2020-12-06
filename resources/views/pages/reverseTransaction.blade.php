@@ -258,13 +258,15 @@
                             <div class="col-md-12 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
-                                        <div class="col-md-10 offset-md-2">
+                                        <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary"><i class="fas fa-trash-alt"></i>&nbsp;{{ __('Delete') }}</button>
                                             <button type="submit" class="btn btn-primary"><i class="fas fa-broom"></i>&nbsp;{{ __('Clear') }}</button>
+                                            <a class="btn btn-primary" href="{{ URL::to('/transaction/reverse-pdf') }}">Export to PDF</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                         <!-- dataTable -->
 

@@ -8,8 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    @include('layouts.head')
-    
+
+
 </head>
 <body>
 <div class=preloader>
@@ -19,9 +19,7 @@
     </div>
 </div>
     <div id="app">
-    @if (Auth::user())
-        @include('layouts.header')
-    @endif
+
         <main class="py-4" style="
             width: 100%;
             height: 100%;
@@ -34,11 +32,9 @@
             @yield('content')
 
         </main>
-       
-        @if (Auth::user())
-            @include('layouts.footer')
-        @endif
+
+
     </div>
-    
+
 </body>
 </html>

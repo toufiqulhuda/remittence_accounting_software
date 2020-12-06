@@ -115,4 +115,5 @@ Route::resource('chartOfAccount', ChartOfAccountController::class);
 Route::get('transaction/account', [TransactionController::class,'accountTransactionCreate'])->name('transaction-account');
 Route::post('transaction/account/store', [TransactionController::class,'accountTransactionStore'])->name('transaction-account-store');
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
+Route::get('transaction/reverse-pdf', [TransactionController::class,'createPDF'])->name('transaction-reverse-pdf');
 Route::post('transaction/delete', [TransactionController::class,'transactionDelete'])->name('transaction-delete');

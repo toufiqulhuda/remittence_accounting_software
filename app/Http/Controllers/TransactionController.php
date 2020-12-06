@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use PDF;
 class TransactionController extends Controller
 {
     /********************************
@@ -110,7 +110,7 @@ class TransactionController extends Controller
     ***********************************/
     public function reverseTransactionCreate()
     {
-//dd(Auth::user()->ExHouseID);
+
         $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
                         ->select('t.VoucherNo','t.VoucherDate','t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
@@ -120,7 +120,7 @@ class TransactionController extends Controller
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->where('t.VoucherDate','=',$VoucherDate->TnxDate)
                         ->paginate(5);
-//dd($tnxs);
+
         return view('pages.reverseTransaction',compact('tnxs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -128,7 +128,7 @@ class TransactionController extends Controller
     {
 
         $checkedVrNo = $request->chk;
-        //dd($checkedVrNo);
+
         $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
         Transactions::whereIn('VoucherNo',$checkedVrNo)
                     ->where('ExHouseID',Auth::user()->ExHouseID)
@@ -149,5 +149,28 @@ class TransactionController extends Controller
     {
 
     }*/
+
+    public function createPDF() {
+        // retreive all records from db
+        $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
+        $tnxs = DB::table('transactions AS t')
+                        ->select('t.VoucherNo','t.VoucherDate','t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
+                        ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->leftJoin('exhouse AS ex','ex.ExHouseID','=','t.ExHouseID')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->where('t.VoucherDate','=',$VoucherDate->TnxDate)
+                        ->get();
+        //dd($tnxs);
+        //$data = Employee::all();
+
+        // share data to view
+        //view()->share('pages.reverseTransaction',$tnxs);
+        //return view('pages.reverseTransaction-pdf',compact('tnxs'));
+        $pdf = PDF::loadView('pages.reverseTransaction-pdf',compact('tnxs') );
+
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
+      }
 
 }
