@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exhouse;
+use App\Models\AccountGroup;
 use App\Models\AccountSubGroup;
 use App\Models\ChartOfAccount;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use PDF;
 class ChartOfAccountController extends Controller
 {
 
@@ -108,5 +109,18 @@ class ChartOfAccountController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function createPDF(){
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+        $accMains = DB::table('account_main_head')->select('AccHdID','acctHdName')->get();
+        $accGrps = AccountGroup::select('AccGrID','AccGrCode','AccGrName','AccHdID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+        $accSbGrps = AccountSubGroup::select('AccSbGrID','AccSbGrCode','AccSbGrName','AccGrID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+        $accCOAs = ChartOfAccount::select('COACode','AccountName','AccSbGrID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+        //dd($accMains);
+        return view('reports.chartOfAccountPDF',compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs'));
+
+        //$pdf = PDF::loadView('pages.reverseTransaction-pdf',compact('tnxs') );
+        //return $pdf->download('ChartOfAccount.pdf');
+
     }
 }

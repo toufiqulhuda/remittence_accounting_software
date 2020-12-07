@@ -105,7 +105,8 @@ Route::resource('subGroupAccount', SubGroupAccountController::class);
 /************************************
   ChartOfAccount route
 *************************************/
-Route::resource('chartOfAccount', ChartOfAccountController::class);
+//Route::resource('chartOfAccount', ChartOfAccountController::class);
+Route::get('chartOfAccount/pdf', [ChartOfAccountController::class,'createPDF'])->name('chartOfAccount-pdf');
 //Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
 //Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
 /************************************
