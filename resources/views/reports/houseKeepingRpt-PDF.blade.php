@@ -4,30 +4,26 @@
 <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 <body>
-
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-<table id="coaAccTable" class="table table-bordered">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>COA Code</th>
-            <th>Account Name</th>
-            <th>SubGroup Name</th>
-            <th>Group Name</th>
-            <th>Account Head</th>
-            <th>Exchange Name</th>
-            <th>Created By</th>
-            <th>Create Date</th>
-            <th>Updated By</th>
-            <th>Updated Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-</table>
+@foreach ($exHouseDtls as $item)
+    <h3 style="text-align: center;">{{$item->ExHouseName}}</h3>
+    <p style="text-align: center;">{{$item->Address}}</p>
+@endforeach
+@if(isset($accMains))
+    @foreach ($accMains as $accMain)
+        <div style="font-weight: bold;text-align: center;">{{$accMain->acctHdName}}</div>
+        @foreach ($accGrps as $accGrp)
+            @if($accGrp->AccHdID==$accMain->AccHdID)
+                <table>
+                    <th>
+                        <td>Group Detail:</td>
+                        <td>{{$accGrp->AccGrCode}}</td>
+                        <td>{{$accGrp->AccGrName}}</td>
+                    </th>
+                </table>
+            @endif
+        @endforeach
+    @endforeach
+@endif
 
 </body>
 </html>

@@ -34,7 +34,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportsDropdown">
             <a class="dropdown-item" href="#"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
             <a class="dropdown-item" href="#"><i class="far fa-file-alt"></i>&nbsp;Reports As on Date</a>
-            <a class="dropdown-item" href="#"><i class="far fa-file-alt"></i>&nbsp;House Keeping Report</a>
+            <a class="dropdown-item" href="{{ url('/houseKeepingRpt/pdf') }}"><i class="far fa-file-alt"></i>&nbsp;House Keeping Report</a>
         </div>
     </li>
     <li class="nav-item dropdown">

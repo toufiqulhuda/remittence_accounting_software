@@ -11,6 +11,7 @@ use App\Http\Controllers\GroupAccountController;
 use App\Http\Controllers\SubGroupAccountController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReportsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -105,8 +106,7 @@ Route::resource('subGroupAccount', SubGroupAccountController::class);
 /************************************
   ChartOfAccount route
 *************************************/
-//Route::resource('chartOfAccount', ChartOfAccountController::class);
-Route::get('chartOfAccount/pdf', [ChartOfAccountController::class,'createPDF'])->name('chartOfAccount-pdf');
+Route::resource('chartOfAccount', ChartOfAccountController::class);
 //Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
 //Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
 /************************************
@@ -118,3 +118,7 @@ Route::post('transaction/account/store', [TransactionController::class,'accountT
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
 Route::get('transaction/reverse-pdf', [TransactionController::class,'createPDF'])->name('transaction-reverse-pdf');
 Route::post('transaction/delete', [TransactionController::class,'transactionDelete'])->name('transaction-delete');
+/************************************
+  Report route
+*************************************/
+Route::get('houseKeepingRpt/pdf', [ReportsController::class,'houseKeepingPDF'])->name('houseKeepingRpt-pdf');
