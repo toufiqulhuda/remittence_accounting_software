@@ -132,9 +132,9 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <label for="AccountName" class="col-md-3 col-form-label text-md-left">{{ __('New COA Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                            <label for="AccountName" class="col-md-2 col-form-label text-md-left">{{ __('New COA Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <input id="AccountName" type="text" class="form-control input-sm @error('AccountName') is-invalid @enderror" Name="AccountName" value="{{ old('AccountName') }}" required autocomplete="AccountName" autofocus>
 
                                                 @error('AccountName')

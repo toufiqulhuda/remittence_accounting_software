@@ -2,115 +2,81 @@
 <html>
 <head>
 <title>{{ config('app.name', 'Laravel') }}</title>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .exhouse-title{}
+    .exhouse-address{}
+    table{
+        width: 100%;
+        font-size: 9pt;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+    /* .grp-dtls th,.grp-dtls td { border: 1px solid red;} */
+    .sub-grp-dtls{
+        font-size: 8.5pt;
+    }
+
+</style>
 </head>
 <body>
 @foreach ($exHouseDtls as $item)
-    <h3 style="text-align: center;">{{$item->ExHouseName}}</h3>
-    <p style="text-align: center;">{{$item->Address}}</p>
+    <h3 style="text-align: center;font-size: 12pt">{{$item->ExHouseName}}</h3>
+    <p style="text-align: center;font-size: 8.5pt">{{$item->Address}}</p>
 @endforeach
 @if(isset($accMains))
     @foreach ($accMains as $accMain)
-        <div style="font-weight: bold;text-align: center;">{{$accMain->acctHdName}}</div>
-        @foreach ($accGrps as $accGrp)
-            @if($accGrp->AccHdID==$accMain->AccHdID)
-                <table>
-                    <th>
-                        <td>Group Detail:</td>
-                        <td>{{$accGrp->AccGrCode}}</td>
-                        <td>{{$accGrp->AccGrName}}</td>
-                    </th>
-                </table>
-            @endif
-        @endforeach
+        <div style="font-weight: bold;text-align: left; margin-left: 145px; font-size: 11.5pt">{{$accMain->acctHdName}}</div>
+            <table >
+            @foreach ($accGrps as $accGrp)
+                @if($accGrp->AccHdID==$accMain->AccHdID)
+                    
+                        <tr>
+                            <th style="width: 12%; text-align: left;">Group Detail:</th>
+                            <th style="width: 8%; text-align: left;">{{$accGrp->AccGrCode}}</th>
+                            <th style="width: 80%; text-align: left;">{{$accGrp->AccGrName}}</th>
+                        </tr>
+                        <tr >
+                            <td colspan="3">
+                                @foreach ($accSbGrps as $accSbGrp)
+                                    @if($accGrp->AccGrID==$accSbGrp->AccGrID)
+                                        <table >
+                                            <tr>
+                                                <td style="width: 12%; text-align: left; border-bottom: 1px solid #000;">Sub Detail:</td>
+                                                <td style="width: 8%; text-align: left; border-bottom: 1px solid #000;">{{$accSbGrp->AccSbGrCode}}</td>
+                                                <td style="width: 80%; text-align: left; border-bottom: 1px solid #000;">{{$accSbGrp->AccSbGrName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <table >
+                                                        @foreach ($accCOAs as $accCOA)
+                                                            @if($accSbGrp->AccSbGrID==$accCOA->AccSbGrID)
+                                                                <tr >
+                                                                    <td style="width: 10%; text-align: left;">{{$accCOA->COACode}}</td>
+                                                                    <td style="width: 90%; text-align: left;">{{$accCOA->AccountName}}</td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    </table>
+                                                <td>
+                                            </tr>
+                                        </table>
+                                    @endif
+                                    
+                                @endforeach
+                            </td>    
+                        </tr>
+                @endif
+
+            @endforeach
+            </table><br>
+            
+
     @endforeach
 @endif
 
 </body>
 </html>
-{{--
-@extends('layouts.withHF')
 
-@section('content')
-
-
-
-<style rel="stylesheet">
-
-    #coaAccTable_wrapper .dt-button{
-        color: #fff;
-        background-color: #17a2b8;
-        display: inline-block;
-        padding: 0.25em 0.4em;
-        font-size: 75%;
-        font-weight: 700;
-        line-height: 1;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: baseline;
-        border-radius: 0.25rem;
-        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    }
-</style>
-<div class="container">
-
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-
-            <div class="card">
-                <div class="card-header"><i class="far fa-plus-square"></i>&nbsp;{{ __('Add Chart Of Account') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        {{ session('status') }}
-                    </div>
-
-                    @elseif(session('failed'))
-                    <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        {{ session('failed') }}
-                    </div>
-                    @endif
-
-                        <div class="col-md-12 p-1 float-left" >
-                            <div class="card mb-3">
-                                <div class="card-body">
-
-                        <div class="table-responsive">
-                            <table id="coaAccTable" class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>COA Code</th>
-                                        <th>Account Name</th>
-                                        <th>SubGroup Name</th>
-                                        <th>Group Name</th>
-                                        <th>Account Head</th>
-                                        <th>Exchange Name</th>
-                                        <th>Created By</th>
-                                        <th>Create Date</th>
-                                        <th>Updated By</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- /dataTable -->
-                    <!-- /contect -->
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-@endsection --}}

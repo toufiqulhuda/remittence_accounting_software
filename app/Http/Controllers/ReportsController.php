@@ -19,10 +19,10 @@ class ReportsController extends Controller
         $accSbGrps = AccountSubGroup::select('AccSbGrID','AccSbGrCode','AccSbGrName','AccGrID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
         $accCOAs = ChartOfAccount::select('COACode','AccountName','AccSbGrID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
         //dd($accMains);
-        return view('reports.houseKeepingRpt-PDF',compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs'));
+        //return view('reports.houseKeepingRpt-PDF',compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs'));
 
-        //$pdf = PDF::loadView('reports.houseKeepingRpt-PDF',compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs') );
-        //return $pdf->download('ChartOfAccount-'.Auth::user()->ExHouseID.'.pdf');
+        $pdf = PDF::loadView('reports.houseKeepingRpt-PDF',compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs') );
+        return $pdf->download('ChartOfAccount-'.Auth::user()->ExHouseID.'.pdf');
 
     }
 }

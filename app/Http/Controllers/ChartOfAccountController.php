@@ -57,9 +57,11 @@ class ChartOfAccountController extends Controller
             $data = $request->input();
             $AccSubGrCode = AccountSubGroup::select('AccSbGrCode')->where('AccSbGrID',$data['subAccGroupType'])->get();
             $AccSubGrCodeData=$AccSubGrCode[0]->AccSbGrCode;
-            $accSbGrMax = DB::select("SELECT LPAD(IFNULL(max(COACode),0)+1,3,0) AS  COACode FROM chart_of_account WHERE COACode LIKE '".$AccSubGrCodeData."%'");
+            $accSbGrMax = DB::select("SELECT case when max(COACode) IS NULL then CONCAT('".$AccSubGrCodeData."',LPAD(IFNULL(max(COACode),0)+1,3,0))
+                                        when max(COACode) is NOT NULL then max(COACode)+1
+                                        END AS  COACode FROM chart_of_account WHERE COACode LIKE '".$AccSubGrCodeData."%'");
             $accSbGrMaxArr =(array)$accSbGrMax[0];
-            $coaCode = $AccSubGrCodeData.$accSbGrMaxArr['COACode'];
+            $coaCode = $accSbGrMaxArr['COACode'];
             //dd($coaCode);
             try{
                 $authUser = Auth::user();
@@ -109,5 +111,5 @@ class ChartOfAccountController extends Controller
     {
         //
     }
-    
+
 }
