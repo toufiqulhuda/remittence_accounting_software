@@ -22,17 +22,17 @@
 </style>
 </head>
 <body>
-@foreach ($exHouseDtls as $item)
-    <h3 style="text-align: center;font-size: 12pt">{{$item->ExHouseName}}</h3>
-    <p style="text-align: center;font-size: 8.5pt">{{$item->Address}}</p>
-@endforeach
+@if(isset($exHouseDtls))
+    <h3 style="text-align: center;font-size: 12pt">{{$exHouseDtls->ExHouseName}}</h3>
+    <p style="text-align: center;font-size: 8.5pt">{{$exHouseDtls->Address}}</p>
+@endif
 @if(isset($accMains))
     @foreach ($accMains as $accMain)
         <div style="font-weight: bold;text-align: left; margin-left: 145px; font-size: 11.5pt">{{$accMain->acctHdName}}</div>
             <table >
             @foreach ($accGrps as $accGrp)
                 @if($accGrp->AccHdID==$accMain->AccHdID)
-                    
+
                         <tr>
                             <th style="width: 12%; text-align: left;">Group Detail:</th>
                             <th style="width: 8%; text-align: left;">{{$accGrp->AccGrCode}}</th>
@@ -64,15 +64,15 @@
                                             </tr>
                                         </table>
                                     @endif
-                                    
+
                                 @endforeach
-                            </td>    
+                            </td>
                         </tr>
                 @endif
 
             @endforeach
             </table><br>
-            
+
 
     @endforeach
 @endif

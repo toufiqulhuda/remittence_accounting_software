@@ -32,8 +32,8 @@
     <li class="nav-item dropdown">
         <a id="reportsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt"></i>&nbsp;Reports</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportsDropdown">
-            <a class="dropdown-item" href="#"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
-            <a class="dropdown-item" href="#"><i class="far fa-file-alt"></i>&nbsp;Reports As on Date</a>
+        <a class="dropdown-item" href="{{ url('/todaysRpt')}}"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
+            <a class="dropdown-item" href="{{ url('/rptAsOnDate')}}"><i class="far fa-file-alt"></i>&nbsp;Reports As on Date</a>
             <a class="dropdown-item" href="{{ url('/houseKeepingRpt/pdf') }}"><i class="far fa-file-alt"></i>&nbsp;House Keeping Report</a>
         </div>
     </li>
