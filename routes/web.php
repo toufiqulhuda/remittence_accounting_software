@@ -124,5 +124,5 @@ Route::post('transaction/delete', [TransactionController::class,'transactionDele
 Route::get('houseKeepingRpt/pdf', [ReportsController::class,'houseKeepingPDF'])->name('houseKeepingRpt-pdf');
 Route::get('todaysRpt', [ReportsController::class,'todaysRptView'])->name('todaysRpt');
 Route::post('todaysRpt', [ReportsController::class,'todaysRpt'])->name('todaysRpt');
-Route::post('transactionJournalRptPDF', [ReportsController::class,'transactionJournalRptPDF'])->name('transactionJournalRptPDF');
+//Route::post('voucherPrintRptPDF', [ReportsController::class,'voucherPrintRpt'])->name('voucherPrintRptPDF');
 Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');

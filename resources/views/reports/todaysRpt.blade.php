@@ -1,14 +1,25 @@
 @extends('layouts.withHF')
 
 @section('content')
-<link href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
-<script src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+{{-- <link href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+<script src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> --}}
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script>
-$('.datepicker').datepicker({
-    format: 'mm/dd/yyyy',
-    startDate: '-3d'
+// $('.datepicker').datepicker({
+//     format: 'mm/dd/yyyy',
+//     startDate: '-3d'
+// });
+$( document ).ready(function() {
+    $("#account").prop('disabled', true);
 });
-
+function accountActiveInactive(r){
+    var reportName  = $('input[name="reportName"]:checked').val();
+    if(reportName=='accountTransactionSummeryRpt'){
+        $("#account").prop('disabled', false);
+    }else{
+        $("#account").prop('disabled', true);
+    }
+}
 </script>
 <style rel="stylesheet">
 
@@ -66,7 +77,7 @@ $('.datepicker').datepicker({
                                         <label for="frmDate" class="col-sm-2 col-form-label">Date &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
                                             {{-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> --}}
-                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy">
+                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
                                             @error('frmDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -76,12 +87,21 @@ $('.datepicker').datepicker({
                                         <label for="toDate" class="col-sm-1 col-form-label">To &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
                                             {{-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> --}}
-                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy">
+                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
                                             @error('toDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                        <label for="account" class="col-sm-2 col-form-label">Account &nbsp;<span class="mandatory">*</span></label>
+                                        <div class="col-sm-3">
+                                            <select id="account" class="custom-select form-control" name="account" required autofocus>
+                                                <option value="" >- Select a Account-</option>
+                                                @foreach ($COA as $key => $value)
+                                                    <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <fieldset class="form-group">
@@ -89,20 +109,38 @@ $('.datepicker').datepicker({
                                           <label class="col-form-label col-sm-2 pt-0">Select One &nbsp;<span class="mandatory">*</span></label>
                                           <div class="col-sm-10">
                                             <div class="form-check">
-                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios1" value="transactionJournalRpt" checked>
-                                              <label class="form-check-label" for="gridRadios1">
-                                                Transaction Journal
-                                              </label>
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios1" value="transactionJournalRpt" checked onclick="accountActiveInactive(this);">
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Transaction Journal
+                                                </label>
                                             </div>
                                             <div class="form-check">
-                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="profitLossStatementRpt">
-                                              <label class="form-check-label" for="gridRadios2">
-                                                Profit & Loss Statement
-                                              </label>
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="transactionJournalTransferRpt" onclick="accountActiveInactive(this);">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Transaction Journal Transfer
+                                                </label>
+                                              </div>
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="transactionJournalCashRpt" onclick="accountActiveInactive(this);">
+                                                <label class="form-check-label" for="gridRadios3">
+                                                    Transaction Journal Cash
+                                                </label>
+                                              </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="voucherPrintRpt" onclick="accountActiveInactive(this);">
+                                                <label class="form-check-label" for="gridRadios4">
+                                                    Voucher Print
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios5" value="profitLossStatementRpt" onclick="accountActiveInactive(this);">
+                                                <label class="form-check-label" for="gridRadios5">
+                                                    Profit & Loss Statement
+                                                </label>
                                             </div>
                                             <div class="form-check ">
-                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="accountTransactionSummeryRpt" >
-                                              <label class="form-check-label" for="gridRadios3">
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios6" value="accountTransactionSummeryRpt" onclick="accountActiveInactive(this);" >
+                                              <label class="form-check-label" for="gridRadios6">
                                                 Account Transaction Summery
                                               </label>
                                             </div>

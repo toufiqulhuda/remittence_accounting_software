@@ -88,7 +88,7 @@
         }
     }
 
-    window.onload=function(){
+    /*window.onload=function(){
         var x = document.getElementById("DrAmt");
         //x.addEventListener("focusin", myFocusFunction);
         //alert(x);
@@ -103,7 +103,7 @@
 
                 console.log(table.rows[i].cells[4].children[0].value);
             }
-    }
+    }*/
     // function myFocusFunction() {
     // document.getElementById("myInput").style.backgroundColor = "yellow";
     // }

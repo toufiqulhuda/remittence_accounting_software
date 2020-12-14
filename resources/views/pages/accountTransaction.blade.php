@@ -206,7 +206,7 @@
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td >1</td>
                                                         <td >
-                                                            <SELECT name="accountCode[]" class="form-control form-control-sm" required>
+                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus>
                                                                 @foreach ($COA as $key => $value)
                                                                     <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                                 @endforeach
@@ -220,7 +220,7 @@
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td >1</td>
                                                         <td >
-                                                            <SELECT name="accountCode[]" class="form-control form-control-sm" required>
+                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus>
                                                                 @foreach ($COA as $key => $value)
                                                                     <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                                 @endforeach
