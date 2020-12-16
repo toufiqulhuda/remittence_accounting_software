@@ -154,29 +154,29 @@
                                     <div class="card-body">
                                         <div class="form-group row">
 
-                                                    <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
-                                                    <div class="col-md-4">
-                                                        <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
+                                            <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
+                                            <div class="col-md-4">
+                                                <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
 
-                                                            <option value="T">Transfer</option>
-                                                            <option value="C">Cash</option>
+                                                    <option value="T">Transfer</option>
+                                                    <option value="C">Cash</option>
 
-                                                        </select>
-                                                        @error('TnxType')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                    <label for="voucherDate" class="col-md-2 col-form-label text-md-left">{{ __('Voucher Date') }}&nbsp;<span class="mandatory">*</span></label>
-                                                    <div class="col-md-4">
-                                                        <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ isset($vrDate->TnxDate)?$vrDate->TnxDate:'' }}" disabled autocomplete="voucherDate" autofocus>
-                                                        @error('voucherDate')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
+                                                </select>
+                                                @error('TnxType')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <label for="voucherDate" class="col-md-2 col-form-label text-md-left">{{ __('Voucher Date') }}&nbsp;<span class="mandatory">*</span></label>
+                                            <div class="col-md-4">
+                                                <input id="voucherDate" type="text" class="form-control input-sm @error('voucherDate') is-invalid @enderror" name="voucherDate" value="{{ isset($vrDate->TnxDate)?$vrDate->TnxDate:'' }}" disabled autocomplete="voucherDate" autofocus>
+                                                @error('voucherDate')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
 
                                         </div>
                                     </div>

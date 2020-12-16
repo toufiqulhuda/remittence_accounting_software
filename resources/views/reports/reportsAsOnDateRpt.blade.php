@@ -72,24 +72,30 @@
                                       </div>
                                     <fieldset class="form-group">
                                         <div class="row">
-                                          <legend class="col-form-label col-sm-2 pt-0">Select One &nbsp;<span class="mandatory">*</span></legend>
+                                          <label class="col-form-label col-sm-2 pt-0">Select One &nbsp;<span class="mandatory">*</span></label>
                                           <div class="col-sm-10">
                                             <div class="form-check">
-                                              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios1" value="trailBalanceRpt" checked>
                                               <label class="form-check-label" for="gridRadios1">
                                                 Trail Balance
                                               </label>
                                             </div>
                                             <div class="form-check">
-                                              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="dailyCashBookRpt">
                                               <label class="form-check-label" for="gridRadios2">
-                                                Statement Of Affairs (Detail)
+                                                Daily Cash Book
+                                              </label>
+                                            </div>
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="statementOfAffairsRpt">
+                                              <label class="form-check-label" for="gridRadios3">
+                                                Statement Of Affairs
                                               </label>
                                             </div>
                                             <div class="form-check ">
-                                              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" >
-                                              <label class="form-check-label" for="gridRadios3">
-                                                Statement Of Affairs
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="statementOfAffairsDetailRpt" >
+                                              <label class="form-check-label" for="gridRadios4">
+                                                Statement Of Affairs (Detail)
                                               </label>
                                             </div>
                                           </div>

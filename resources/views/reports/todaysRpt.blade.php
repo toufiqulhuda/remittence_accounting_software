@@ -11,13 +11,36 @@
 // });
 $( document ).ready(function() {
     $("#account").prop('disabled', true);
+    // var reportName  = $('input[name="reportName"]:checked').val();
+    // if(reportName=='accountTransactionSummaryRpt'){
+    //     $("#account").prop('disabled', false);
+    //     $("#TnxType").prop('disabled', true);
+    // }else if(reportName=='voucherPrintRpt'){
+    //     $("#account").prop('disabled', true);
+    //     $("#TnxType").prop('disabled', true);
+    // }else if(reportName=='profitLossStatementRpt'){
+    //     $("#account").prop('disabled', true);
+    //     $("#TnxType").prop('disabled', true);
+    // }else{
+    //     $("#account").prop('disabled', true);
+    //     $("#TnxType").prop('disabled', false);
+    // }
+    //accountActiveInactive(r);
 });
 function accountActiveInactive(r){
     var reportName  = $('input[name="reportName"]:checked').val();
-    if(reportName=='accountTransactionSummeryRpt'){
+    if(reportName=='accountTransactionSummaryRpt'){
         $("#account").prop('disabled', false);
+        $("#TnxType").prop('disabled', true);
+    }else if(reportName=='voucherPrintRpt'){
+        $("#account").prop('disabled', true);
+        $("#TnxType").prop('disabled', true);
+    }else if(reportName=='profitLossStatementRpt'){
+        $("#account").prop('disabled', true);
+        $("#TnxType").prop('disabled', true);
     }else{
         $("#account").prop('disabled', true);
+        $("#TnxType").prop('disabled', false);
     }
 }
 </script>
@@ -76,7 +99,7 @@ function accountActiveInactive(r){
                                     <div class="form-group row">
                                         <label for="frmDate" class="col-sm-2 col-form-label">Date &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
-                                            {{-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> --}}
+
                                             <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
                                             @error('frmDate')
                                                 <span class="invalid-feedback" role="alert">
@@ -86,7 +109,7 @@ function accountActiveInactive(r){
                                         </div>
                                         <label for="toDate" class="col-sm-1 col-form-label">To &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
-                                            {{-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> --}}
+
                                             <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
                                             @error('toDate')
                                                 <span class="invalid-feedback" role="alert">
@@ -94,14 +117,30 @@ function accountActiveInactive(r){
                                                 </span>
                                             @enderror
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="account" class="col-sm-2 col-form-label">Account &nbsp;<span class="mandatory">*</span></label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-5">
                                             <select id="account" class="custom-select form-control" name="account" required autofocus>
                                                 <option value="" >- Select a Account-</option>
                                                 @foreach ($COA as $key => $value)
-                                                    <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
+                                                    <option value="{{ $value->COACode }}" {{ old('account')== $value->COACode ? 'selected' : '' }}>{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
+                                        <div class="col-md-3">
+                                            <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
+
+                                                <option value="T">Transfer</option>
+                                                <option value="C">Cash</option>
+
+                                            </select>
+                                            @error('TnxType')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <fieldset class="form-group">
@@ -114,7 +153,7 @@ function accountActiveInactive(r){
                                                     Transaction Journal
                                                 </label>
                                             </div>
-                                            <div class="form-check">
+                                            {{-- <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="transactionJournalTransferRpt" onclick="accountActiveInactive(this);">
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Transaction Journal Transfer
@@ -125,7 +164,7 @@ function accountActiveInactive(r){
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Transaction Journal Cash
                                                 </label>
-                                              </div>
+                                              </div> --}}
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="voucherPrintRpt" onclick="accountActiveInactive(this);">
                                                 <label class="form-check-label" for="gridRadios4">
@@ -139,9 +178,9 @@ function accountActiveInactive(r){
                                                 </label>
                                             </div>
                                             <div class="form-check ">
-                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios6" value="accountTransactionSummeryRpt" onclick="accountActiveInactive(this);" >
+                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios6" value="accountTransactionSummaryRpt" onclick="accountActiveInactive(this);" >
                                               <label class="form-check-label" for="gridRadios6">
-                                                Account Transaction Summery
+                                                Account Transaction Summary
                                               </label>
                                             </div>
                                           </div>

@@ -36,9 +36,11 @@ class ReportsController extends Controller
         $frmDate=!empty($data['frmDate']) ? $data['frmDate'] : '';
         $toDate=!empty($data['toDate']) ? $data['toDate'] :'';
         $reportName=!empty($data['reportName']) ? $data['reportName'] :'';
-        return $this->$reportName($frmDate,$toDate,$reportName);
+        $account=!empty($data['account']) ? $data['account'] :'';
+
+        return $this->$reportName($frmDate,$toDate,$reportName,$account);
     }
-    public function voucherPrintRpt($frmDate,$toDate,$reportName){
+    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -53,11 +55,11 @@ class ReportsController extends Controller
         $data =compact('exHouseDtls','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
         return $this->createPDF($view,$data,$reportName);
-        //return view('reports.transactionJournalRpt-PDF',$data);
+        //return view($view,$data);
     }
     public function transactionJournalRpt(){}
-    public function transactionJournalTransferRpt(){}
-    public function transactionJournalCashRpt(){}
+    // public function transactionJournalTransferRpt(){}
+    // public function transactionJournalCashRpt(){}
     public function profitLossStatementRpt($frmDate,$toDate,$reportName){
         dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->get();
@@ -66,14 +68,23 @@ class ReportsController extends Controller
         $reportName='ChartOfAccount-'.Auth::user()->ExHouseID;
         return view('reports.transactionJournalRpt-PDF');
     }
-    public function accountTransactionSummeryRpt($frmDate,$toDate,$reportName){
-        dd($reportName);
-        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+    public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account){
+        //dd($reportName);
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        $accountNameCode = ChartOfAccount::select("COACode","AccountName")->where('COACode',$account)->first();
+        $tnxs = DB::table('transactions AS t')
+                    ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%m-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
+                    ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                    ->where('t.STATUS','=','1')
+                    ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                    ->where('t.COACode','=',$account)
+                    ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                    ->get();
         $view='reports.'.$reportName.'-PDF';
-        $data =compact('exHouseDtls','tnxs');
-        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
-        //return $this->createPDF($view,$data,$reportName);
-        return view('reports.accountTransactionSummeryRpt-PDF');
+        $data =compact('exHouseDtls','accountNameCode','tnxs','frmDate','toDate');
+        $reportName=''.$reportName.'-'.$account;
+        return $this->createPDF($view,$data,$reportName);
+        //return view($view,$data);
     }
     public function rptAsOnDate(){
         return view('reports.reportsAsOnDateRpt');
