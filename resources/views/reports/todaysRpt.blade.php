@@ -100,7 +100,7 @@ function accountActiveInactive(r){
                                         <label for="frmDate" class="col-sm-2 col-form-label">Date &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
 
-                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
+                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate) ? date('d-m-Y', strtotime($VoucherDate->TnxDate)) :'' }}"  required>
                                             @error('frmDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -110,7 +110,7 @@ function accountActiveInactive(r){
                                         <label for="toDate" class="col-sm-1 col-form-label">To &nbsp;<span class="mandatory">*</span></label>
                                         <div class="col-sm-2">
 
-                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)?$VoucherDate->TnxDate:'' }}" data-date-format="mm/dd/yyyy" required>
+                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)? date('d-m-Y', strtotime($VoucherDate->TnxDate)) : '' }}"  required>
                                             @error('toDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -132,6 +132,7 @@ function accountActiveInactive(r){
                                         <div class="col-md-3">
                                             <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
 
+                                                <option value="All" selected>Booth</option>
                                                 <option value="T">Transfer</option>
                                                 <option value="C">Cash</option>
 

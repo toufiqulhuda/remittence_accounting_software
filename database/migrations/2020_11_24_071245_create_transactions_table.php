@@ -21,8 +21,8 @@ class CreateTransactionsTable extends Migration
             $table->string('Particulars',500)->nullable();
             $table->string('COACode',8);
             $table->char('TnxType',1);
-            $table->decimal('DrAmt',18,3);
-            $table->decimal('CrAmt',18,3);
+            $table->decimal('DrAmt',18,2);
+            $table->decimal('CrAmt',18,2);
             $table->integer('Status');
             $table->integer('IsFT')->nullable();
             $table->integer('VrSlNo')->nullable();

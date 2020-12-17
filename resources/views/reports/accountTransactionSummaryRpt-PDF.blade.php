@@ -51,7 +51,7 @@
                 <tr>
                     <th class="border-bottom border-left border-top text-center">Vr Date</th>
                     <th class="border-bottom border-top text-center">VrNo</th>
-                    <th class="border-bottom border-top text-left">Particulars</th>
+                    <th class="border-bottom border-top text-center">Particulars</th>
                     <th class="border-bottom border-top text-right">Debit</th>
                     <th class="border-bottom border-top text-right">Credit</th>
                     <th class="border-bottom border-right border-top text-right ">Balance</th>

@@ -33,14 +33,25 @@ class ReportsController extends Controller
     }
     public function todaysRpt(Request $request){
         $data = $request->input();
-        $frmDate=!empty($data['frmDate']) ? $data['frmDate'] : '';
-        $toDate=!empty($data['toDate']) ? $data['toDate'] :'';
+        $frmDate=!empty($data['frmDate']) ? date('Y-m-d', strtotime($data['frmDate'])) : '';
+        $toDate=!empty($data['toDate']) ? date('Y-m-d', strtotime($data['toDate'])) :'';
         $reportName=!empty($data['reportName']) ? $data['reportName'] :'';
         $account=!empty($data['account']) ? $data['account'] :'';
-
-        return $this->$reportName($frmDate,$toDate,$reportName,$account);
+        $TnxType=!empty($data['TnxType']) ? $data['TnxType'] :'';
+        //dd($TnxType);
+        if($TnxType=="All"){
+            $Type = array('T','C','D');
+        }else if($TnxType=="T"){
+            $Type=array('T');
+        }else if($TnxType=="C"){
+            $Type = array('C');
+        }else{
+            $Type = array();
+        }
+        //dd($Type);
+        return $this->$reportName($frmDate,$toDate,$reportName,$account,$Type);
     }
-    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null){
+    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -57,7 +68,23 @@ class ReportsController extends Controller
         return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
     }
-    public function transactionJournalRpt(){}
+    public function transactionJournalRpt($frmDate,$toDate,$reportName,$account=null,$TnxType){
+        //dd($TnxType);
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        $tnxs = DB::table('transactions AS t')
+                        ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%b-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
+                        ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->whereIn('t.TnxType',$TnxType)
+                        ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                        ->get();
+        $view='reports.'.$reportName.'-PDF';
+        $data =compact('exHouseDtls','tnxs','frmDate','toDate','TnxType');
+        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+        return $this->createPDF($view,$data,$reportName);
+        //return view($view,$data);
+    }
     // public function transactionJournalTransferRpt(){}
     // public function transactionJournalCashRpt(){}
     public function profitLossStatementRpt($frmDate,$toDate,$reportName){
@@ -68,7 +95,7 @@ class ReportsController extends Controller
         $reportName='ChartOfAccount-'.Auth::user()->ExHouseID;
         return view('reports.transactionJournalRpt-PDF');
     }
-    public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account){
+    public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $accountNameCode = ChartOfAccount::select("COACode","AccountName")->where('COACode',$account)->first();
@@ -90,7 +117,7 @@ class ReportsController extends Controller
         return view('reports.reportsAsOnDateRpt');
     }
     public function createPDF($view,$data,$reportName){
-        $pdf = PDF::loadView($view,$data);
+        $pdf = PDF::loadView($view,$data)->setPaper('a4', 'portrait');
         return $pdf->download(''.$reportName.'.pdf');
     }
 
