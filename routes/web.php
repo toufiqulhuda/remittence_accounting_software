@@ -12,6 +12,7 @@ use App\Http\Controllers\SubGroupAccountController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\MenuController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,3 +127,9 @@ Route::get('todaysRpt', [ReportsController::class,'todaysRptView'])->name('today
 Route::post('todaysRpt', [ReportsController::class,'todaysRpt'])->name('todaysRpt');
 //Route::post('voucherPrintRptPDF', [ReportsController::class,'voucherPrintRpt'])->name('voucherPrintRptPDF');
 Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');
+/************************************
+  Menu route
+*************************************/
+Route::get('menus',[MenuController::class,'index'])->name('menus.index');
+Route::get('menus-show',[MenuController::class,'show']);
+Route::post('menus',[MenuController::class,'store'])->name('menus.store');

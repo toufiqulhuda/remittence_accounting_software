@@ -24,6 +24,12 @@
         } );
 
     } );
+    function fromSubmit(form){
+        if(!confirm("Do you really want to do this?")) {
+            return false;
+        }
+        this.form.submit();
+    }
     function changeStatus(_this, id) {
         var status = $(_this).prop('checked') == true ? 1 : 0;
 
@@ -101,7 +107,7 @@
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('countries.store') }}">
+                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('countries.store') }}">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group row">

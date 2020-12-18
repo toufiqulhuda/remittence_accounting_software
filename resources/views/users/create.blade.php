@@ -58,7 +58,7 @@
                         <div class="col-md-8 p-1 float-left" >
                             <div class="card mb-3">
                         <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('register') }}">
                             @csrf
                             <!-- <fieldset class="border p-2">
                             <legend class="w-auto">{{ __('Create User') }}</legend> -->

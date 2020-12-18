@@ -32,7 +32,7 @@
     <li class="nav-item dropdown">
         <a id="reportsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt"></i>&nbsp;Reports</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportsDropdown">
-        <a class="dropdown-item" href="{{ url('/todaysRpt')}}"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
+            <a class="dropdown-item" href="{{ url('/todaysRpt')}}"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
             <a class="dropdown-item" href="{{ url('/rptAsOnDate')}}"><i class="far fa-file-alt"></i>&nbsp;Reports As on Date</a>
             <a class="dropdown-item" href="{{ url('/houseKeepingRpt/pdf') }}"><i class="far fa-file-alt"></i>&nbsp;House Keeping Report</a>
         </div>
@@ -51,8 +51,11 @@
             <a class="dropdown-item" href="{{ url('/countries') }}"><i class="fas fa-flag-usa"></i>&nbsp;Country</a>
             <a class="dropdown-item" href="{{ url('/currencies') }}"><i class="fas fa-dollar-sign"></i>&nbsp;Currency</a>
             <a class="dropdown-item" href="{{ url('/exhouses') }}"><i class="fas fa-store"></i>&nbsp;Exhouse</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url('/menus') }}"><i class="fas fa-stream"></i>&nbsp;Menu</a>
         </div>
     </li>
+
     <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}
@@ -72,3 +75,23 @@
             </div>
         </li>
 </ul>
+
+{{-- @foreach(App\Models\Menu::orderBy('order','asc')->get() as $menuItem)
+
+    @if( $menuItem->parent_id == 0 )
+        <li {{ $menuItem->url ? '' : "class=dropdown" }}>
+        <a href="{{ $menuItem->children->isEmpty() ? $menuItem->url : "#" }}"{{ $menuItem->children->isEmpty() ? '' : "class=dropdown-toggle data-toggle=dropdown role=button aria-expanded=false" }}>
+            {{ $menuItem->title }}
+        </a>
+    @endif
+
+    @if( ! $menuItem->children->isEmpty() )
+        <ul class="dropdown-menu" role="menu">
+        @foreach($menuItem->children as $subMenuItem)
+            <li><a href="{{ $subMenuItem->url }}">{{ $subMenuItem->title }}</a></li>
+        @endforeach
+        </ul>
+    @endif
+    </li>
+
+    @endforeach --}}

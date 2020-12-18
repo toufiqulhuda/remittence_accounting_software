@@ -1,7 +1,14 @@
 @extends('layouts.withHF')
 
 @section('content')
-
+<script>
+    function fromSubmit(form){
+        if(!confirm("Do you really want to do this?")) {
+            return false;
+        }
+        this.form.submit();
+    }
+</script>
 <div class="container">
 
     <div class="row justify-content-center">
@@ -61,12 +68,12 @@
                         <div class="col-md-10 p-1 float-left" >
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('users.update',$user->user_id) }}">
+                                    <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('users.update',$user->user_id) }}">
                                         @csrf
                                         @method('PUT')
 
                                         <div class="form-group row">
-                                            
+
                                                     <label for="name" class="col-md-2 col-form-label text-md-left">{{ __('Full Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                                     <div class="col-md-4">

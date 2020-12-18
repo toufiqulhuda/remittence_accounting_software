@@ -5,7 +5,12 @@
 
 <script>
 
-
+    function fromSubmit(form){
+        if(!confirm("Do you really want to do this?")) {
+            return false;
+        }
+        this.form.submit();
+    }
 </script>
 <style rel="stylesheet">
 
@@ -56,7 +61,7 @@
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('exhouses.store') }}">
+                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('exhouses.store') }}">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group row">
