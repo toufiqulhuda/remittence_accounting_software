@@ -248,7 +248,7 @@ $('#tree1').treed();
                                                 <label for="parent_id" class="col-md-2 col-form-label text-md-left">{{ __('Parent') }}&nbsp;<span class="mandatory">*</span></label>
                                                 <div class="col-md-10">
                                                     <select id="parent_id" class="form-control @error('parent_id') is-invalid @enderror" name="parent_id" required autofocus>
-                                                        <option selected disabled>Select Parent Menu</option>
+                                                        <option selected value="0" >Select Parent Menu</option>
                                                         @foreach($allMenus as $key => $value)
                                                             <option value="{{ $key }}" {{ old('parent_id')== $key ? 'selected' : '' }}>{{ $value }}</option>
                                                         @endforeach

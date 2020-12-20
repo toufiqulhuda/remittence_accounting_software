@@ -1,4 +1,4 @@
-<ul class="navbar-nav">
+{{-- <ul class="navbar-nav">
     <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link active"><i class="fas fa-home"></i>&nbsp;Home</a></li>
     <li class="nav-item dropdown">
         <a id="transactionDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transaction</a>
@@ -29,7 +29,7 @@
         </div>
     </li> --}}
 
-    <li class="nav-item dropdown">
+    {{--<li class="nav-item dropdown">
         <a id="reportsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt"></i>&nbsp;Reports</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportsDropdown">
             <a class="dropdown-item" href="{{ url('/todaysRpt')}}"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
@@ -74,8 +74,42 @@
                 </form>
             </div>
         </li>
-</ul>
+</ul> --}}
+<ul class="navbar-nav">
+    @foreach(App\Models\Menu::where('roleid',Auth::user()->roleid)->orderBy('order','asc')->get() as $menuItem)
+    @if( $menuItem->parent_id == 0 )
 
+    <li class="nav-item ">
+        <a id="{{ $menuItem->title }}Dropdown" class="nav-link {{ ($menuItem->title=='Home') ? 'active' : ''}} {{ $menuItem->children->isEmpty() ? '' : 'dropdown-toggle'}}" href="{{ $menuItem->children->isEmpty() ? $menuItem->url : "#" }}" {{ $menuItem->children->isEmpty() ? '' : 'role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"'}}><i class="{{$menuItem->icon}}"></i>&nbsp;{{ $menuItem->title }}</a>
+    @endif
+    @if( ! $menuItem->children->isEmpty() )
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="{{ $menuItem->title }}Dropdown">
+            @foreach($menuItem->children as $subMenuItem)
+            <a class="dropdown-item" href="{{ $subMenuItem->url }}"><i class="{{$subMenuItem->icon}}"></i>&nbsp;{{ $subMenuItem->title }}</a>
+            @endforeach
+        </div>
+    @endif
+    </li>
+    @endforeach
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            {{ Auth::user()->name }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
+            <a class="dropdown-item" href="#"><i class="fas fa-key"></i>&nbsp;Change Password</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                <i class="fas fa-sign-out-alt"></i>&nbsp;{{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </div>
+    </li>
+</ul>
 {{-- @foreach(App\Models\Menu::orderBy('order','asc')->get() as $menuItem)
 
     @if( $menuItem->parent_id == 0 )
