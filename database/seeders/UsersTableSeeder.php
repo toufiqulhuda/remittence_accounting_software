@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'CreatedBy' => '1',
             'isactive' => '1',
             'roleid'=> '1',
-            'ExHouseID'=> '1',
+            'ExHouseID'=> '8800030002',
             'EmpId'=> '1',
             'CountryID'=> '1',
             'created_at' => date('Y-m-d H:i:s'),

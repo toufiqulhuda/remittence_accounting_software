@@ -320,80 +320,42 @@ $('#tree1').treed();
                                                     </button>
                                                 </div>
                                             </div>
-
                                             <!-- </fieldset> -->
                                         </form>
                                     </div>
-                                    <div class="col-md-6">
-                                        <ul id="tree1">
-                                            @foreach($menus as $menu)
-                                            <li>
-                                                {{ $menu->title }}
-                                                @if(count($menu->children))
-                                                    @include('menu.manageChild',['childs' => $menu->children])
+                                </div>
+                                <hr>
+                                <div class="col-md-12 p-1 float-left" >
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                <div class="row">
+                                @foreach ($roles as $role)
+                                    <div class="col-md-3">
+                                        <label class="col-md-12 col-form-label text-md-center btn btn-primary">{{ $role->role_name }}</label>
+                                        <div class="col-md-12">
+                                            <ul id="tree1">
+                                                @foreach($menus as $menu)
+                                                @if ( $role->roleid==$menu->roleid)
+                                                <li>
+                                                    {{ $menu->title }}
+                                                    @if(count($menu->children))
+                                                        @include('menu.manageChild',['childs' => $menu->children])
+                                                    @endif
+                                                </li>
                                                 @endif
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-
-                    <!-- dataTable -->
-                    {{-- &nbsp;<hr>&nbsp;
-                    <div class="table-responsive">
-                        <table id="roleTable" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Role Name</th>
-                                    <th>Created By</th>
-                                    <th>Create Date</th>
-                                    <th>Updated By</th>
-                                    <th>Updated Date</th>
-                                    <th>Active</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @if(isset($roles))
-                            @foreach ($roles as $role)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $role->role_name }}</td>
-                                <td>{{ $role->CreatedBy }}</td>
-                                <td>{{ $role->created_at }}</td>
-                                <td>{{ $role->UpdatedBy }}</td>
-                                <td>{{ $role->updated_at }}</td>
-                                <td>
-                                    <input type="checkbox"  name="isactive" id="isactive-{{$role->roleid}}" value="{{ $role->isactive }}"
-                                    {{ ($role->isactive)? ' checked': '' }}
-                                    onclick="changeStatus(event.target, {{ $role->roleid }});">
-                                </td>
-                                <td>
-                                    <!--<form action="" method="POST">-->
-                                        <a class="badge badge-primary" href="{{ route('roles.edit',$role->roleid) }}">Edit</a>
-
-                                        @csrf
-                                        <!-- @@method('DELETE') -->
-
-                                        <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
-                                    <!--</form>-->
-                                </td>
-                            </tr>
-                            @endforeach
-                            @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        {!! $roles->links() !!}
-                    </div> --}}
-                    <!-- /dataTable -->
-                    <!-- /contect -->
-
                 </div>
             </div>
         </div>

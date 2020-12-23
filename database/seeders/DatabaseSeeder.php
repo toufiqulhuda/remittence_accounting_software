@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             AccountMainHeadTableSeeder::class,
             CountryTableSeeder::class,
             CurrencyTableSeeder::class,
+            ExhouseSeeder::class,
+            MenuAdminSeeder::class,
 
          ]);
 

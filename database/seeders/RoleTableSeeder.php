@@ -15,6 +15,7 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'role_name' => 'Admin',
+                'isactive' => '1',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => null,
@@ -22,6 +23,7 @@ class RoleTableSeeder extends Seeder
 
             [
                 'role_name' => 'Head_Office',
+                'isactive' => '0',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => null,
@@ -30,6 +32,7 @@ class RoleTableSeeder extends Seeder
 
             [
                 'role_name' => 'Branch',
+                'isactive' => '0',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => null,
