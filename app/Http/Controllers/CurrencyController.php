@@ -24,10 +24,10 @@ class CurrencyController extends Controller
                         ->select('curr.CurrencyID','curr.CurrencyName','curr.ISO_CODE','curr.ShortName',
                         'cr.username AS CreatedBy','curr.created_at','up.username AS UpdatedBy','curr.updated_at',
                         'curr.isactive' )
-                        ->paginate(5);
+                        ->paginate(20);
         //dd($allUsers);
         return view('currency.index',compact('currencies'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
 

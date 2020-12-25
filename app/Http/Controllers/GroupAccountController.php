@@ -23,10 +23,10 @@ class GroupAccountController extends Controller
                                 ->leftJoin('users AS up', 'ag.UpdatedBy', '=', 'up.user_id')
                                 ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
                                 ->leftJoin('exhouse AS ex', 'ag.ExHouseID', '=', 'ex.ExHouseID')
-                                ->paginate(5);
+                                ->paginate(20);
 
         return view('pages.groupAccountCreate',compact('accHeadType','exHouse','grpAccs'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
 

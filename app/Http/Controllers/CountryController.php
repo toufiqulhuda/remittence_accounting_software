@@ -27,10 +27,10 @@ class CountryController extends Controller
                         ->select('c.CountryID','c.CountryName','curr.CurrencyName',
                         'cr.username AS CreatedBy','c.created_at','up.username AS UpdatedBy','c.updated_at',
                         'c.isactive' )
-                        ->paginate(5);
+                        ->paginate(20);
         //dd($countries);
         return view('country.index',compact('countries','currency'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
 

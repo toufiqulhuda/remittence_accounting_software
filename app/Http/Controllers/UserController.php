@@ -34,10 +34,10 @@ class UserController extends Controller
                     ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name',
                     'cr.username AS CreatedBy','u.created_at','up.username AS UpdatedBy','u.updated_at',
                     'u.isactive')
-                    ->paginate(5);
+                    ->paginate(20);
         //dd($users);
         return view('users.index',compact('users','roles','exHouse'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
 

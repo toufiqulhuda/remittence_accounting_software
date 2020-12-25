@@ -29,9 +29,9 @@ class RoleController extends Controller
                         ->select('r.roleid','r.role_name','r.isactive',
                         'cr.username AS CreatedBy','r.created_at','up.username AS UpdatedBy','r.updated_at'
                          )
-                         ->paginate(5);
+                         ->paginate(20);
         return view('role.index',compact('roles'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
 
     }
 

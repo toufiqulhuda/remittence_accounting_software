@@ -119,10 +119,10 @@ class TransactionController extends Controller
                         ->where('t.STATUS','=','1')
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->where('t.VoucherDate','=',$VoucherDate->TnxDate)
-                        ->paginate(5);
+                        ->paginate(20);
 
         return view('pages.reverseTransaction',compact('tnxs'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
     public function transactionDelete(Request $request)
     {

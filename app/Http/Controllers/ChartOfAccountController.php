@@ -27,9 +27,9 @@ class ChartOfAccountController extends Controller
                                 ->leftJoin('account_group_detail AS ag', 'asg.AccGrID', '=', 'ag.AccGrID')
                                 ->leftJoin('account_main_head AS am', 'ag.AccHdID', '=', 'am.AccHdID')
                                 ->leftJoin('exhouse AS ex', 'coa.ExHouseID', '=', 'ex.ExHouseID')
-                                ->paginate(5);
+                                ->paginate(20);
         return view('pages.chartOfAccountCreate',compact('accSubGroupType','exHouse','coaAccs'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
 
 
     }

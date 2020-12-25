@@ -27,10 +27,10 @@ class ExhouseController extends Controller
                         ->select('h.ExHouseID','h.ExHouseName','h.Address','c.CountryName','h.TnxDate','h.PrevDate','p.ExHouseName AS ExParentName','h.RespExID','h.ShortName',
                         'cr.username AS CreatedBy','h.created_at','up.username AS UpdatedBy','h.updated_at',
                         'h.isactive' )
-                        ->paginate(5);
+                        ->paginate(20);
         //dd($countries);
         return view('exhouse.index',compact('exhouses','country','exParent'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
 
