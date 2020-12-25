@@ -113,7 +113,7 @@
                                             <i class="fas fa-download"></i>
                                                 {{ __('Export PDF') }}
                                             </button>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="reset" class="btn btn-primary">
                                                 <i class="fas fa-broom"></i>
                                                 {{ __('Clear') }}
                                             </button>

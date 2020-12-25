@@ -248,7 +248,7 @@
                                     <div class="card-body">
                                         <div class="col-md-10 offset-md-2">
                                             <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>{{ __('Save') }}</button>
-                                            <button type="submit" class="btn btn-primary"><i class="fas fa-broom"></i>{{ __('Clear') }}</button>
+                                            <button type="reset" class="btn btn-primary"><i class="fas fa-broom"></i>{{ __('Clear') }}</button>
                                         </div>
                                     </div>
                                 </div>

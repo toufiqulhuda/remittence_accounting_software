@@ -260,7 +260,7 @@
                                     <div class="card-body">
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary"><i class="fas fa-trash-alt"></i>&nbsp;{{ __('Delete') }}</button>
-                                            <button type="submit" class="btn btn-primary"><i class="fas fa-broom"></i>&nbsp;{{ __('Clear') }}</button>
+                                            <button type="reset" class="btn btn-primary"><i class="fas fa-broom"></i>&nbsp;{{ __('Clear') }}</button>
                                             <a class="btn btn-primary" href="{{ URL::to('/transaction/reverse-pdf') }}">Export to PDF</a>
                                         </div>
                                     </div>
