@@ -3,13 +3,20 @@
 @section('content')
 {{-- <link href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
 <script src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> --}}
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> --}}
+<script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
+{{-- <link href="{{ asset('assets/css/gijgo.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <script>
-// $('.datepicker').datepicker({
-//     format: 'mm/dd/yyyy',
-//     startDate: '-3d'
-// });
 $( document ).ready(function() {
+    $('#toDate').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd-mm-yyyy'
+    });
+    $('#frmDate').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd-mm-yyyy'
+    });
     $("#account").prop('disabled', true);
     // var reportName  = $('input[name="reportName"]:checked').val();
     // if(reportName=='accountTransactionSummaryRpt'){
@@ -104,9 +111,9 @@ function accountActiveInactive(r){
                                     @method('POST')
                                     <div class="form-group row">
                                         <label for="frmDate" class="col-sm-2 col-form-label">Date &nbsp;<span class="mandatory">*</span></label>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
 
-                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" value="{{ isset($VoucherDate->TnxDate) ? date('d-m-Y', strtotime($VoucherDate->TnxDate)) :'' }}"  required>
+                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" id="frmDate" name="frmDate" value="{{ isset($VoucherDate->TnxDate) ? date('d-m-Y', strtotime($VoucherDate->TnxDate)) :'' }}"  required>
                                             @error('frmDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -114,9 +121,9 @@ function accountActiveInactive(r){
                                             @enderror
                                         </div>
                                         <label for="toDate" class="col-sm-1 col-form-label">To &nbsp;<span class="mandatory">*</span></label>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
 
-                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" name="toDate" value="{{ isset($VoucherDate->TnxDate)? date('d-m-Y', strtotime($VoucherDate->TnxDate)) : '' }}"  required>
+                                            <input type="text" class="form-control datepicker input-sm @error('toDate') is-invalid @enderror" id="toDate" name="toDate" value="{{ isset($VoucherDate->TnxDate)? date('d-m-Y', strtotime($VoucherDate->TnxDate)) : '' }}"  required>
                                             @error('toDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

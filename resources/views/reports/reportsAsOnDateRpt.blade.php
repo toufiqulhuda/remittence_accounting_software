@@ -2,15 +2,23 @@
 
 @section('content')
 
-
+<script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
+{{-- <link href="{{ asset('assets/css/gijgo.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <script>
-
+$( document ).ready(function() {
+    $('#frmDate').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd-mm-yyyy'
+    });
+});
     function fromSubmit(form){
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
         this.form.submit();
     }
+
 </script>
 <style rel="stylesheet">
 
@@ -66,8 +74,8 @@
                                     @method('POST')
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-2 col-form-label">Date &nbsp;<span class="mandatory">*</span></label>
-                                        <div class="col-sm-2">
-                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" name="frmDate" data-date-format="mm/dd/yyyy">
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control datepicker input-sm @error('frmDate') is-invalid @enderror" id="frmDate" name="frmDate" data-date-format="mm/dd/yyyy">
                                             @error('frmDate')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
