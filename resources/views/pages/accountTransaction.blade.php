@@ -5,11 +5,12 @@
     function fromSubmit(form){
         var table=document.getElementById("accTrxTblBody");
         var VrDate=document.getElementById("voucherDate").value;
+        var TnxType=document.getElementById("TnxType").value;
         var DrAmt = parseFloat(0); var CrAmt = parseFloat(0);
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
             var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
-            DrAmt += Dr;CrAmt += Cr;
+            DrAmt += Dr; CrAmt += Cr;
         }
         document.getElementById('totalDR').value=DrAmt.toFixed(2);
         document.getElementById('totalCR').value=CrAmt.toFixed(2);
@@ -17,7 +18,7 @@
             alert("Voucher Date should not be blank!");
             return false;
         }
-        if(DrAmt!=CrAmt){
+        if(TnxType == 'T' &&  DrAmt+CrAmt == 0){
             alert("Debit and Credit amount should be equal!");
             return false;
         }

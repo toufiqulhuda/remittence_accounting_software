@@ -125,7 +125,7 @@
                                             <div class="form-group row">
                                                     <label for="AccGrName" class="col-md-3 col-form-label text-md-left">{{ __('Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-5">
                                                         <input id="AccGrName" type="text" class="form-control input-sm @error('AccGrName') is-invalid @enderror" name="AccGrName" value="{{ old('AccGrName') }}" required autocomplete="AccGrName" autofocus>
 
                                                         @error('AccGrName')
@@ -134,9 +134,9 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-                                                    <label for="accountHeadType" class="col-md-3 col-form-label text-md-left">{{ __('Account Head Type') }}&nbsp;<span class="mandatory">*</span></label>
+                                                    <label for="accountHeadType" class="col-md-2 col-form-label text-md-left">{{ __('Account Head Type') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <select id="accountHeadType" class="form-control @error('accountHeadType') is-invalid @enderror" name="accountHeadType" required autofocus>
                                                             <option value="">Choose...</option>
                                                             @foreach ($accHeadType as  $value)

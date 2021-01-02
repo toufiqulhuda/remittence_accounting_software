@@ -1,4 +1,4 @@
-{{-- <ul class="navbar-nav">
+<ul class="navbar-nav">
     <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link active"><i class="fas fa-home"></i>&nbsp;Home</a></li>
     <li class="nav-item dropdown">
         <a id="transactionDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transaction</a>
@@ -22,14 +22,14 @@
             <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
     </li>
-    {{-- <li class="nav-item dropdown">
+    <li class="nav-item dropdown">
         <a id="securityDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-shield-alt"></i>&nbsp;Security </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="securityDropdown">
             <a class="dropdown-item" href="#"><i class="fas fa-key"></i>&nbsp;Change Password</a>
         </div>
-    </li> --}}
+    </li>
 
-    {{--<li class="nav-item dropdown">
+    <li class="nav-item dropdown">
         <a id="reportsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt"></i>&nbsp;Reports</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportsDropdown">
             <a class="dropdown-item" href="{{ url('/todaysRpt')}}"><i class="far fa-file-alt"></i>&nbsp;Today's Report</a>
@@ -74,8 +74,8 @@
                 </form>
             </div>
         </li>
-</ul> --}}
-<ul class="navbar-nav">
+</ul>
+{{-- <ul class="navbar-nav">
     @foreach(App\Models\Menu::where('roleid',Auth::user()->roleid)->orderBy('order','asc')->get() as $menuItem)
     @if( $menuItem->parent_id == 0 )
 
@@ -109,23 +109,5 @@
             </form>
         </div>
     </li>
-</ul>
-{{-- @foreach(App\Models\Menu::orderBy('order','asc')->get() as $menuItem)
+</ul> --}}
 
-    @if( $menuItem->parent_id == 0 )
-        <li {{ $menuItem->url ? '' : "class=dropdown" }}>
-        <a href="{{ $menuItem->children->isEmpty() ? $menuItem->url : "#" }}"{{ $menuItem->children->isEmpty() ? '' : "class=dropdown-toggle data-toggle=dropdown role=button aria-expanded=false" }}>
-            {{ $menuItem->title }}
-        </a>
-    @endif
-
-    @if( ! $menuItem->children->isEmpty() )
-        <ul class="dropdown-menu" role="menu">
-        @foreach($menuItem->children as $subMenuItem)
-            <li><a href="{{ $subMenuItem->url }}">{{ $subMenuItem->title }}</a></li>
-        @endforeach
-        </ul>
-    @endif
-    </li>
-
-    @endforeach --}}
