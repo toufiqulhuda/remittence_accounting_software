@@ -64,6 +64,7 @@ class TransactionController extends Controller
                         if($i>0){
                             $VrNo += 1;
                         }
+                        
                         $parseData = [
                         'VoucherNo' => $VrNo,
                         'VoucherDate' => $VrDate,

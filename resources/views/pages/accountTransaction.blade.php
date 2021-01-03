@@ -10,6 +10,17 @@
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
             var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
+            if(Dr>0 && Cr>0){
+                //Cr=0;
+                alert('Each entry should have one contra.');
+                table.rows[i].cells[4].children[0].focus();
+                table.rows[i].cells[5].children[0].focus();
+                return false;
+            }
+            // else{
+            //     //Dr=0;
+            //     table.rows[i].cells[4].children[0].focus();
+            // }
             DrAmt += Dr; CrAmt += Cr;
         }
         document.getElementById('totalDR').value=DrAmt.toFixed(2);
@@ -18,10 +29,14 @@
             alert("Voucher Date should not be blank!");
             return false;
         }
-        if(TnxType == 'T' &&  DrAmt+CrAmt == 0){
+        if((TnxType == 'T' && DrAmt != CrAmt) ||  (TnxType == 'T' && DrAmt+CrAmt == 0)  ){
             alert("Debit and Credit amount should be equal!");
             return false;
         }
+        // if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
+        //     alert(TnxType);
+        //     return false;
+        // }
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
@@ -228,8 +243,8 @@
                                                             </SELECT>
                                                         </td>
                                                         <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value="0.00"  placeholder="0.00"/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="0.00" placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
+                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
                                                     </tr>
                                                 </tbody>
                                                     <tr >
