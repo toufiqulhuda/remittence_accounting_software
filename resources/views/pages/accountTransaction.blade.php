@@ -33,10 +33,10 @@
             alert("Debit and Credit amount should be equal!");
             return false;
         }
-        // if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
-        //     alert(TnxType);
-        //     return false;
-        // }
+        if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
+            alert(TnxType);
+            return false;
+        }
         if(!confirm("Do you really want to do this?")) {
             return false;
         }

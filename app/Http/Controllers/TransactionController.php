@@ -64,7 +64,9 @@ class TransactionController extends Controller
                         if($i>0){
                             $VrNo += 1;
                         }
-                        
+                        if ($TnxType=='C' && $COACode[$i]=='10101001'){
+
+                        }
                         $parseData = [
                         'VoucherNo' => $VrNo,
                         'VoucherDate' => $VrDate,
