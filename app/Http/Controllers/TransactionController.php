@@ -19,10 +19,12 @@ class TransactionController extends Controller
     public function accountTransactionCreate()
     {
         $COA=ChartOfAccount::select('COACode','AccountName')->get();
-
         $vrDate= Exhouse::selectRAW('DATE_FORMAT(TnxDate,"%d-%b-%Y") AS TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
-        //dd($vrDate);
-        return view('pages.accountTransaction',compact('COA','vrDate'));
+        $vrNo = Transactions::selectRAW('IFNULL(MAX(VoucherNo),0)+1 AS VoucherNo')
+                                        ->where('VoucherDate','=',date('Y-m-d', strtotime($vrDate['TnxDate'])))
+                                        ->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
+        //dd($vrNo);
+        return view('pages.accountTransaction',compact('COA','vrDate','vrNo'));
     }
     public function accountTransactionStore(Request $request)
     {
@@ -53,43 +55,53 @@ class TransactionController extends Controller
                 $TnxType = !empty($data['TnxType']) ? $data['TnxType'] : '';
                 $VrNo = $VoucherNo['VoucherNo'];
                 $VrDate=$VoucherDate['TnxDate'];
-                //dd(count($Particulars));
-                //foreach($Particulars as $a => $b){
+
                 $saveData = array();
-                    //['user_id'=>'Coder 1', 'subject_id'=> 4096],
-                    //['user_id'=>'Coder 2', 'subject_id'=> 2048],
-                    //...
 
-                    for($i=0; $i < count($Particulars); $i++){
-                        if($i>0){
-                            $VrNo += 1;
-                        }
-                        if ($TnxType=='C' && $COACode[$i]=='10101001'){
+                for($i=0; $i < count($Particulars); $i++){
+                    if($i>0){
+                        $VrNo += 1;
+                    }
 
-                        }
-                        $parseData = [
+                    $parseData = [
                         'VoucherNo' => $VrNo,
                         'VoucherDate' => $VrDate,
                         'ExHouseID' => $AuthUser->ExHouseID,
                         'TnxType' => $TnxType,
-                        //dd($Particulars[$i]);
                         'Particulars' => $Particulars[$i],
                         'COACode' => $COACode[$i],
                         'DrAmt' => !empty($DrAmt[$i]) ? $DrAmt[$i] : "0.00",
                         'CrAmt' => !empty($CrAmt[$i]) ? $CrAmt[$i] : "0.00",
                         'Status' => '1',
-
                         'CreatedBy' => $AuthUser->user_id,
                         'created_at' => Carbon::now(),
                         'AuthorizeBy' => Null,
                         'AuthorizeDate' => Null,
-                        //$Tnx->updated_at = null;
                         'remember_token' => $data['_token'],
-                        ];
-                        //dd($parseData);
-                        $saveData[$i] = $parseData;
-                        //$VrNo+=1;
-                    }
+                    ];
+                    $saveData[$i] = $parseData;
+                }
+                if ($TnxType == "C" && !in_array("10101001", $COACode)){
+
+                    $cashInHandData = [
+                        'VoucherNo' => $VrNo+1,
+                        'VoucherDate' => $VrDate,
+                        'ExHouseID' => $AuthUser->ExHouseID,
+                        'TnxType' => $TnxType,
+                        'Particulars' => 'Cash in Hand',
+                        'COACode' => '10101001',
+                        'DrAmt' => array_sum($CrAmt),
+                        'CrAmt' => array_sum($DrAmt),
+                        'Status' => '1',
+                        'CreatedBy' => $AuthUser->user_id,
+                        'created_at' => Carbon::now(),
+                        'AuthorizeBy' => Null,
+                        'AuthorizeDate' => Null,
+                        'remember_token' => $data['_token'],
+                    ];
+
+                    array_push($saveData,$cashInHandData);
+                }
                 //dd($saveData);
                 $Tnx->insert($saveData);
                 return redirect()->route('transaction-account')

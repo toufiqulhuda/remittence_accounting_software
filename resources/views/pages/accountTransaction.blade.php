@@ -10,12 +10,15 @@
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
             var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
-            if(Dr>0 && Cr>0){
+            if((Dr>0 && Cr>0) || (Dr==0 && Cr==0)){
                 //Cr=0;
                 alert('Each entry should have one contra.');
-                table.rows[i].cells[4].children[0].focus();
-                table.rows[i].cells[5].children[0].focus();
+                table.rows[i].cells[4].children[0].style.borderColor='red';
+                table.rows[i].cells[5].children[0].style.borderColor='red';
                 return false;
+            }else{
+                table.rows[i].cells[4].children[0].style.borderColor='#ced4da';
+                table.rows[i].cells[5].children[0].style.borderColor='#ced4da';
             }
             // else{
             //     //Dr=0;
@@ -29,14 +32,18 @@
             alert("Voucher Date should not be blank!");
             return false;
         }
-        if((TnxType == 'T' && DrAmt != CrAmt) ||  (TnxType == 'T' && DrAmt+CrAmt == 0)  ){
+        if(DrAmt+CrAmt == 0){
+            alert("Debit and Credit amount should not be blank!");
+            return false;
+        }
+        if((TnxType == 'T' && DrAmt != CrAmt)){
             alert("Debit and Credit amount should be equal!");
             return false;
         }
-        if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
-            alert(TnxType);
-            return false;
-        }
+        // if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
+        //     alert(TnxType);
+        //     return false;
+        // }
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
@@ -47,8 +54,9 @@
         var table = document.getElementById(tableID);
 
         var rowCount = table.rows.length;
+        alert(rowCount);
         var row = table.insertRow(rowCount);
-
+        alert(row);
         var colCount = table.rows[0].cells.length;
 
         for(var i=0; i<colCount; i++) {
@@ -56,10 +64,10 @@
             var newcell	= row.insertCell(i);
 
             newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-            //alert(newcell.childNodes);
+            //newcell.childNodes[0].value;
             switch(newcell.childNodes[0].type) {
                 case "text":
-                        newcell.childNodes[0].value = "";
+                        (newcell.childNodes[0].name=='vrNo') ? newcell.childNodes[0].value++ : newcell.childNodes[0].value = "";
                         break;
                 case "checkbox":
                         newcell.childNodes[0].checked = false;
@@ -136,32 +144,7 @@
                         {{ session('failed') }}
                     </div>
                     @endif
-                    <!-- sidebar menu  -->
-                    {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
 
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/chartOfAccount/create') }}">
-                                        <i class="far fa-plus-square"></i>
-                                        <span class="nav-text">Create New</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/chartOfAccount/edit') }}">
-                                        <i class="far fa-edit"></i>
-                                        <span class="nav-text">Edit </span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> --}}
-
-                    <!-- / sidebar menu-->
-                    <!-- content -->
-                    {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
                         <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('transaction-account-store') }}" >
                             @csrf
                             @method('POST')
@@ -220,9 +203,9 @@
                                                 <tbody id="accTrxTblBody">
                                                     <tr >
                                                         <td ><input type="checkbox"  name="chk"></td>
-                                                        <td >1</td>
+                                                        <td ><input type="text" class="form-control form-control-sm" id="vrNo" name="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
-                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus>
+                                                            <select id="accountCode" class="custom-select form-control form-control-sm" name="accountCode[]" required autofocus>
                                                                 @foreach ($COA as $key => $value)
                                                                     <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                                 @endforeach
@@ -234,7 +217,7 @@
                                                     </tr>
                                                     <tr >
                                                         <td ><input type="checkbox"  name="chk"></td>
-                                                        <td >1</td>
+                                                        <td ><input type="text" class="form-control form-control-sm" id="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
                                                             <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus>
                                                                 @foreach ($COA as $key => $value)
