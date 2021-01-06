@@ -112,6 +112,37 @@
             alert(e);
         }
     }
+    function coAccount(c){
+        //alert(c.value);
+        var table=document.getElementById("accTrxTblBody");
+        var TnxType=document.getElementById("TnxType").value;
+        for(var i=0; i<table.rows.length;i++){
+            var COACode = table.rows[i].cells[2].children[0].value;
+            if(TnxType=='C' && COACode=='10101001'){
+                table.rows[i].cells[3].children[0].removeAttribute("required");
+            }else{
+                table.rows[i].cells[3].children[0].setAttribute("required", "true");
+            }
+        }
+
+    }
+    function mendatoryFieldBesedOnTnxType(TnxType){
+        var table=document.getElementById("accTrxTblBody");
+        //var TnxType=document.getElementById("TnxType").value;
+        //alert(TnxType.value);
+
+            for(var i=0; i<table.rows.length;i++){
+                var COACode = table.rows[i].cells[2].children[0].value;
+                if(TnxType.value=='C' && COACode=='10101001'){
+                    table.rows[i].cells[3].children[0].removeAttribute("required");
+                }else{
+                    table.rows[i].cells[3].children[0].setAttribute("required", "true");
+                }
+
+            }
+
+
+    }
 
 </SCRIPT>
 <style rel="stylesheet">
@@ -166,7 +197,7 @@
 
                                             <label for="TnxType" class="col-md-2 col-form-label text-md-left">{{ __('Entry Type') }}&nbsp;<span class="mandatory">*</span></label>
                                             <div class="col-md-4">
-                                                <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus>
+                                                <select id="TnxType" class="custom-select form-control @error('TnxType') is-invalid @enderror" name="TnxType" required autofocus onchange="return mendatoryFieldBesedOnTnxType(this);">
 
                                                     <option value="T">Transfer</option>
                                                     <option value="C">Cash</option>
@@ -216,7 +247,7 @@
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td ><input type="text" class="form-control form-control-sm" id="vrNo" name="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
-                                                            <select id="accountCode" class="custom-select form-control form-control-sm" name="accountCode[]" required autofocus>
+                                                            <select id="accountCode" class="custom-select form-control form-control-sm" name="accountCode[]" required autofocus onchange="return coAccount(this);">
                                                                 @foreach ($COA as $key => $value)
                                                                     <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                                 @endforeach
@@ -230,7 +261,7 @@
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td ><input type="text" class="form-control form-control-sm" id="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
-                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus>
+                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus onchange="return coAccount(this);">
                                                                 @foreach ($COA as $key => $value)
                                                                     <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
                                                                 @endforeach
