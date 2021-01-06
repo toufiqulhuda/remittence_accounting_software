@@ -88,7 +88,7 @@ class TransactionController extends Controller
                         'VoucherDate' => $VrDate,
                         'ExHouseID' => $AuthUser->ExHouseID,
                         'TnxType' => $TnxType,
-                        'Particulars' => 'Cash in Hand',
+                        'Particulars' => $Particulars[0],
                         'COACode' => '10101001',
                         'DrAmt' => array_sum($CrAmt),
                         'CrAmt' => array_sum($DrAmt),
@@ -102,7 +102,7 @@ class TransactionController extends Controller
 
                     array_push($saveData,$cashInHandData);
                 }
-                //dd($saveData);
+                dd($saveData);
                 $Tnx->insert($saveData);
                 return redirect()->route('transaction-account')
                                 ->with('status','Transaction created successfully.');

@@ -10,6 +10,17 @@
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
             var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
+            var COACode = table.rows[i].cells[2].children[0].value;
+            //alert(COACode);
+
+            if(TnxType=='C' && COACode=='10101001'){
+                //alert(table.rows[i].cells[4].children[0].value);
+                //table.rows[i].cells[3].children[0].removeAttribute("required");
+                table.rows[i].cells[3].children[0].value=table.rows[0].cells[3].children[0].value;
+                table.rows[i].cells[4].children[0].value=CrAmt;
+                table.rows[i].cells[5].children[0].value=DrAmt;
+
+            }
             if((Dr>0 && Cr>0) || (Dr==0 && Cr==0)){
                 //Cr=0;
                 alert('Each entry should have one contra.');
@@ -20,11 +31,10 @@
                 table.rows[i].cells[4].children[0].style.borderColor='#ced4da';
                 table.rows[i].cells[5].children[0].style.borderColor='#ced4da';
             }
-            // else{
-            //     //Dr=0;
-            //     table.rows[i].cells[4].children[0].focus();
-            // }
+
+
             DrAmt += Dr; CrAmt += Cr;
+
         }
         document.getElementById('totalDR').value=DrAmt.toFixed(2);
         document.getElementById('totalCR').value=CrAmt.toFixed(2);
@@ -32,18 +42,19 @@
             alert("Voucher Date should not be blank!");
             return false;
         }
+        // if((TnxType == 'C')){
+
+        // }
         if(DrAmt+CrAmt == 0){
             alert("Debit and Credit amount should not be blank!");
             return false;
         }
         if((TnxType == 'T' && DrAmt != CrAmt)){
             alert("Debit and Credit amount should be equal!");
+            document.getElementById('totalDR').style.borderColor='red';
+            document.getElementById('totalCR').style.borderColor='red';
             return false;
         }
-        // if((TnxType == 'C' && DrAmt>0 && CrAmt==0) || (TnxType == 'C' && DrAmt==0 && CrAmt>0)){
-        //     alert(TnxType);
-        //     return false;
-        // }
         if(!confirm("Do you really want to do this?")) {
             return false;
         }
@@ -54,9 +65,9 @@
         var table = document.getElementById(tableID);
 
         var rowCount = table.rows.length;
-        alert(rowCount);
+        //alert(rowCount);
         var row = table.insertRow(rowCount);
-        alert(row);
+        //alert(row);
         var colCount = table.rows[0].cells.length;
 
         for(var i=0; i<colCount; i++) {
@@ -201,7 +212,7 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody id="accTrxTblBody">
-                                                    <tr >
+                                                    <tr>
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td ><input type="text" class="form-control form-control-sm" id="vrNo" name="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
@@ -215,7 +226,7 @@
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
                                                     </tr>
-                                                    <tr >
+                                                    <tr>
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td ><input type="text" class="form-control form-control-sm" id="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
