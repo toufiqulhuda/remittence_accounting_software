@@ -75,7 +75,7 @@
             var newcell	= row.insertCell(i);
 
             newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-            //newcell.childNodes[0].value;
+            alert(newcell.childNodes[0].selectedIndex.value);
             switch(newcell.childNodes[0].type) {
                 case "text":
                         (newcell.childNodes[0].name=='vrNo') ? newcell.childNodes[0].value++ : newcell.childNodes[0].value = "";
