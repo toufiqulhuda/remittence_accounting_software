@@ -41,12 +41,7 @@ class UserController extends Controller
     }
 
 
-    public function create()
-    {
-        //$roles = DB::table('roles')->select('roleid', 'role_name')->orderBy('roleid')->get();
-        // $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
-        // return view('users.create',compact('roles'));
-    }
+
 
 
     public function store(Request $request)
@@ -72,7 +67,7 @@ class UserController extends Controller
                 $user->name = !empty($data['name']) ? $data['name'] : '' ;
                 $user->email = !empty($data['email']) ? $data['email'] : '' ;
                 $user->username = !empty($data['username']) ? $data['username'] : '';
-                $user->password = Hash::make(!empty($data['password']) ? $data['password'] : '');
+                $user->password = bcrypt(!empty($data['password']) ? $data['password'] : '');
                 $user->ExHouseID = !empty($data['exHouse']) ? $data['exHouse'] : '';
                 $user->roleid = !empty($data['role']) ? $data['role'] : '';
                 //$user->isactive = '';
@@ -92,10 +87,30 @@ class UserController extends Controller
 
     }
 
-
-    public function show(User $user)
+    public function search()
     {
-        //return view('users.show',compact('user'));
+        return view('users.reset');
+    }
+    public function show(){
+        return 'hi';
+    }
+
+    public function showUserInfoByName(Request $request)
+    {
+        //dd($request);
+        if(!empty($request)){
+        $data = $request->input();
+        $userName = !empty($data['username']) ? $data['username'] : "";
+        dd($userName);
+        $users = DB::table('users AS u')
+                    ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
+                    ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
+                    ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name','u.isactive')
+                    ->where('u.username',$userName)
+                    ->get();
+        //dd($users);
+        }
+        return view('users.reset',compact('users'));
     }
 
 
@@ -153,7 +168,7 @@ class UserController extends Controller
         $data = $request->input();
         $authUuser = Auth::user();
         $user = User::find($user_id);
-        $user->password = Hash::make('sgqpay#123');
+        $user->password = bcrypt('sgqpay#123');
         $user->UpdatedBy = $authUuser->user_id;
         $user->updated_at = Carbon::now();
         $user->remember_token = $data['_token'];

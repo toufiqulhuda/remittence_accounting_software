@@ -40,7 +40,7 @@
     <li class="nav-item dropdown">
         <a id="maintainDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tools"></i>&nbsp;Maintenance</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="maintainDropdown">
-            <a class="dropdown-item" href="#"><i class="fas fa-key"></i>&nbsp;Reset Password</a>
+            <a class="dropdown-item" href="{{url('/users/search')}}"><i class="fas fa-key"></i>&nbsp;Reset Password</a>
         </div>
     </li>
     <li class="nav-item dropdown">

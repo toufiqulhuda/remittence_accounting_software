@@ -66,6 +66,9 @@ Route::view('home','home')->name('home')->middleware(['auth']);
   User route
 *************************************/
 Route::resource('users', UserController::class);
+//Route::get('users-search', [UserController::class,'search'])->name('users-search');
+Route::get('users-search', [UserController::class,'showUserInfoByName']);
+Route::post('users-search', [UserController::class,'showUserInfoByName'])->name('users-search');
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
 Route::post('change-userstatus', [UserController::class,'isactive'])->name('change-userstatus');
 
