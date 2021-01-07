@@ -123,7 +123,7 @@
                                             <div class="col-md-10 offset-md-2">
                                                 <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-check"></i>
-                                                    {{ __('Save') }}
+                                                    {{ __('Search') }}
                                                 </button>
                                                 <button type="reset" class="btn btn-primary">
                                                     <i class="fas fa-broom"></i>
@@ -136,6 +136,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if(isset($users))
+                        <div class="col-md-10 p-1 float-left" >
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                {{ $users->name }}
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+
 
                     <!-- /contect -->
 

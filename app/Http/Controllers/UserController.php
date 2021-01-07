@@ -86,31 +86,34 @@ class UserController extends Controller
         }
 
     }
-
-    public function search()
-    {
-        return view('users.reset');
-    }
     public function show(){
         return 'hi';
     }
 
+    // public function search()
+    // {
+    //     return view('users.reset');
+    // }
+
     public function showUserInfoByName(Request $request)
     {
-        //dd($request);
-        if(!empty($request)){
+
         $data = $request->input();
         $userName = !empty($data['username']) ? $data['username'] : "";
-        dd($userName);
-        $users = DB::table('users AS u')
-                    ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
-                    ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
-                    ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name','u.isactive')
-                    ->where('u.username',$userName)
-                    ->get();
-        //dd($users);
+        //dd($userName);
+        if(!empty($userName)){
+            $users = DB::table('users AS u')
+                ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
+                ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
+                ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name','u.isactive')
+                ->where('u.username',$userName)
+                ->first();
+            //dd($userName);
+            return view('users.reset',compact('users'));
+        }else{
+            return view('users.reset');
         }
-        return view('users.reset',compact('users'));
+
     }
 
 

@@ -102,7 +102,7 @@ class TransactionController extends Controller
 
                     array_push($saveData,$cashInHandData);
                 }
-                dd($saveData);
+                //dd($saveData);
                 $Tnx->insert($saveData);
                 return redirect()->route('transaction-account')
                                 ->with('status','Transaction created successfully.');
