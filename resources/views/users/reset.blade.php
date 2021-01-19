@@ -84,6 +84,16 @@
                                                     </span>
                                                 @enderror
                                             </div> --}}
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Search') }}
+                                                </button>
+                                                <button type="reset" class="btn btn-primary">
+                                                    <i class="fas fa-broom"></i>
+                                                    {{ __('Clear') }}
+                                                </button>
+                                            </div>
                                         </div>
 
                                         {{-- <div class="form-group row">
@@ -118,7 +128,7 @@
                                             </div>
 
                                         </div> --}}
-                                        <hr>
+                                        {{-- <hr>
                                         <div class="form-group row mb-0">
                                             <div class="col-md-10 offset-md-2">
                                                 <button type="submit" class="btn btn-primary">
@@ -130,7 +140,7 @@
                                                     {{ __('Clear') }}
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!-- </fieldset> -->
                                     </form>
                                 </div>
@@ -140,10 +150,82 @@
                         <div class="col-md-10 p-1 float-left" >
                             <div class="card mb-3">
                                 <div class="card-body">
-                                {{ $users->name }}
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->name }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->email }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Exhouse</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->ExHouseName }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Role</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->role_name }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Status</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ ($users->isactive==0) ?'In-Active' : 'Active' }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Username</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->username }}
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
+
                         </div>
+                        <form action="{{ url('users/reset/'.$users->user_id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="col-md-10 p-1 float-left" >
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="form-group row mb-0">
+                                            <div class="col-md-10 offset-md-2">
+                                                <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i>
+                                                    {{ __('Reset') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         @endif
 
 

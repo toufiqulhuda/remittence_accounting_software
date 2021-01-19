@@ -6,14 +6,18 @@
         var table=document.getElementById("accTrxTblBody");
         var VrDate=document.getElementById("voucherDate").value;
         var TnxType=document.getElementById("TnxType").value;
-        var DrAmt = parseFloat(0); var CrAmt = parseFloat(0);
+        var DrAmt = parseFloat(0); var CrAmt = parseFloat(0); var countCOACode=0;
         for(var i=0; i<table.rows.length;i++){
             var Dr=parseFloat(table.rows[i].cells[4].children[0].value) || 0;
             var Cr=parseFloat(table.rows[i].cells[5].children[0].value) || 0;
             var COACode = table.rows[i].cells[2].children[0].value;
             //alert(COACode);
+            if(COACode=='10101001'){
+                countCOACode++;
+            }
 
             if(TnxType=='C' && COACode=='10101001'){
+
                 //alert(table.rows[i].cells[4].children[0].value);
                 //table.rows[i].cells[3].children[0].removeAttribute("required");
                 table.rows[i].cells[3].children[0].value=table.rows[0].cells[3].children[0].value;
@@ -42,9 +46,10 @@
             alert("Voucher Date should not be blank!");
             return false;
         }
-        // if((TnxType == 'C')){
-
-        // }
+        if(countCOACode > 1){
+            alert("Cash in hand should not more then one.");
+            return false;
+        }
         if(DrAmt+CrAmt == 0){
             alert("Debit and Credit amount should not be blank!");
             return false;
