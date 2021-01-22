@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 class ReportsController extends Controller
 {
     public function houseKeepingPDF(){
-        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->get();
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $accMains = DB::table('account_main_head')->select('AccHdID','acctHdName')->get();
         $accGrps = AccountGroup::select('AccGrID','AccGrCode','AccGrName','AccHdID')->where('ExHouseID',Auth::user()->ExHouseID)->get();
         $accSbGrps = AccountSubGroup::select('AccSbGrID','AccSbGrCode','AccSbGrName','AccGrID')->where('ExHouseID',Auth::user()->ExHouseID)->get();

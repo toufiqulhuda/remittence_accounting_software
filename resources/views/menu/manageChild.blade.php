@@ -1,6 +1,6 @@
 <ul>
 @foreach($childs as $child)
-    <li>
+    <li><input type="checkbox"/>
         {{ $child->title }}
     @if(count($child->children))
             @include('manageChild',['childs' => $child->children])

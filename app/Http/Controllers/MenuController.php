@@ -12,7 +12,7 @@ class MenuController extends Controller
 {
     public function index(){
         $roles = Role::select('roleid', 'role_name')->where('isactive','1')->orderBy('roleid')->get();
-        $menus = Menu::where('parent_id', '=', 0)->get();
+        $menus = Menu::where('parent_id', '=', 0)->orderBy('order')->get();
         $allMenus = Menu::pluck('title','id')->all();
         return view('menu.index',compact('roles','menus','allMenus')); //
     }
@@ -55,7 +55,7 @@ class MenuController extends Controller
 
     public function show()
     {
-        $menus = Menu::where('parent_id', '=', 0)->get();
+        $menus = Menu::where('parent_id', '=', 0)->orderBy('order')->get();
         return view('menu.dynamicMenu',compact('menus'));
     }
 }

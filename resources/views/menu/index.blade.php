@@ -330,13 +330,13 @@ $('#tree1').treed();
                                         <div class="card-body">
                                 <div class="row">
                                 @foreach ($roles as $role)
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label class="col-md-12 col-form-label text-md-center btn btn-primary">{{ $role->role_name }}</label>
                                         <div class="col-md-12">
                                             <ul id="tree1">
                                                 @foreach($menus as $menu)
                                                 @if ( $role->roleid==$menu->roleid)
-                                                <li>
+                                                <li><input type="checkbox"/>
                                                     {{ $menu->title }}
                                                     @if(count($menu->children))
                                                         @include('menu.manageChild',['childs' => $menu->children])

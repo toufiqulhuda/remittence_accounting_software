@@ -87,7 +87,7 @@ class UserController extends Controller
 
     }
     public function show(){
-        return 'hi';
+        return view('users.show');
     }
 
     // public function search()
@@ -102,14 +102,17 @@ class UserController extends Controller
         $userName = !empty($data['username']) ? $data['username'] : "";
         //dd($userName);
         if(!empty($userName)){
-            $users = DB::table('users AS u')
+            if($userName=='admin'){
+                return redirect()->route('users-search')->with('failed','Operation failed! You have no permission to reset this user.');
+            }else{
+                $users = DB::table('users AS u')
                 ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
                 ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
                 ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name', 'u.isactive' )
                 ->where('u.username',$userName)
                 ->first();
-            //dd($userName);
-            return view('users.reset',compact('users'));
+                return view('users.reset',compact('users'));
+            }
         }else{
             return view('users.reset');
         }

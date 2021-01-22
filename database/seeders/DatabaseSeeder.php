@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CountryTableSeeder::class,
             CurrencyTableSeeder::class,
             ExhouseSeeder::class,
-            MenuAdminSeeder::class,
+            MenuSeeder::class,
 
          ]);
 

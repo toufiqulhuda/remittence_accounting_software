@@ -31,7 +31,7 @@ class RoleTableSeeder extends Seeder
             ],
 
             [
-                'role_name' => 'Branch',
+                'role_name' => 'Normal',
                 'isactive' => '0',
                 'CreatedBy' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
