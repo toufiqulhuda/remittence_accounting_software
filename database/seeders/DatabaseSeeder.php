@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CurrencyTableSeeder::class,
             ExhouseSeeder::class,
             MenuSeeder::class,
+            HouseKeepingSeeder::class,
 
          ]);
 

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class MenuSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '1',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //2
@@ -35,7 +36,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '2',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //3
@@ -46,7 +47,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '1',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //4
@@ -57,7 +58,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '2',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //5
@@ -68,7 +69,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '3',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //6
@@ -79,7 +80,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '4',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //7
@@ -90,7 +91,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '5',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //8
@@ -101,7 +102,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '1',
                 'order' => '6',
                 'parent_id' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
 
@@ -113,7 +114,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '1',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //10
@@ -124,7 +125,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '2',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //11
@@ -135,7 +136,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '1',
                 'parent_id' => '10',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //12
@@ -146,7 +147,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '2',
                 'parent_id' => '10',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //13
@@ -157,7 +158,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '3',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //14
@@ -168,7 +169,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '1',
                 'parent_id' => '13',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //15
@@ -179,7 +180,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '2',
                 'parent_id' => '13',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //16
@@ -190,7 +191,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '3',
                 'order' => '3',
                 'parent_id' => '13',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
 
@@ -202,7 +203,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '1',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //18
@@ -213,7 +214,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '2',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //19
@@ -224,7 +225,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '1',
                 'parent_id' => '18',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //20
@@ -235,7 +236,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '2',
                 'parent_id' => '18',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //21
@@ -246,7 +247,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '3',
                 'parent_id' => '18',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //22
@@ -257,7 +258,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '4',
                 'parent_id' => '18',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             // reports 23
@@ -268,7 +269,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '3',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //24
@@ -279,7 +280,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '1',
                 'parent_id' => '23',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //25
@@ -290,7 +291,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '2',
                 'parent_id' => '23',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //26
@@ -301,7 +302,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '3',
                 'parent_id' => '23',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //27
@@ -312,7 +313,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '4',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //28
@@ -323,7 +324,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '1',
                 'parent_id' => '27',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //29
@@ -334,7 +335,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '5',
                 'parent_id' => '0',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //30
@@ -345,7 +346,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '1',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //31
@@ -356,7 +357,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '2',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //32
@@ -367,7 +368,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '3',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //33
@@ -378,7 +379,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '4',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //34
@@ -389,7 +390,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '5',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             //35
@@ -400,7 +401,7 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '6',
                 'parent_id' => '29',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
 
