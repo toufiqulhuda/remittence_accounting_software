@@ -13,6 +13,7 @@ use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -136,3 +137,10 @@ Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAs
 Route::get('menus',[MenuController::class,'index'])->name('menus.index');
 Route::get('menus-show',[MenuController::class,'show']);
 Route::post('menus',[MenuController::class,'store'])->name('menus.store');
+
+/************************************
+  Send Mail route
+*************************************/
+//Route::get('sendbasicemail',[MailController::class,'basic_email']);
+Route::get('sendhtmlemail',[MailController::class,'html_email']);
+//Route::get('sendattachmentemail',[MailController::class,'attachment_email']);

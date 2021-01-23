@@ -12,9 +12,8 @@ use Illuminate\Database\QueryException;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
-
-
-
+use App\Http\Controllers\MailController;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -102,7 +101,7 @@ class UserController extends Controller
         $userName = !empty($data['username']) ? $data['username'] : "";
         //dd($userName);
         if(!empty($userName)){
-            if($userName=='admin'){
+            if(($userName=='admin') or ($userName== Auth::user()->username)){
                 return redirect()->route('users-search')->with('failed','Operation failed! You have no permission to reset this user.');
             }else{
                 $users = DB::table('users AS u')
@@ -173,13 +172,25 @@ class UserController extends Controller
         //dd($request);
         $data = $request->input();
         $authUuser = Auth::user();
+        $mail = new MailController();
         $user = User::find($user_id);
-        $user->password = bcrypt('sgqpay#123');
+        $random = trim(Str::random(8));
+
+        $user->password = bcrypt($random);
         $user->UpdatedBy = $authUuser->user_id;
         $user->updated_at = Carbon::now();
         $user->remember_token = $data['_token'];
         $user->save();
         $user->update($request->all());
+
+        $data = array(
+            'name'=>$user->name,
+            'toEmail'=>$user->email,
+            'username'=>$user->username,
+            'newPassword'=>$random,
+        );
+
+        $mail->reset_email($data);
         return redirect()->route('users.index')
                                 ->with('status','User reset successfully.');
     }
