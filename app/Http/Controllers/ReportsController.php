@@ -88,12 +88,25 @@ class ReportsController extends Controller
     // public function transactionJournalTransferRpt(){}
     // public function transactionJournalCashRpt(){}
     public function profitLossStatementRpt($frmDate,$toDate,$reportName){
-        dd($reportName);
-        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->get();
-        $view='reports.houseKeepingRpt-PDF';
-        $data =compact('exHouseDtls','accMains','accGrps','accSbGrps','accCOAs');
-        $reportName='ChartOfAccount-'.Auth::user()->ExHouseID;
-        return view('reports.transactionJournalRpt-PDF');
+        //dd($reportName);
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        $tnxs = DB::table('transactions AS t')
+                        ->select('mh.AccHdID','mh.AcctHdName','gr.AccGrName','sgr.AccSbGrName','coa.AccountName','t.Particulars','t.DrAmt','t.CrAmt')
+                        ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->leftJoin('account_sub_group_detail AS sgr','sgr.AccSbGrID','=','coa.AccSbGrID')
+                        ->leftJoin('account_group_detail AS gr','gr.AccGrID','=','sgr.AccGrID')
+                        ->leftJoin('account_main_head AS mh','mh.AccHdID','=','gr.AccHdID')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->whereIn('mh.AccHdID',[3,4])
+                        ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                        ->get();
+
+        $view='reports.'.$reportName.'-PDF';
+        $data =compact('exHouseDtls','frmDate','toDate','tnxs');
+        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+        return view($view,$data);
+        //return $this->createPDF($view,$data,$reportName);
     }
     public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType){
         //dd($reportName);
