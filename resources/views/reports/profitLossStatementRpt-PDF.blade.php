@@ -49,7 +49,7 @@
     </p>
 
  @if(isset($tnxs))
- @php $BfBal = 0; $InctotalDrAmt=0; $InctotalCrAmt=0; $IncBalance=0; 
+ @php $BfBal = 0; $InctotalDrAmt=0; $InctotalCrAmt=0; $IncBalance=0;
  $ExptotalDrAmt=0; $ExptotalCrAmt=0;  $ExpBalance=0;
  @endphp
         <table stylewidth="100%" >
@@ -64,11 +64,14 @@
             </tr>
             @foreach ($tnxs as $tnx)
             @if($tnx->AccHdID=='3')
+                @if($tnx->AccGrName)
+
+                @endif
             @php
             $InctotalDrAmt+=$tnx->DrAmt;
             $InctotalCrAmt+=$tnx->CrAmt;
             $IncBalance+=$tnx->CrAmt-$tnx->DrAmt;
-            @endphp 
+            @endphp
                 <tr>
                     <td><b>{{$tnx->AccGrName}}</b></td>
                     <td>&nbsp;</td>
@@ -81,7 +84,7 @@
                     <td>{{number_format($tnx->CrAmt,2)}}</td>
                     <td>{{number_format($tnx->CrAmt-$tnx->DrAmt,2)}}</td>
                 </tr>
-                
+
 
             @endif
             @endforeach
@@ -104,8 +107,8 @@
             @foreach ($tnxs as $tnx)
             @if($tnx->AccHdID=='4')
             @php
-            $ExptotalDrAmt+=$tnx->DrAmt; 
-            $ExptotalCrAmt+=$tnx->CrAmt;  
+            $ExptotalDrAmt+=$tnx->DrAmt;
+            $ExptotalCrAmt+=$tnx->CrAmt;
             $ExpBalance+=$tnx->DrAmt-$tnx->CrAmt;
             @endphp
                 <tr>

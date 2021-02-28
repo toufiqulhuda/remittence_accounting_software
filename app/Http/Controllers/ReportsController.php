@@ -91,7 +91,7 @@ class ReportsController extends Controller
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
-                        ->select('mh.AccHdID','mh.AcctHdName','gr.AccGrName','sgr.AccSbGrName','coa.AccountName','t.Particulars','t.DrAmt','t.CrAmt')
+                        ->select('mh.AccHdID','mh.AcctHdName','gr.AccGrName','coa.AccountName',DB::raw('sum(t.DrAmt) AS DrAmt'),DB::raw('sum(t.CrAmt) AS CrAmt'))
                         ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
                         ->leftJoin('account_sub_group_detail AS sgr','sgr.AccSbGrID','=','coa.AccSbGrID')
                         ->leftJoin('account_group_detail AS gr','gr.AccGrID','=','sgr.AccGrID')
@@ -100,13 +100,14 @@ class ReportsController extends Controller
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->whereIn('mh.AccHdID',[3,4])
                         ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                        ->groupBy('mh.AccHdID','mh.AcctHdName','gr.AccGrName','coa.AccountName')
                         ->get();
 
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','frmDate','toDate','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
-        return view($view,$data);
-        //return $this->createPDF($view,$data,$reportName);
+        //return view($view,$data);
+        return $this->createPDF($view,$data,$reportName);
     }
     public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType){
         //dd($reportName);
