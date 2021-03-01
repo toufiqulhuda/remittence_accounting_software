@@ -24,7 +24,7 @@ class MailController extends Controller
         Mail::send('resetPasswordMail', $data, function($message) use ($data) {
             //$toMail=$data['toMail'];
            $message->to($data['toEmail'], $data['username'] )->subject('Password Reset');
-           $message->from('tuloncse@gmail.com','Toufiqul Huda');
+           $message->from('mail@maildomail.com','Sender name');
         });
         //return true;
         //echo "HTML Email Sent. Check your inbox.";
