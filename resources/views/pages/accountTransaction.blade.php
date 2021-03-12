@@ -74,16 +74,23 @@
         var row = table.insertRow(rowCount);
         //alert(row);
         var colCount = table.rows[0].cells.length;
+        //alert(colCount);
+        //var VrNo = 0;
 
         for(var i=0; i<colCount; i++) {
 
             var newcell	= row.insertCell(i);
-
+            //alert(newcell);
             newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-            //alert(newcell.childNodes[0].selectedIndex.value);
+            //alert(newcell.childNodes[0].value);
             switch(newcell.childNodes[0].type) {
                 case "text":
-                        (newcell.childNodes[0].name=='vrNo') ? newcell.childNodes[0].value++ : newcell.childNodes[0].value = "";
+                        if(newcell.childNodes[0].name=='vrNo') {
+
+                            newcell.childNodes[0].value = rowCount+parseInt(newcell.childNodes[0].value);
+                        }else{
+                            newcell.childNodes[0].value = "";
+                        }
                         break;
                 case "checkbox":
                         newcell.childNodes[0].checked = false;
@@ -104,15 +111,27 @@
                 var row = table.rows[i];
                 var chkbox = row.cells[0].childNodes[0];
                 if(null != chkbox && true == chkbox.checked) {
-                    if(rowCount <= 2) {
+                    if(rowCount <= 1) {
                         alert("Cannot delete all the rows.");
                         break;
                     }
+
                     table.deleteRow(i);
                     rowCount--;
                     i--;
                 }
             }
+
+            for(var j=0; j<rowCount; j++) {
+                if(j==0){
+                    var VrNo=parseInt(table.rows[j].cells[1].childNodes[0].value);
+                }
+                var firstcell=table.rows[j].cells[1].childNodes[0];
+                if(firstcell.name=='vrNo') {
+                    firstcell.value=VrNo++;
+                }
+            }
+
         }catch(e) {
             alert(e);
         }
@@ -262,7 +281,7 @@
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
                                                     </tr>
-                                                    <tr>
+                                                    {{--<tr>
                                                         <td ><input type="checkbox"  name="chk"></td>
                                                         <td ><input type="text" class="form-control form-control-sm" id="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
                                                         <td >
@@ -275,7 +294,7 @@
                                                         <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
-                                                    </tr>
+                                                    </tr>--}}
                                                 </tbody>
                                                     <tr >
                                                         <th class="w-35 text-right"colspan="4">Total Sum : </th>

@@ -131,7 +131,7 @@ class MenuSeeder extends Seeder
             //11
             [
                 'title' => 'Account Transaction',
-                'url' => 'transaction/account',
+                'url' => '/transaction/account',
                 'icon' => '',
                 'roleid' => '3',
                 'order' => '1',
@@ -142,7 +142,7 @@ class MenuSeeder extends Seeder
             //12
             [
                 'title' => 'Reverse Transaction',
-                'url' => 'transaction/reverse',
+                'url' => '/transaction/reverse',
                 'icon' => '',
                 'roleid' => '3',
                 'order' => '2',
