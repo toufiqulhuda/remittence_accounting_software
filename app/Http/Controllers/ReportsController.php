@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PDF;
-use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Excel;
+use Maatwebsite\Excel\Concerns\FromView;
+//use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class ReportsController extends Controller
 {
@@ -38,6 +40,7 @@ class ReportsController extends Controller
         $reportName=!empty($data['reportName']) ? $data['reportName'] :'';
         $account=!empty($data['account']) ? $data['account'] :'';
         $TnxType=!empty($data['TnxType']) ? $data['TnxType'] :'';
+        $DloadType=!empty($data['DloadType']) ? $data['DloadType'] :'';
         //dd($TnxType);
         if($TnxType=="All"){
             $Type = array('T','C','D');
@@ -49,9 +52,9 @@ class ReportsController extends Controller
             $Type = array();
         }
         //dd($Type);
-        return $this->$reportName($frmDate,$toDate,$reportName,$account,$Type);
+        return $this->$reportName($frmDate,$toDate,$reportName,$account,$Type,$DloadType);
     }
-    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null){
+    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null,$DloadType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -65,7 +68,12 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
-        return $this->createPDF($view,$data,$reportName);
+        if($DloadType=='PDF'){
+            $dType = 'createPDF';
+        }else{
+            $dType = 'export';
+        }
+        return $this->$dType($view,$data,$reportName);
         //return view($view,$data);
     }
     public function transactionJournalRpt($frmDate,$toDate,$reportName,$account=null,$TnxType){
@@ -82,6 +90,7 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','tnxs','frmDate','toDate','TnxType');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+
         return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
     }
@@ -133,6 +142,25 @@ class ReportsController extends Controller
     public function createPDF($view,$data,$reportName){
         $pdf = PDF::loadView($view,$data)->setPaper('a4', 'portrait');
         return $pdf->download(''.$reportName.'.pdf');
+    }
+    public function export($view,$data,$reportName)
+    {
+        // return Excel::create('Customer Data', function($excel) use ($data){
+        //     $excel->setTitle('Customer Data');
+        //     $excel->sheet('Customer Data', function($sheet) use ($data){
+        //      $sheet->fromArray($data, null, 'A1', false, false);
+        //     });
+        // })->download($reportName.'xlsx');
+
+        // return Excel::create('Laravel Excel', function($excel) use ($view, $data) {
+
+        //     $excel->sheet('Excel sheet', function($sheet) use ($view, $data) {
+        //         $sheet->loadView($view)->$data;
+        //         //$sheet->setOrientation('landscape');
+        //     });
+
+        // })->export($reportName.'xlsx');
+        return Excel::download($data, $reportName.'.xlsx');
     }
 
 

@@ -159,45 +159,60 @@ function accountActiveInactive(r){
                                     </div>
                                     <fieldset class="form-group">
                                         <div class="row">
-                                          <label class="col-form-label col-sm-2 pt-0">Select One &nbsp;<span class="mandatory">*</span></label>
-                                          <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios1" value="transactionJournalRpt" checked onclick="accountActiveInactive(this);">
-                                                <label class="form-check-label" for="gridRadios1">
-                                                    Transaction Journal
+                                            <label class="col-form-label col-sm-2 pt-0">Select One &nbsp;<span class="mandatory">*</span></label>
+                                            <div class="col-sm-5">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios1" value="transactionJournalRpt" checked onclick="accountActiveInactive(this);">
+                                                    <label class="form-check-label" for="gridRadios1">
+                                                        Transaction Journal
+                                                    </label>
+                                                </div>
+                                                {{-- <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="transactionJournalTransferRpt" onclick="accountActiveInactive(this);">
+                                                    <label class="form-check-label" for="gridRadios2">
+                                                        Transaction Journal Transfer
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="transactionJournalCashRpt" onclick="accountActiveInactive(this);">
+                                                    <label class="form-check-label" for="gridRadios3">
+                                                        Transaction Journal Cash
+                                                    </label>
+                                                </div> --}}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="voucherPrintRpt" onclick="accountActiveInactive(this);">
+                                                    <label class="form-check-label" for="gridRadios4">
+                                                        Voucher Print
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios5" value="profitLossStatementRpt" onclick="accountActiveInactive(this);">
+                                                    <label class="form-check-label" for="gridRadios5">
+                                                        Profit & Loss Statement
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ">
+                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios6" value="accountTransactionSummaryRpt" onclick="accountActiveInactive(this);" >
+                                                <label class="form-check-label" for="gridRadios6">
+                                                    Account Transaction Summary
                                                 </label>
+                                                </div>
                                             </div>
-                                            {{-- <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="transactionJournalTransferRpt" onclick="accountActiveInactive(this);">
-                                                <label class="form-check-label" for="gridRadios2">
-                                                    Transaction Journal Transfer
-                                                </label>
-                                              </div>
-                                              <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="transactionJournalCashRpt" onclick="accountActiveInactive(this);">
-                                                <label class="form-check-label" for="gridRadios3">
-                                                    Transaction Journal Cash
-                                                </label>
-                                              </div> --}}
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="voucherPrintRpt" onclick="accountActiveInactive(this);">
-                                                <label class="form-check-label" for="gridRadios4">
-                                                    Voucher Print
-                                                </label>
+                                            <label class="col-form-label col-sm-2 pt-0">Download Type &nbsp;<span class="mandatory">*</span></label>
+                                            <div class="col-sm-3">
+                                                <select id="DloadType" class="custom-select form-control @error('DloadType') is-invalid @enderror" name="DloadType" required autofocus>
+
+                                                    <option value="PDF" selected>PDF</option>
+                                                    <option value="Excel">Excel</option>
+
+                                                </select>
+                                                @error('DloadType')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="reportName" id="gridRadios5" value="profitLossStatementRpt" onclick="accountActiveInactive(this);">
-                                                <label class="form-check-label" for="gridRadios5">
-                                                    Profit & Loss Statement
-                                                </label>
-                                            </div>
-                                            <div class="form-check ">
-                                              <input class="form-check-input" type="radio" name="reportName" id="gridRadios6" value="accountTransactionSummaryRpt" onclick="accountActiveInactive(this);" >
-                                              <label class="form-check-label" for="gridRadios6">
-                                                Account Transaction Summary
-                                              </label>
-                                            </div>
-                                          </div>
                                         </div>
                                       </fieldset>
                                     <hr>
@@ -205,7 +220,7 @@ function accountActiveInactive(r){
                                         <div class="col-md-10 offset-md-2">
                                             <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-download"></i>
-                                                {{ __('Export PDF') }}
+                                                {{ __('Export') }}
                                             </button>
                                             <button type="reset" class="btn btn-primary">
                                                 <i class="fas fa-broom"></i>
