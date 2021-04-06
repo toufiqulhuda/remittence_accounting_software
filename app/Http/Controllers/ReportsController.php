@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PDF;
 use Excel;
-use Maatwebsite\Excel\Concerns\FromView;
+use App\Exports\TransactionJournalRpt;
+use App\Exports\ProfitLossStatementRpt;
+use App\Exports\AccountTransactionSummaryRpt;
+//use Maatwebsite\Excel\Facades\Excel;
+//use Maatwebsite\Excel\Concerns\FromView;
 //use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class ReportsController extends Controller
@@ -51,10 +55,16 @@ class ReportsController extends Controller
         }else{
             $Type = array();
         }
-        //dd($Type);
-        return $this->$reportName($frmDate,$toDate,$reportName,$account,$Type,$DloadType);
+
+        if($DloadType=='PDF'){
+            $dType = $this->$reportName($frmDate,$toDate,$reportName,$account,$Type);
+        }else{
+            $dType = $this->exportExcel($frmDate,$toDate,$reportName,$account,$Type);
+        }
+
+        return $dType;
     }
-    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null,$DloadType){
+    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -68,12 +78,8 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
-        if($DloadType=='PDF'){
-            $dType = 'createPDF';
-        }else{
-            $dType = 'export';
-        }
-        return $this->$dType($view,$data,$reportName);
+
+        return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
     }
     public function transactionJournalRpt($frmDate,$toDate,$reportName,$account=null,$TnxType){
@@ -94,8 +100,7 @@ class ReportsController extends Controller
         return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
     }
-    // public function transactionJournalTransferRpt(){}
-    // public function transactionJournalCashRpt(){}
+
     public function profitLossStatementRpt($frmDate,$toDate,$reportName){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
@@ -143,25 +148,18 @@ class ReportsController extends Controller
         $pdf = PDF::loadView($view,$data)->setPaper('a4', 'portrait');
         return $pdf->download(''.$reportName.'.pdf');
     }
-    public function export($view,$data,$reportName)
+    public function exportExcel($frmDate,$toDate,$reportName,$account,$Type)
     {
-        // return Excel::create('Customer Data', function($excel) use ($data){
-        //     $excel->setTitle('Customer Data');
-        //     $excel->sheet('Customer Data', function($sheet) use ($data){
-        //      $sheet->fromArray($data, null, 'A1', false, false);
-        //     });
-        // })->download($reportName.'xlsx');
-
-        // return Excel::create('Laravel Excel', function($excel) use ($view, $data) {
-
-        //     $excel->sheet('Excel sheet', function($sheet) use ($view, $data) {
-        //         $sheet->loadView($view)->$data;
-        //         //$sheet->setOrientation('landscape');
-        //     });
-
-        // })->export($reportName.'xlsx');
-        return Excel::download($data, $reportName.'.xlsx');
+        if($reportName=='transactionJournalRpt'){
+            $obj = new TransactionJournalRpt($frmDate,$toDate,$reportName,$account,$Type);
+        }else if($reportName=='profitLossStatementRpt'){
+            $obj = new ProfitLossStatementRpt($frmDate,$toDate,$reportName,$account,$Type);
+        }else if($reportName=='accountTransactionSummaryRpt'){
+            $obj = new AccountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$Type);
+        }
+        return Excel::download($obj, $reportName.'.xlsx');
     }
+
 
 
 }
