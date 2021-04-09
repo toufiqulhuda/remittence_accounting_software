@@ -198,7 +198,7 @@ function accountActiveInactive(r){
                                                 </label>
                                                 </div>
                                             </div>
-                                            <label class="col-form-label col-sm-2 pt-0">Download Type &nbsp;<span class="mandatory">*</span></label>
+                                            <label class="col-form-label col-sm-2 pt-0">Export Format &nbsp;<span class="mandatory">*</span></label>
                                             <div class="col-sm-3">
                                                 <select id="DloadType" class="custom-select form-control @error('DloadType') is-invalid @enderror" name="DloadType" required autofocus>
 

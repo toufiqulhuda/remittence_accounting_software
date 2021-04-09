@@ -141,21 +141,74 @@ class ReportsController extends Controller
         return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
     }
-    public function rptAsOnDate(){
-        return view('reports.reportsAsOnDateRpt');
+    public function rptAsOnDateView(){
+        $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
+        //dd($VoucherDate);
+        return view('reports.reportsAsOnDateRpt',compact('VoucherDate'));
+    }
+    public function rptAsOnDate(Request $request){
+        //dd($request);
+        $data = $request->input();
+        $frmDate=!empty($data['asOnDate']) ? date('Y-m-d', strtotime($data['asOnDate'])) : '';
+        $toDate=!empty($data['toDate']) ? date('Y-m-d', strtotime($data['toDate'])) :'';
+        $reportName=!empty($data['reportName']) ? $data['reportName'] :'';
+        $account=!empty($data['account']) ? $data['account'] :'';
+        $Type=!empty($data['TnxType']) ? $data['TnxType'] :'';
+        $DloadType=!empty($data['DloadType']) ? $data['DloadType'] :'';
+        //dd($TnxType);
+
+        if($DloadType=='PDF'){
+            $dType = $this->$reportName($frmDate,$reportName);
+        }else{
+            $dType = $this->exportExcel($frmDate,$toDate,$reportName,$account,$Type);
+        }
+
+        return $dType;
+    }
+    public function trailBalanceRpt($frmDate,$reportName){
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        $tnxs = DB::table('transactions AS t')
+                        ->select('ag.AccGrName','coa.AccountName',DB::raw('sum(t.DrAmt) AS DrAmt'),DB::raw('sum(t.CrAmt) AS CrAmt'))
+                        ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->Join('account_sub_group_detail AS asg','asg.AccSbGrID','=','coa.AccSbGrID')
+                        ->Join('account_group_detail AS ag' , 'ag.AccGrID','=', 'asg.AccGrID')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->where('t.VoucherDate',$frmDate)
+                        ->groupBy('ag.AccGrName','coa.AccountName')
+                        ->get();
+                        //dd($tnxs);
+        $view='reports.'.$reportName.'-PDF';
+        $data =compact('exHouseDtls','tnxs','frmDate');
+        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+
+        //return $this->createPDF($view,$data,$reportName);
+        return view($view,$data);
+
+    }
+    public function dailyCashBookRpt($frmDate,$reportName){
+
+    }
+    public function statementOfAffairsDetailRpt($frmDate,$reportName){
+
     }
     public function createPDF($view,$data,$reportName){
         $pdf = PDF::loadView($view,$data)->setPaper('a4', 'portrait');
         return $pdf->download(''.$reportName.'.pdf');
     }
-    public function exportExcel($frmDate,$toDate,$reportName,$account,$Type)
-    {
+    public function exportExcel($frmDate,$toDate,$reportName,$account,$Type){
         if($reportName=='transactionJournalRpt'){
             $obj = new TransactionJournalRpt($frmDate,$toDate,$reportName,$account,$Type);
         }else if($reportName=='profitLossStatementRpt'){
             $obj = new ProfitLossStatementRpt($frmDate,$toDate,$reportName,$account,$Type);
         }else if($reportName=='accountTransactionSummaryRpt'){
             $obj = new AccountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$Type);
+        }else if($reportName=='trailBalanceRpt'){
+            $obj = new TrailBalanceRpt($frmDate,$reportName);
+        }else if($reportName=='dailyCashBookRpt'){
+            $obj = new DailyCashBookRpt($frmDate,$reportName);
+        }else if($reportName=='statementOfAffairsDetailRpt'){
+            $obj = new StatementOfAffairsDetailRpt($frmDate,$reportName);
         }
         return Excel::download($obj, $reportName.'.xlsx');
     }

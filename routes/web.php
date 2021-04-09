@@ -130,7 +130,8 @@ Route::get('houseKeepingRpt/pdf', [ReportsController::class,'houseKeepingPDF'])-
 Route::get('todaysRpt', [ReportsController::class,'todaysRptView'])->name('todaysRpt');
 Route::post('todaysRpt', [ReportsController::class,'todaysRpt'])->name('todaysRpt');
 //Route::post('voucherPrintRptPDF', [ReportsController::class,'voucherPrintRpt'])->name('voucherPrintRptPDF');
-Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');
+Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDateView'])->name('rptAsOnDate');
+Route::post('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');
 /************************************
   Menu route
 *************************************/
