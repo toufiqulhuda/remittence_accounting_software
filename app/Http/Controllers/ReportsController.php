@@ -13,6 +13,7 @@ use Excel;
 use App\Exports\TransactionJournalRpt;
 use App\Exports\ProfitLossStatementRpt;
 use App\Exports\AccountTransactionSummaryRpt;
+use App\Exports\TrailBalanceRpt;
 //use Maatwebsite\Excel\Facades\Excel;
 //use Maatwebsite\Excel\Concerns\FromView;
 //use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -182,11 +183,48 @@ class ReportsController extends Controller
         $data =compact('exHouseDtls','tnxs','frmDate');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
 
-        //return $this->createPDF($view,$data,$reportName);
-        return view($view,$data);
+        return $this->createPDF($view,$data,$reportName);
+        //return view($view,$data);
 
     }
     public function dailyCashBookRpt($frmDate,$reportName){
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        $DebitUnion =DB::table('transactions AS t')
+                        ->select('coa.AccountName',DB::raw('sum(t.DrAmt) AS DrAmt'))
+                        ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->where('t.VoucherDate',$frmDate)
+                        ->where('t.TnxType','C')
+                        ->where('t.DrAmt','<>','0.00')
+                        ->groupBy('coa.AccountName');
+        $Debit =DB::table('transactions AS t')
+                        ->select(DB::raw('"-BF-" AS AccountName'),DB::raw('sum(t.DrAmt) AS DrAmt'))
+                        ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->where('t.VoucherDate','<',$frmDate)
+                        ->where('t.TnxType','C')
+                        ->union($DebitUnion)->get();
+
+        $Credit =DB::table('transactions AS t')
+                        ->select('coa.AccountName',DB::raw('sum(t.CrAmt) AS CrAmt'))
+                        ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->where('t.VoucherDate',$frmDate)
+                        ->where('t.TnxType','C')
+                        ->where('t.CrAmt','<>','0.00')
+                        ->groupBy('coa.AccountName')
+                        ->get();
+
+
+        $view='reports.'.$reportName.'-PDF';
+        $data =compact('exHouseDtls','frmDate','Debit','Credit');
+        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+
+        return $this->createPDF($view,$data,$reportName);
+        //return view($view,$data);
 
     }
     public function statementOfAffairsDetailRpt($frmDate,$reportName){
