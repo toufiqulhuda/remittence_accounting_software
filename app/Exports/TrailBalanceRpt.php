@@ -3,27 +3,20 @@
 namespace App\Exports;
 
 use App\Models\Exhouse;
-use App\Models\AccountGroup;
-use App\Models\AccountSubGroup;
-use App\Models\ChartOfAccount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\Exportable;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
 class TrailBalanceRpt implements FromView
 {
-    // use Exportable;
+
     public function __construct($frmDate,$reportName)
     {
         $this->frmDate = $frmDate;
-        //$this->toDate = $toDate;
         $this->reportName = $reportName;
-        //$this->account = $account;
-        //$this->TnxType = $Type;
+
     }
 
     public function view(): View

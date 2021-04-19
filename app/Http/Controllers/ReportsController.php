@@ -14,9 +14,8 @@ use App\Exports\TransactionJournalRpt;
 use App\Exports\ProfitLossStatementRpt;
 use App\Exports\AccountTransactionSummaryRpt;
 use App\Exports\TrailBalanceRpt;
-//use Maatwebsite\Excel\Facades\Excel;
-//use Maatwebsite\Excel\Concerns\FromView;
-//use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use App\Exports\DailyCashBookRpt;
+
 
 class ReportsController extends Controller
 {
@@ -227,7 +226,7 @@ class ReportsController extends Controller
         //return view($view,$data);
 
     }
-    public function statementOfAffairsDetailRpt($frmDate,$reportName){
+    public function statAffairsDetailRpt($frmDate,$reportName){
 
     }
     public function createPDF($view,$data,$reportName){
@@ -245,8 +244,8 @@ class ReportsController extends Controller
             $obj = new TrailBalanceRpt($frmDate,$reportName);
         }else if($reportName=='dailyCashBookRpt'){
             $obj = new DailyCashBookRpt($frmDate,$reportName);
-        }else if($reportName=='statementOfAffairsDetailRpt'){
-            $obj = new StatementOfAffairsDetailRpt($frmDate,$reportName);
+        }else if($reportName=='statAffairsDetailRpt'){
+            $obj = new StatAffairsDetailRpt($frmDate,$reportName);
         }
         return Excel::download($obj, $reportName.'.xlsx');
     }

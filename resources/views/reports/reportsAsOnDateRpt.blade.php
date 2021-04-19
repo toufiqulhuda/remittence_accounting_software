@@ -137,7 +137,7 @@ $( document ).ready(function() {
                                                     </label>
                                                 </div>
                                                 <div class="form-check ">
-                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="statementOfAffairsDetailRpt" >
+                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="statAffairsDetailRpt" >
                                                     <label class="form-check-label" for="gridRadios4">
                                                         Statement Of Affairs (Detail)
                                                     </label>
