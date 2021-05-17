@@ -46,62 +46,46 @@
     <p style="text-align: center;font-size: 9pt">Statement of Affairs As On:  <b>{{date('d-m-Y', strtotime($frmDate)) }}</b> </p>
     <p style="text-align: center;font-size: 9pt">Print Date: <b>{{date('d/m/Y')}}</b></p>
 
- @if(isset($Debit) && isset($Credit))
+@if(isset($Tnxs))
  @php $BfBal = 0; $totalDrAmt=0; $totalCrAmt=0; //$Balance=0;
+ $accountHead = array('2','3');
  @endphp
 
         <table >
             <thead>
                 <tr>
-                    <th class="border-bottom border-top border-left  text-left" style="width:30%">Capital & Liabilities</th>
-                    <th class="border-bottom border-top border-left text-right" style="width:20%">Amount</th>
-                    <th class="border-bottom border-top border-left text-left" style="width:30%">Assets</th>
-                    <th class="border-bottom border-top border-right text-right" style="width:20%">Amount</th>
+                    <th class="border-bottom border-top border-left text-center" style="width:30%">Capital & Liabilities</th>
+                    <th class="border-bottom border-top border-left text-center" style="width:20%">Amount</th>
+                    <th class="border-bottom border-top border-left text-center" style="width:30%">Assets</th>
+                    <th class="border-bottom border-top border-left border-right text-center" style="width:20%">Amount</th>
                 </tr>
             </thead>
             <tbody>
+                @dd($Tnxs);
+                @foreach ($Tnxs as $Tnx )
+                @dd($Tnx->AccHdID);
                 <tr>
-                    <td colspan="2" class="border-right border-bottom border-left" style="width:50%">
-                        <table>
-                        @foreach ($Debit as $Debit_data)
-                        @php
-                            $totalDrAmt += $Debit_data->DrAmt;
-                            //$totalCrAmt += $Debit_data->CrAmt;
+                    @if(in_array($Tnx->AccHdID,$accountHead))
 
-                        @endphp
-                        <tr>
-
-                            <td class=" text-left" style="width:25%">{{$Debit_data->AccountName}}</td>
-                            <td class=" text-right" style="width:25%">{{number_format($Debit_data->DrAmt,2)}}</td>
-                            {{--<td class=" text-right" style="width:25%">$Debit_data->AccountName</td>--}}
-                            {{-- <td class=" text-right" style="width:25%">$Debit_data->CrAmt</td> --}}
-
-                        </tr>
-                        @endforeach
-                        </table>
+                    <td class="border-right border-bottom border-left" >
+                        {{$Tnx->AccHdID}}
                     </td>
 
-                    <td colspan="2" class="border-right border-bottom" style="width:50%">
-                        <table>
-                        @foreach ($Credit as $Credit_data)
-                        @php
-                            //$totalDrAmt += $Debit_data->DrAmt;
-                            $totalCrAmt += $Credit_data->CrAmt;
-
-                        @endphp
-                        <tr>
-
-                            <td class=" text-left" style="width:25%">{{$Credit_data->AccountName}}</td>
-                            <td class=" text-right" style="width:25%">{{number_format($Credit_data->CrAmt,2)}}</td>
-                            {{-- <td class=" text-right" style="width:25%">{{--$Debit_data->AccountName</td> --}}
-                            {{-- <td class=" text-right" style="width:25%">$Debit_data->CrAmt</td> --}}
-
-                        </tr>
-                        @endforeach
-                        </table>
+                    <td class="border-right border-bottom text-right" >
+                        {{$Tnx->AccHdID}}
                     </td>
+                    @else
+
+                    <td class="border-right border-bottom border-left" >
+                        {{$Tnx->AccHdID}}
+                    </td>
+
+                    <td class="border-right border-bottom text-right" >
+                        {{$Tnx->AccHdID}}
+                    </td>
+                    @endif
                 </tr>
-
+                @endforeach
 
                 <tr>
                     <td colspan="4"   ></td>
@@ -113,7 +97,7 @@
                     <td class="  text-right" >{{number_format($totalCrAmt,2)}}</td>
                 </tr>
                 <tr>
-                    <td class="  text-right">Closing Balance:</td>
+                    <td ></td>
                     <td class="border-bottom  text-right">0.00</td>
                     <td></td>
                     <td class="border-bottom  text-right"> {{number_format($totalDrAmt-$totalCrAmt,2)}}</td>

@@ -108,7 +108,7 @@
                                         <div class="form-group row">
                                             <label for="exhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Exchange House Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-md-3">
                                                 <select id="exhouseName" class="form-control @error('exhouseName') is-invalid @enderror" name="exhouseName" required autofocus>
                                                     <option value="">Choose...</option>
                                                     @foreach ($exHouse as  $value)
@@ -121,11 +121,9 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="subAccGroupType" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Type') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-md-3">
                                                 <select id="subAccGroupType" class="form-control @error('subAccGroupType') is-invalid @enderror" name="subAccGroupType" required autofocus>
                                                     <option value="">Choose...</option>
                                                     @foreach ($accSubGroupType as  $value)
@@ -139,13 +137,25 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label for="AccountName" class="col-md-3 col-form-label text-md-left">{{ __('New COA Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-md-5">
                                                 <input id="AccountName" type="text" class="form-control input-sm @error('AccountName') is-invalid @enderror" Name="AccountName" value="{{ old('AccountName') }}" required autocomplete="AccountName" autofocus>
 
                                                 @error('AccountName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <label for="initBalance" class="col-md-2 col-form-label text-md-left">{{ __('Initial Balance') }}&nbsp;<span class="mandatory">*</span></label>
+
+                                            <div class="col-md-2">
+                                                <input id="initBalance" type="text" style="text-align: right" class="form-control input-sm @error('initBalance') is-invalid @enderror" Name="initBalance" value="{{ old('initBalance') }}" placeholder="0.00" required autocomplete="initBalance" autofocus>
+
+                                                @error('initBalance')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

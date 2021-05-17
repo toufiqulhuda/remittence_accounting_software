@@ -70,7 +70,7 @@ class ChartOfAccountController extends Controller
                 $coa->ExHouseID = !empty($data['exhouseName']) ? $data['exhouseName'] :'';
                 $coa->AccountName = !empty($data['AccountName']) ? $data['AccountName'] : '';
                 $coa->AccSbGrID   = !empty($data['subAccGroupType']) ? $data['subAccGroupType'] : '';
-                //$coa->Balance   = !empty($data['subAccGroupType']) ? $data['subAccGroupType'] : '';
+                $coa->Balance   = !empty($data['initBalance']) ? $data['initBalance'] : '0.00';
                 //$role->isactive = '';
                 $coa->OpenDate = Carbon::now();
 				$coa->CreatedBy = $authUser->user_id;

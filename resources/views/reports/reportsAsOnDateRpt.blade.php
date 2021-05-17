@@ -7,7 +7,7 @@
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <script>
 $( document ).ready(function() {
-    $('#frmDate').datepicker({
+    $('#asOnDate').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'dd-mm-yyyy'
     });

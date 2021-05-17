@@ -15,6 +15,7 @@ use App\Exports\ProfitLossStatementRpt;
 use App\Exports\AccountTransactionSummaryRpt;
 use App\Exports\TrailBalanceRpt;
 use App\Exports\DailyCashBookRpt;
+//use DB;
 
 
 class ReportsController extends Controller
@@ -126,7 +127,17 @@ class ReportsController extends Controller
     public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
-        $accountNameCode = ChartOfAccount::select("COACode","AccountName")->where('COACode',$account)->first();
+        $accountNameCode = ChartOfAccount::select("COACode","AccountName","OpenDate",DB::raw("nvl(Balance,0) AS Balance"))->where('COACode',$account)->first();
+
+        $bfBal =  DB::table('transactions AS t')
+                    ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%m-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
+                    ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                    ->where('t.STATUS','=','1')
+                    ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                    ->where('t.COACode','=',$account)
+                    ->whereBetween('t.VoucherDate',['coa.OpenDate',date('Y-m-d',strtotime('-1 day', strtotime($frmDate)))])
+                    ->orderBy('t.VoucherDate')
+                    ->get();
         $tnxs = DB::table('transactions AS t')
                     ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%m-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
                     ->leftJoin('chart_of_account AS coa','coa.COACode','=','t.COACode')
@@ -134,9 +145,11 @@ class ReportsController extends Controller
                     ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                     ->where('t.COACode','=',$account)
                     ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                    ->orderBy('t.VoucherDate')
                     ->get();
+                    //dd($tnxs);
         $view='reports.'.$reportName.'-PDF';
-        $data =compact('exHouseDtls','accountNameCode','tnxs','frmDate','toDate');
+        $data =compact('exHouseDtls','accountNameCode','bfBal','tnxs','frmDate','toDate');
         $reportName=''.$reportName.'-'.$account;
         return $this->createPDF($view,$data,$reportName);
         //return view($view,$data);
@@ -227,6 +240,29 @@ class ReportsController extends Controller
 
     }
     public function statAffairsDetailRpt($frmDate,$reportName){
+        $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
+        //DB::enableQueryLog(); // Enable query log
+        $Tnxs = DB::table('transactions AS t')
+                    ->select('ah.AccHdID','t.COACode','coa.AccountName',DB::raw('nvl(ye.Balance,0)+sum(t.DrAmt)- sum(t.CrAmt) AS Balance'))
+                    ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                    ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
+                    ->JOIN ('account_group_detail AS ag' , 'ag.AccGrID','=','asg.AccGrID')
+                    ->JOIN ('account_main_head AS ah',  'ah.AccHdID','=','ag.AccHdID')
+                    ->leftJOIN ('year_closing_details AS ye' , 'ye.COACode','=','t.COACode')
+                    ->where('t.STATUS','=','1')
+                    ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                    ->whereBetween('t.VoucherDate',[DB::raw("DATE_FORMAT('".$frmDate."' ,'%Y-01-01')"),$frmDate])
+                    ->groupBy ('t.COACode')
+                    ->orderBy('t.COACode','asc')
+                    ->orderBy('t.VoucherDate','asc')
+                    ->get();                   
+
+        $view='reports.'.$reportName.'-PDF';
+        $data =compact('exHouseDtls','Tnxs','frmDate');
+        $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+
+        //return $this->createPDF($view,$data,$reportName);
+        return view($view,$data);
 
     }
     public function createPDF($view,$data,$reportName){
