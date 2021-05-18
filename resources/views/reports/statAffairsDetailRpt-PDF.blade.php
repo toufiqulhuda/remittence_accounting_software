@@ -48,9 +48,59 @@
 
 @if(isset($Tnxs))
  @php $BfBal = 0; $totalDrAmt=0; $totalCrAmt=0; //$Balance=0;
- $accountHead = array('2','3');
+ //$accountHead = array('2','3');
+$finalData = array();
+$capital = array();
+$assets = array();
+$a=0;
+$c=0;
  @endphp
-
+@foreach ($Tnxs as $key => $Tnx )
+@if(in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance > 0)
+@php
+    $assets [$a]= array($Tnx->AccountName,$Tnx->Balance);
+    $a++;
+@endphp
+@elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance > 0)
+@php
+    $capital [$c]= array($Tnx->AccountName,$Tnx->Balance);
+    $c++;
+@endphp
+@elseif (in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance < 0)
+@php
+    $capital [$c]= array($Tnx->AccountName,abs($Tnx->Balance));
+    $c++;
+@endphp
+@elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance < 0)
+@php
+    $assets [$a]= array($Tnx->AccountName,abs($Tnx->Balance));
+    $a++;
+@endphp
+@endif
+@endforeach
+@php
+    //echo count($capital);
+    //echo count($assets);
+    // if(count($capital)>count($assets)){
+    //     $arrlenth = count($capital);
+    // }else{
+    //     $arrlenth = count($assets);
+    // }
+    // for($i=0;$i<count($capital);$i++){
+    //     array_push($finalData,$assets[$i]+$capital[$i]);
+    //     //$finalData[$i]= array_push($finalData[$i],$assets[$i]);
+    // }
+    // for($i=0;$i<count($assets);$i++){
+    //    // $finalData[$i]= array_push($finalData[$i],$capital[$i]);
+    //     array_push($finalData,$assets[$i]);
+    // }
+    //echo '<pre>';
+    //print_r($finalData);
+    //print_r($capital);
+    //echo '<br>';
+    //print_r($assets);
+    //exit();
+@endphp
         <table >
             <thead>
                 <tr>
@@ -61,36 +111,64 @@
                 </tr>
             </thead>
             <tbody>
-                @dd($Tnxs);
-                @foreach ($Tnxs as $Tnx )
-                @dd($Tnx->AccHdID);
                 <tr>
-                    @if(in_array($Tnx->AccHdID,$accountHead))
+                    <td colspan="2" class="border-top  border-bottom text-center border-left">
+                        <table style="width: 100%">
+                            @foreach ($capital as $cap )
+                            @php
+                                $totalDrAmt += $cap[1];
+                            @endphp
+                            <tr>
+                                <td class="border-bottom  border-top border-right text-left" style="width: 60%">{{$cap[0]}}</td>
+                                <td class="border-bottom  border-top text-right" style="width: 40%">{{number_format($cap[1],2)}}</td>
 
-                    <td class="border-right border-bottom border-left" >
-                        {{$Tnx->AccHdID}}
+                            </tr>
+                            @endforeach
+                        </table>
+
+                    </td>
+                    <td colspan="2" class="border-top border-bottom text-center border-left border-right">
+                        <table style="width: 100%">
+                            @foreach ($assets as $asset )
+                            @php
+                                $totalCrAmt += $asset[1];
+                            @endphp
+                            <tr>
+                                <td class="border-bottom  border-right text-left" style="width: 60%">{{$asset[0]}}</td>
+                                <td class="border-bottom  text-right" style="width: 40%">{{number_format($asset[1],2)}}</td>
+
+                            </tr>
+                            @endforeach
+                        </table>
+                    </td>
+
+                    {{-- <td class="border-right border-bottom border-left" >
+                        @if(in_array($Tnx->AccHdID,array(2,3)))
+                        {{$Tnx->AccHdID . $Tnx->AccountName}}
+                        @endif
                     </td>
 
                     <td class="border-right border-bottom text-right" >
-                        {{$Tnx->AccHdID}}
+                        @if(in_array($Tnx->AccHdID,array(2,3)))
+                        {{$Tnx->Balance}}
+                        @endif
                     </td>
-                    @else
-
                     <td class="border-right border-bottom border-left" >
-                        {{$Tnx->AccHdID}}
+                        @if(in_array($Tnx->AccHdID,array(1,4)))
+                        {{$Tnx->AccHdID . $Tnx->AccountName}}
+                        @endif
                     </td>
 
                     <td class="border-right border-bottom text-right" >
-                        {{$Tnx->AccHdID}}
-                    </td>
-                    @endif
-                </tr>
-                @endforeach
+                        @if(in_array($Tnx->AccHdID,array(1,4)))
+                        {{$Tnx->Balance}}
+                        @endif
+                    </td> --}}
 
-                <tr>
-                    <td colspan="4"   ></td>
+
                 </tr>
-                <tr>
+
+                {{-- <tr>
                     <td ></td>
                     <td class="  text-right"  >{{number_format($totalDrAmt,2)}}</td>
                     <td></td>
@@ -101,7 +179,7 @@
                     <td class="border-bottom  text-right">0.00</td>
                     <td></td>
                     <td class="border-bottom  text-right"> {{number_format($totalDrAmt-$totalCrAmt,2)}}</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <td ></td>
                     <td class="border-bottom  text-right"  >{{number_format($totalDrAmt,2)}}</td>

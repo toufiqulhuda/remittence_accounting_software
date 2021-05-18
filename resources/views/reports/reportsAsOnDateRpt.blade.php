@@ -86,7 +86,15 @@ $( document ).ready(function() {
                                             <label class="col-form-label col-sm-2 pt-0">Export Format &nbsp;<span class="mandatory">*</span></label>
                                             <div class="col-sm-1">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="DloadType" id="exportFormetPDF" value="PDF" checked>
+                                                    <input class="form-check-input" type="radio" name="DloadType" id="exportFormetPRV" value="PRV" checked>
+                                                    <label class="form-check-label" for="exportFormetPRV">
+                                                        Preview
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="DloadType" id="exportFormetPDF" value="PDF" >
                                                     <label class="form-check-label" for="exportFormetPDF">
                                                         PDF
                                                     </label>

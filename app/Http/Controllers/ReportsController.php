@@ -57,15 +57,15 @@ class ReportsController extends Controller
             $Type = array();
         }
 
-        if($DloadType=='PDF'){
-            $dType = $this->$reportName($frmDate,$toDate,$reportName,$account,$Type);
+        if($DloadType=='PDF' || $DloadType=='PRV'){
+            $dType = $this->$reportName($frmDate,$toDate,$reportName,$account,$Type,$DloadType);
         }else{
             $dType = $this->exportExcel($frmDate,$toDate,$reportName,$account,$Type);
         }
 
         return $dType;
     }
-    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null){
+    public function voucherPrintRpt($frmDate,$toDate,$reportName,$account=null,$TnxType=null,$DloadType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -80,11 +80,16 @@ class ReportsController extends Controller
         $data =compact('exHouseDtls','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
 
-        return $this->createPDF($view,$data,$reportName);
-        //return view($view,$data);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
     }
-    public function transactionJournalRpt($frmDate,$toDate,$reportName,$account=null,$TnxType){
-        //dd($TnxType);
+    public function transactionJournalRpt($frmDate,$toDate,$reportName,$account=null,$TnxType,$DloadType){
+        //dd($DloadType);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
                         ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%b-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
@@ -97,12 +102,16 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','tnxs','frmDate','toDate','TnxType');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
 
-        return $this->createPDF($view,$data,$reportName);
-        //return view($view,$data);
+        return $outPut;
     }
 
-    public function profitLossStatementRpt($frmDate,$toDate,$reportName){
+    public function profitLossStatementRpt($frmDate,$toDate,$reportName,$DloadType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
@@ -121,10 +130,15 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','frmDate','toDate','tnxs');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
-        //return view($view,$data);
-        return $this->createPDF($view,$data,$reportName);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
     }
-    public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType){
+    public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType,$DloadType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $accountNameCode = ChartOfAccount::select("COACode","AccountName","OpenDate",DB::raw("nvl(Balance,0) AS Balance"))->where('COACode',$account)->first();
@@ -151,8 +165,13 @@ class ReportsController extends Controller
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','accountNameCode','bfBal','tnxs','frmDate','toDate');
         $reportName=''.$reportName.'-'.$account;
-        return $this->createPDF($view,$data,$reportName);
-        //return view($view,$data);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
     }
     public function rptAsOnDateView(){
         $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
@@ -170,15 +189,15 @@ class ReportsController extends Controller
         $DloadType=!empty($data['DloadType']) ? $data['DloadType'] :'';
         //dd($TnxType);
 
-        if($DloadType=='PDF'){
-            $dType = $this->$reportName($frmDate,$reportName);
+        if($DloadType=='PDF' || $DloadType == 'PRV'){
+            $dType = $this->$reportName($frmDate,$reportName,$DloadType);
         }else{
             $dType = $this->exportExcel($frmDate,$toDate,$reportName,$account,$Type);
         }
 
         return $dType;
     }
-    public function trailBalanceRpt($frmDate,$reportName){
+    public function trailBalanceRpt($frmDate,$reportName,$DloadType){
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $tnxs = DB::table('transactions AS t')
                         ->select('ag.AccGrName','coa.AccountName',DB::raw('sum(t.DrAmt) AS DrAmt'),DB::raw('sum(t.CrAmt) AS CrAmt'))
@@ -195,11 +214,16 @@ class ReportsController extends Controller
         $data =compact('exHouseDtls','tnxs','frmDate');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
 
-        return $this->createPDF($view,$data,$reportName);
-        //return view($view,$data);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
 
     }
-    public function dailyCashBookRpt($frmDate,$reportName){
+    public function dailyCashBookRpt($frmDate,$reportName,$DloadType){
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         $DebitUnion =DB::table('transactions AS t')
                         ->select('coa.AccountName',DB::raw('sum(t.DrAmt) AS DrAmt'))
@@ -235,11 +259,16 @@ class ReportsController extends Controller
         $data =compact('exHouseDtls','frmDate','Debit','Credit');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
 
-        return $this->createPDF($view,$data,$reportName);
-        //return view($view,$data);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
 
     }
-    public function statAffairsDetailRpt($frmDate,$reportName){
+    public function statAffairsDetailRpt($frmDate,$reportName,$DloadType){
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         //DB::enableQueryLog(); // Enable query log
         $Tnxs = DB::table('transactions AS t')
@@ -255,14 +284,19 @@ class ReportsController extends Controller
                     ->groupBy ('t.COACode')
                     ->orderBy('t.COACode','asc')
                     ->orderBy('t.VoucherDate','asc')
-                    ->get();                   
-
+                    ->get();
+        //DB::getQueryLog();
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','Tnxs','frmDate');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;
 
-        //return $this->createPDF($view,$data,$reportName);
-        return view($view,$data);
+        if($DloadType=='PDF'){
+            $outPut = $this->createPDF($view,$data,$reportName);
+        }else{
+            $outPut = view($view,$data);
+        }
+
+        return $outPut;
 
     }
     public function createPDF($view,$data,$reportName){

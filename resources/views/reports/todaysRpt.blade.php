@@ -202,7 +202,8 @@ function accountActiveInactive(r){
                                             <div class="col-sm-3">
                                                 <select id="DloadType" class="custom-select form-control @error('DloadType') is-invalid @enderror" name="DloadType" required autofocus>
 
-                                                    <option value="PDF" selected>PDF</option>
+                                                    <option value="PRV" selected>Preview</option>
+                                                    <option value="PDF" >PDF</option>
                                                     <option value="Excel">Excel</option>
 
                                                 </select>
