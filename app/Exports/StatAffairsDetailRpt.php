@@ -44,7 +44,7 @@ class StatAffairsDetailRpt implements FromView
                             ->leftJOIN ('year_closing_details AS ye' , 'ye.COACode','=','t.COACode')
                             ->where('t.STATUS','=','1')
                             ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
-                            ->whereBetween('t.VoucherDate',[DB::raw("DATE_FORMAT('".$this->frmDate."' ,'%Y-01-01')"),$this->frmDate])
+                            ->whereBetween('t.VoucherDate',[DB::raw("DATE_ADD(ye.Year_Closing_Date, INTERVAL 1 DAY)"),$this->frmDate])
                             ->groupBy ('t.COACode')
                             ->orderBy('t.COACode','asc')
                             ->orderBy('t.VoucherDate','asc')

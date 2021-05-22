@@ -293,7 +293,7 @@ class ReportsController extends Controller
                     ->leftJOIN ('year_closing_details AS ye' , 'ye.COACode','=','t.COACode')
                     ->where('t.STATUS','=','1')
                     ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
-                    ->whereBetween('t.VoucherDate',[DB::raw("DATE_FORMAT('".$frmDate."' ,'%Y-01-01')"),$frmDate])
+                    ->whereBetween('t.VoucherDate',[DB::raw("DATE_ADD(ye.Year_Closing_Date, INTERVAL 1 DAY)"),$frmDate])
                     ->groupBy ('t.COACode')
                     ->orderBy('t.COACode','asc')
                     ->orderBy('t.VoucherDate','asc')
@@ -328,7 +328,8 @@ class ReportsController extends Controller
             echo 'Both are equal';
         }
         exit();*/
-        //DB::getQueryLog();
+        //dd(DB::getQueryLog());
+        //exit();
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','Tnxs','frmDate');
         $reportName=''.$reportName.'-'.Auth::user()->ExHouseID;

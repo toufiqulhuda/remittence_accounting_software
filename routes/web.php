@@ -123,6 +123,10 @@ Route::post('transaction/account/store', [TransactionController::class,'accountT
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
 Route::get('transaction/reverse-pdf', [TransactionController::class,'createPDF'])->name('transaction-reverse-pdf');
 Route::post('transaction/delete', [TransactionController::class,'transactionDelete'])->name('transaction-delete');
+Route::get('endOfDay', [TransactionController::class,'endOfDay'])->name('endOfDay');
+Route::post('endOfDay', [TransactionController::class,'endOfDayProcess'])->name('endOfDay');
+Route::get('yearClosing', [TransactionController::class,'yearClosing'])->name('yearClosing');
+
 /************************************
   Report route
 *************************************/
