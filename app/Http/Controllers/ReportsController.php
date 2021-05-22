@@ -15,6 +15,9 @@ use App\Exports\ProfitLossStatementRpt;
 use App\Exports\AccountTransactionSummaryRpt;
 use App\Exports\TrailBalanceRpt;
 use App\Exports\DailyCashBookRpt;
+use App\Exports\StatAffairsDetailRpt;
+use PhpParser\Node\Stmt\Foreach_;
+
 //use DB;
 
 
@@ -272,7 +275,17 @@ class ReportsController extends Controller
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
         //DB::enableQueryLog(); // Enable query log
         $Tnxs = DB::table('transactions AS t')
-                    ->select('ah.AccHdID','t.COACode','coa.AccountName',DB::raw('nvl(ye.Balance,0)+sum(t.DrAmt)- sum(t.CrAmt) AS Balance'))
+                    ->select('ah.AccHdID','t.COACode','coa.AccountName',
+                    DB::raw('case
+                            when ah.AccHdID =1 then
+                                nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                            when ah.AccHdID = 4 then
+                                nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                            when ah.AccHdID = 2 then
+                                nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                            when ah.AccHdID = 3 then
+                                nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                            END AS Balance'))
                     ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
                     ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
                     ->JOIN ('account_group_detail AS ag' , 'ag.AccGrID','=','asg.AccGrID')
@@ -285,6 +298,36 @@ class ReportsController extends Controller
                     ->orderBy('t.COACode','asc')
                     ->orderBy('t.VoucherDate','asc')
                     ->get();
+        /*$a = 0;
+        $c = 0;
+        foreach ($Tnxs as $Tnx) {
+            if(in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance > 0){
+                $assets [$a]= $Tnx->Balance;
+                $a++;
+            }elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance > 0){
+                $capital [$c]= $Tnx->Balance;
+                $c++;
+            }elseif (in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance < 0){
+                $capital [$c]= abs($Tnx->Balance);
+                $c++;
+            }elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance < 0){
+                $assets [$a]= abs($Tnx->Balance);
+                $a++;
+            }
+
+        }
+        echo '<pre>';
+        print_r($capital);
+        print_r($assets);
+        echo $sum_cap = array_sum($capital);
+        echo '<br>';
+        echo $sum_ass = array_sum($assets);
+        if($sum_cap != $sum_ass){
+            echo 'Debit and credit mismatch';
+        }else{
+            echo 'Both are equal';
+        }
+        exit();*/
         //DB::getQueryLog();
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','Tnxs','frmDate');
