@@ -263,6 +263,29 @@ class TransactionController extends Controller
     public function yearClosingProcess(){
 
     }
+    public function startTransactionDay(){
+        $lastTnxDate = Exhouse::select('PrevDate')->where('ExHouseID',Auth::user()->ExHouseID )->first();
+        return view('pages.startTnxDay',compact('lastTnxDate'));
+    }
+    public function startTransactionDayProcess(Request $request){
+        //dd($request);
+        try {
+            $data = $request->input();
+            $todayTnxDate = !empty($data['todayTnxDate']) ? $data['todayTnxDate'] : '';
+            Exhouse::where('ExHouseID',Auth::user()->ExHouseID)
+                    ->update([
+                        'TnxDate'=>date('Y-m-d',strtotime($todayTnxDate)),
+                        'UpdatedBy'=>Auth::user()->user_id,
+                        'updated_at'=>Carbon::now(),
+                    ]);
+            return redirect()->route('startDay')->with('status',"Today's Transaction Date set Successfully.");
+        }catch(Exception $e){
+            return redirect()->route('startDay')->with('failed',"Faild to set Start Date.");
+        }
+
+    }
+
+
 
     public function createPDF() {
         // retreive all records from db

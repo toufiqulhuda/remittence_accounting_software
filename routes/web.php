@@ -125,6 +125,8 @@ Route::get('transaction/reverse-pdf', [TransactionController::class,'createPDF']
 Route::post('transaction/delete', [TransactionController::class,'transactionDelete'])->name('transaction-delete');
 Route::get('endOfDay', [TransactionController::class,'endOfDay'])->name('endOfDay');
 Route::post('endOfDay', [TransactionController::class,'endOfDayProcess'])->name('endOfDay');
+Route::get('startDay', [TransactionController::class,'startTransactionDay'])->name('startDay');
+Route::post('startDay', [TransactionController::class,'startTransactionDayProcess'])->name('startDay');
 Route::get('yearClosing', [TransactionController::class,'yearClosing'])->name('yearClosing');
 
 /************************************
