@@ -404,6 +404,28 @@ class MenuSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
+            //36
+            [
+                'title' => 'End Of Day',
+                'url' => '/endOfDay',
+                'icon' => '',
+                'roleid' => '3',
+                'order' => '3',
+                'parent_id' => '10',
+                'created_at' => Carbon::now(),
+                'updated_at' => null,
+            ],
+            //37
+            [
+                'title' => 'Year Closing',
+                'url' => '/yearClosing',
+                'icon' => 'fas fa-calendar-alt',
+                'roleid' => '2',
+                'order' => '2',
+                'parent_id' => '27',
+                'created_at' => Carbon::now(),
+                'updated_at' => null,
+            ],
 
 
 
