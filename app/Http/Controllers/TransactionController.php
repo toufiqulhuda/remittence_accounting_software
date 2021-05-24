@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChartOfAccount;
 use App\Models\Transactions;
 use App\Models\Exhouse;
+use App\Models\YearClosing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -258,10 +259,93 @@ class TransactionController extends Controller
     }
 
     public function yearClosing(){
-        return 'hello';
+        $lastYearClosingDate = DB::table('year_closing_details')->select(DB::raw('MAX( Year_Closing_Date) AS Closing_Year'))->first();
+        return view('pages.yearClosing',compact('lastYearClosingDate'));
     }
-    public function yearClosingProcess(){
+    public function yearClosingProcess(request $request){
+        //dd($request);
+        $data = $request->input();
+        $closingYear = !empty($data['closingYear']) ? $data['closingYear'] : '';
+        //dd($closingYear);
+        $lastYearClosingDate = DB::table('year_closing_details')->select(DB::raw('MAX( Year_Closing_Date) AS Closing_Year'))->first();
+        $lastYearClosingYear=date('d-m-Y',strtotime($lastYearClosingDate->Closing_Year));
+        $requestYearClosingYear=date('d-m-Y',strtotime($closingYear));
+        if ($lastYearClosingYear < $requestYearClosingYear){
+            try {
+                $Tnxs = DB::table('transactions AS t')
+                            ->select('ah.AccHdID','t.COACode','coa.AccountName',
+                            DB::raw('case
+                                    when ah.AccHdID =1 then
+                                        nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                    when ah.AccHdID = 4 then
+                                        nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                    when ah.AccHdID = 2 then
+                                        nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                    when ah.AccHdID = 3 then
+                                        nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                    END AS Balance'))
+                        ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                        ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
+                        ->JOIN ('account_group_detail AS ag' , 'ag.AccGrID','=','asg.AccGrID')
+                        ->JOIN ('account_main_head AS ah',  'ah.AccHdID','=','ag.AccHdID')
+                        ->leftJOIN ('year_closing_details AS ye' , 'ye.COACode','=','t.COACode')
+                        ->where('t.STATUS','=','1')
+                        ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                        ->whereBetween('t.VoucherDate',[DB::raw("DATE_ADD(ye.Year_Closing_Date, INTERVAL 1 DAY)"),date('Y-m-d',strtotime($closingYear))])
+                        ->groupBy ('t.COACode')
+                        ->orderBy('t.COACode','asc')
+                        ->orderBy('t.VoucherDate','asc')
+                        ->get();
 
+                $capital= array();
+                $assets= array();
+                $a = 0;
+                $c = 0;
+                foreach ($Tnxs as $Tnx) {
+                    if(in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance > 0){
+                        $assets [$a]= $Tnx->Balance;
+                        $a++;
+                    }elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance > 0){
+                        $capital [$c]= $Tnx->Balance;
+                        $c++;
+                    }elseif (in_array($Tnx->AccHdID,array(1,4)) && $Tnx->Balance < 0){
+                        $capital [$c]= abs($Tnx->Balance);
+                        $c++;
+                    }elseif (in_array($Tnx->AccHdID,array(2,3)) && $Tnx->Balance < 0){
+                        $assets [$a]= abs($Tnx->Balance);
+                        $a++;
+                    }
+
+                }
+                if(count($capital) > 0 && count($assets) > 0){
+                    $sum_cap = array_sum($capital);
+                    $sum_ass = array_sum($assets);
+                    if($sum_cap != $sum_ass){
+                        return redirect()->route('yearClosing')->with('failed','Debit and credit mismatch');
+                    }else{
+
+                        $insertData=array();
+                        foreach ($Tnxs as $key => $Tnx) {
+                            $insertData[$key]['Type_name']= 'Year Closing';
+                            $insertData[$key]['COACode']= $Tnx->COACode;
+                            $insertData[$key]['Balance']= $Tnx->Balance;
+                            $insertData[$key]['ExHouseID']= Auth::user()->ExHouseID;
+                            $insertData[$key]['Year_Closing_Date']= date('Y-m-d',strtotime($closingYear));
+                            $insertData[$key]['Year_Closing_Execution']= date('Y-m-d');
+                            $insertData[$key]['Remarks']= 'Year Closing '.date('Y',strtotime($closingYear));
+                            $insertData[$key]['CreatedBy']= Auth::user()->user_id;
+                            $insertData[$key]['created_at']= date('Y-m-d');
+                        }
+                        DB::table('year_closing_details')->insert($insertData);
+                        return redirect()->route('yearClosing')->with('status',"Year Closing Successfully Done.");
+                    }
+                }
+            } catch (Exception $e) {
+                return redirect()->route('yearClosing')->with('failed','Process Faild Try Again.');
+            }
+        }else{
+            return redirect()->route('yearClosing')->with('failed','You have already closed the year.');
+        }
     }
     public function startTransactionDay(){
         $lastTnxDate = Exhouse::select('PrevDate')->where('ExHouseID',Auth::user()->ExHouseID )->first();

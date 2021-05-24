@@ -128,6 +128,7 @@ Route::post('endOfDay', [TransactionController::class,'endOfDayProcess'])->name(
 Route::get('startDay', [TransactionController::class,'startTransactionDay'])->name('startDay');
 Route::post('startDay', [TransactionController::class,'startTransactionDayProcess'])->name('startDay');
 Route::get('yearClosing', [TransactionController::class,'yearClosing'])->name('yearClosing');
+Route::post('yearClosing', [TransactionController::class,'yearClosingProcess'])->name('yearClosing');
 
 /************************************
   Report route
