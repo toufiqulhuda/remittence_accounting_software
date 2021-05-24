@@ -167,7 +167,9 @@ class TransactionController extends Controller
     {
 
     }*/
-
+    /********************************
+     * Day End
+    ***********************************/
     public function endOfDay(){
         return view('pages.endOfDay');
         //return 'hello';
@@ -257,7 +259,9 @@ class TransactionController extends Controller
         }
                     //dd(DB::getQueryLog());
     }
-
+    /********************************
+     * Year Closing
+    ***********************************/
     public function yearClosing(){
         $lastYearClosingDate = DB::table('year_closing_details')->select(DB::raw('MAX( Year_Closing_Date) AS Closing_Year'))->first();
         return view('pages.yearClosing',compact('lastYearClosingDate'));
@@ -347,6 +351,9 @@ class TransactionController extends Controller
             return redirect()->route('yearClosing')->with('failed','You have already closed the year.');
         }
     }
+    /********************************
+     * Start New Transaction Date
+    ***********************************/
     public function startTransactionDay(){
         $lastTnxDate = Exhouse::select('PrevDate')->where('ExHouseID',Auth::user()->ExHouseID )->first();
         return view('pages.startTnxDay',compact('lastTnxDate'));
@@ -369,8 +376,9 @@ class TransactionController extends Controller
 
     }
 
-
-
+    /********************************
+     * PDF File Create
+    ***********************************/
     public function createPDF() {
         // retreive all records from db
         $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
