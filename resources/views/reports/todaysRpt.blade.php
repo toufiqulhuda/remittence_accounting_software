@@ -218,10 +218,10 @@ function accountActiveInactive(r){
                                       </fieldset>
                                     <hr>
                                     <div class="form-group row mb-0">
-                                        <div class="col-md-10 offset-md-2">
+                                        <div class="col-md-12 col text-center">
                                             <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-download"></i>
-                                                {{ __('Export') }}
+                                                {{ __('Submit') }}
                                             </button>
                                             <button type="reset" class="btn btn-primary">
                                                 <i class="fas fa-broom"></i>

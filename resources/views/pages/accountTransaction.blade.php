@@ -281,20 +281,7 @@
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
                                                         <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
                                                     </tr>
-                                                    {{--<tr>
-                                                        <td ><input type="checkbox"  name="chk"></td>
-                                                        <td ><input type="text" class="form-control form-control-sm" id="vrNo" value="{{ $vrNo->VoucherNo}}" disabled /></td>
-                                                        <td >
-                                                            <select id="accountCode" class="custom-select form-control" name="accountCode[]" required autofocus onchange="return coAccount(this);">
-                                                                @foreach ($COA as $key => $value)
-                                                                    <option value="{{ $value->COACode }}" >{{ $value->COACode.' - '. $value->AccountName }}</option>
-                                                                @endforeach
-                                                            </SELECT>
-                                                        </td>
-                                                        <td ><INPUT type="text" class="form-control form-control-sm" name="Particulars[]" required/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="DrAmt" name="DrAmt[]" value=""  placeholder="0.00"/></td>
-                                                        <td ><INPUT class="form-control form-control-sm text-right" type="text" id="CrAmt" name="CrAmt[]" value="" placeholder="0.00"/></td>
-                                                    </tr>--}}
+
                                                 </tbody>
                                                     <tr >
                                                         <th class="w-35 text-right"colspan="4">Total Sum : </th>
@@ -311,7 +298,7 @@
                             <div class="col-md-12 p-1 float-left" >
                                 <div class="card mb-0">
                                     <div class="card-body">
-                                        <div class="col-md-10 offset-md-2">
+                                        <div class="col-md-12 col text-center">
                                             <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>{{ __('Save') }}</button>
                                             <button type="reset" class="btn btn-primary"><i class="fas fa-broom"></i>{{ __('Clear') }}</button>
                                         </div>

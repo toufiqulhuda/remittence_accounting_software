@@ -152,34 +152,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        {{-- <div class="form-group row">
 
-                                                <label for="subAccountGCode" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Code') }}&nbsp;<span class="mandatory">*</span></label>
-                                                <div class="col-md-3">
-                                                    <input id="subAccountGCode" type="text" class="form-control input-sm @error('subAccountGCode') is-invalid @enderror" subAccountGCode="subAccountGCode" value="{{ old('subAccountGCode') }}" required autocomplete="subAccountGCode" autofocus>
-
-                                                    @error('subAccountGCode')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <label for="AccSbGrName" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
-
-                                                <div class="col-md-3">
-                                                    <input id="AccSbGrName" type="text" class="form-control input-sm @error('AccSbGrName') is-invalid @enderror" Name="AccSbGrName" value="{{ old('AccSbGrName') }}" required autocomplete="AccSbGrName" autofocus>
-
-                                                    @error('AccSbGrName')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-
-                                        </div> --}}
                                         <hr>
                                         <div class="form-group row mb-0">
-                                            <div class="col-md-9 offset-md-3">
+                                            <div class="col-md-12 col text-center">
                                                 <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-check"></i>
                                                     {{ __('Save') }}

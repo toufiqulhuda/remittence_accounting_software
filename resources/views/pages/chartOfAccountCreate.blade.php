@@ -162,36 +162,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        {{-- <div class="form-group row">
-                                            <div class=" col-md-12">
-                                                <div class="row">
-                                                <label for="COACode" class="col-md-3 col-form-label text-md-left">{{ __('New COA Code') }}&nbsp;<span class="mandatory">*</span></label>
-                                                <div class="col-md-3">
-                                                    <input id="COACode" type="text" class="form-control input-sm @error('COACode') is-invalid @enderror" name="COACode" value="{{ old('COACode') }}" required autocomplete="COACode" autofocus>
 
-                                                    @error('COACode')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <label for="COAName" class="col-md-3 col-form-label text-md-left">{{ __('New COA Name') }}&nbsp;<span class="mandatory">*</span></label>
-
-                                                <div class="col-md-3">
-                                                    <input id="COAName" type="text" class="form-control input-sm @error('COAName') is-invalid @enderror" COAName="COAName" value="{{ old('COAName') }}" required autocomplete="COAName" autofocus>
-
-                                                    @error('COAName')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                         <hr>
                                         <div class="form-group row mb-0">
-                                            <div class="col-md-9 offset-md-3">
+                                            <div class="col-md-12 col text-center">
                                                 <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-check"></i>
                                                     {{ __('Save') }}

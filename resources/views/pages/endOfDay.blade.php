@@ -83,7 +83,7 @@
                                         @method('POST')
 
                                             <div class="form-group row mb-0">
-                                                <div class="col-md-9 offset-md-3">
+                                                <div class="col-md-12 col text-center">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value="1" name="endOfDayConf" id="endOfDayConf">
                                                         <label class="form-check-label" for="endOfDayConf">
@@ -101,7 +101,7 @@
 
                                             <hr>
                                             <div class="form-group row mb-0">
-                                                <div class="col-md-9 offset-md-3">
+                                                <div class="col-md-12 col text-center">
                                                     <button type="submit" class="btn btn-primary">
                                                     <i class="fas fa-file-invoice-dollar"></i>
                                                         {{ __('End Of Day') }}

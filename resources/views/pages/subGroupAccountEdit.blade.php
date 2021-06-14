@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-9 offset-md-3">
+                            <div class="col-md-12 col text-center">
                                 <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-check"></i>
                                     {{ __('Save') }}
