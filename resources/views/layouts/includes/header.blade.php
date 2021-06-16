@@ -2,8 +2,17 @@
     <div class="card" style="background-color:#f7fafd">
 
         <div class="row">
-            <div class="col-md-6"><img src="{{asset('assets/img/bannerbg.jpeg')}}" style="width:70%;"/></div>
-            <div class="col-md-6">
+            <div class="col-md-12">
+                <img src="{{asset('assets/img/iconlogo.png')}}" style="width: 10%;
+                margin: 5px;
+                float: left;"/>
+                <div style="color: #000065;
+                font-weight: bolder;
+                font-size: 440%;
+                text-align: center;
+                letter-spacing: 20px;font-family: Microsoft YaHei;line-height: 122px;">SG QUICKPAY</div>
+            </div>
+            {{-- <div class="col-md-6">
                 <div class="loginInfo text-right">
                     Online Accounting Software<br>
                     @php
@@ -15,7 +24,7 @@
                     @endphp<br>
                     Address<br>
                     Login Date : 12-Dec-2021</div>
-            </div>
+            </div> --}}
 
         </div>
     </div>
