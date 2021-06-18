@@ -345,7 +345,8 @@ class ReportsController extends Controller
     }
     public function createPDF($view,$data,$reportName){
         $pdf = PDF::loadView($view,$data)->setPaper('a4', 'portrait');
-        return $pdf->download(''.$reportName.'.pdf');
+        return $pdf->stream(''.$reportName.'.pdf');
+        //return $pdf->download(''.$reportName.'.pdf');
     }
     public function exportExcel($frmDate,$toDate,$reportName,$account,$Type){
         if($reportName=='transactionJournalRpt'){
