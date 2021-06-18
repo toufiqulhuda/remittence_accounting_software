@@ -72,6 +72,9 @@ Route::get('users-search', [UserController::class,'showUserInfoByName']);
 Route::post('users-search', [UserController::class,'showUserInfoByName'])->name('users-search');
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
 Route::post('change-userstatus', [UserController::class,'isactive'])->name('change-userstatus');
+Route::get('user-profile', [UserController::class,'userProfile'])->name('user-profile');
+Route::get('user-changePass', [UserController::class,'changePassword']);
+Route::post('user-changePass', [UserController::class,'changePassword'])->name('user-changePass');
 
 /************************************
   role route

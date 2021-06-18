@@ -22,90 +22,74 @@
                         </div>
                     @endif
                     <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-1 ">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
-
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/users/create') }}">
-                                        <i class="fas fa-user-plus"></i>
-                                        <span class="nav-text">Create User</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                {{-- <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/users/edit') }}">
-                                        <i class="fas fa-user-edit"></i>
-                                        <span class="nav-text">Edit User</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li> --}}
-
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/users/show') }}">
-                                        <i class="fas fa-address-card"></i>
-                                        <span class="nav-text">User Info</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    
 
                     <!-- / sidebar menu-->
                     <!-- content -->
                     <!-- <div id="inner-content" class="d-inline-flex p-2"> -->
-                    <div class="col-md-8 p-1 float-left" >
-                        <div class="card mb-3">
-                            <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Full Name</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                Kenneth Valdez
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                fip@jukmuh.al
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                (239) 816-9029
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Mobile</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                (320) 380-4539
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    <!-- </div> -->
+                    @if(isset($users))
+                        <div class="col-md-10 p-1 float-left" >
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->name }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->email }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Exhouse</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->ExHouseName }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Role</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->role_name }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Status</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ ($users->isactive==0) ?'In-Active' : 'Active' }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0">Username</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $users->username }}
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
+
+                        </div>
+                    @endif
 
 
                     <!-- /contect -->

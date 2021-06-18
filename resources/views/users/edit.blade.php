@@ -50,13 +50,7 @@
                                     <div class="triangle"></div>
                                 </li>
 
-                                {{-- <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/users/show') }}">
-                                        <i class="fas fa-address-card"></i>
-                                        <span class="nav-text">User Info</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li> --}}
+                                
                             </ul>
                         </div>
                     </div>
@@ -131,22 +125,7 @@
                                                     </div>
 
                                         </div>
-                                            {{-- <div class="form-group col-md-6">
-                                                <label for="country" class="col-md-12 col-form-label text-md-left">{{ __('Country') }}</label>
 
-                                                <div class="col-md-12">
-                                                    <!-- <input id="country" type="country" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country"> -->
-                                                    <select id="country" class="form-control @error('country') is-invalid @enderror" name="country" required autofocus>
-                                                        <option selected>Choose...</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                    @error('country')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
                                         <hr>
                                         <div class="form-group row mb-0">
                                             <div class="col-md-10 offset-md-2">
