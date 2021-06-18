@@ -43,7 +43,9 @@
     <p style="text-align: center;font-size: 9pt">Statement from:  <b>{{date('d-m-Y', strtotime($frmDate)) }}   to  {{date('d-m-Y', strtotime($toDate))}} </b> Print Date: <b>{{date('d/m/Y')}}</b></p>
 
  @if(isset($tnxs))
- @php $BfBal = 0; $totalDrAmt=0; $totalCrAmt=0; $Balance=0;
+ @php $BfBalance = $accountNameCode->Balance;$prvBalance=0; $totalBfDrAmt=0; $totalBfCrAmt=0;$totalDrAmt=0; $totalCrAmt=0; $Balance=0;
+ $selectCOA = substr($accountNameCode->COACode,0,1);
+ $COACode = array (1,4);
  @endphp
 
         <table >
@@ -58,16 +60,50 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $prvBalance=$BfBalance;
+                @endphp
+                @foreach ($bfBal as $bfBals)
+                @php
+                    $totalBfDrAmt += $bfBals->DrAmt;
+                    $totalBfCrAmt += $bfBals->CrAmt;
+
+
+                    if (in_array($selectCOA, $COACode)){
+                        $prvBalance += $bfBals->DrAmt-$bfBals->CrAmt;
+                    }else{
+                        $prvBalance += $bfBals->CrAmt-$bfBals->DrAmt;
+                    }
+
+
+                @endphp
+                {{-- <tr>
+                    <td class="text-center">{{$bfBals->VoucherDate}}</td>
+                    <td class="text-center">{{$bfBals->VoucherNo}}</td>
+                    <td class="text-left">{{$bfBals->Particulars}}</td>
+                    <td class="text-right">{{$bfBals->DrAmt}}</td>
+                    <td class="text-right">{{$bfBals->CrAmt}}</td>
+                    <td class="text-right">{{$prvBalance}}</td>
+                </tr> --}}
+                @endforeach
+
                 <tr>
                     <td colspan="5" class="text-center">--B/F--</td>
-                    <td class="text-right">{{$BfBal}}</td>
+                    <td class="text-right">{{$prvBalance}}</td>
                 </tr>
-
+                @php $Balance = $prvBalance;
+                @endphp
                 @foreach ($tnxs as $tnx)
                 @php
                     $totalDrAmt += $tnx->DrAmt;
                     $totalCrAmt += $tnx->CrAmt;
-                    $Balance += $BfBal+$tnx->DrAmt-$tnx->CrAmt
+
+                    if (in_array($selectCOA, $COACode)){
+                        $Balance += $tnx->DrAmt-$tnx->CrAmt;
+                    }else{
+                        $Balance += $tnx->CrAmt-$tnx->DrAmt;
+                    }
+
                 @endphp
                 <tr>
                     <td class="text-center">{{$tnx->VoucherDate}}</td>
@@ -98,7 +134,7 @@
                     <td class="text-right">Total Credit:</td>
                     <td class="text-left">{{$totalCrAmt}}</td>
                     <td class="text-right">Balance:</td>
-                    <td class="text-left">{{$Balance}}</td>
+                    <td class="text-left">{{ isset($tnxs) ? $Balance : $prvBalance }}</td>
                 </tr>
                 <tr>
                     <td style="height: 50px;">&nbsp;</td>

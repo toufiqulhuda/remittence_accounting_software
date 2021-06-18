@@ -555,9 +555,9 @@ p:last-child{
     color:#ee0979
 }
 .navbar-area{
-    position:absolute;
+    /* position:absolute; */
     left:0;
-    top:10px;
+    /* top:145px; */
     width:100%;
     height:auto;
     z-index:999;
@@ -565,7 +565,8 @@ p:last-child{
     -webkit-transition:.5s;
     transition:.5s;
     padding-top:10px;
-    padding-bottom:10px
+    padding-bottom:10px;
+    border-radius: 10px;
 }
 .navbar-area.is-sticky{
     position:fixed;

@@ -72,6 +72,9 @@ Route::get('users-search', [UserController::class,'showUserInfoByName']);
 Route::post('users-search', [UserController::class,'showUserInfoByName'])->name('users-search');
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
 Route::post('change-userstatus', [UserController::class,'isactive'])->name('change-userstatus');
+Route::get('user-profile', [UserController::class,'userProfile'])->name('user-profile');
+Route::get('user-changePass', [UserController::class,'changePassword']);
+Route::post('user-changePass', [UserController::class,'changePassword'])->name('user-changePass');
 
 /************************************
   role route
@@ -123,6 +126,13 @@ Route::post('transaction/account/store', [TransactionController::class,'accountT
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
 Route::get('transaction/reverse-pdf', [TransactionController::class,'createPDF'])->name('transaction-reverse-pdf');
 Route::post('transaction/delete', [TransactionController::class,'transactionDelete'])->name('transaction-delete');
+Route::get('endOfDay', [TransactionController::class,'endOfDay'])->name('endOfDay');
+Route::post('endOfDay', [TransactionController::class,'endOfDayProcess'])->name('endOfDay');
+Route::get('startDay', [TransactionController::class,'startTransactionDay'])->name('startDay');
+Route::post('startDay', [TransactionController::class,'startTransactionDayProcess'])->name('startDay');
+Route::get('yearClosing', [TransactionController::class,'yearClosing'])->name('yearClosing');
+Route::post('yearClosing', [TransactionController::class,'yearClosingProcess'])->name('yearClosing');
+
 /************************************
   Report route
 *************************************/
@@ -130,7 +140,8 @@ Route::get('houseKeepingRpt/pdf', [ReportsController::class,'houseKeepingPDF'])-
 Route::get('todaysRpt', [ReportsController::class,'todaysRptView'])->name('todaysRpt');
 Route::post('todaysRpt', [ReportsController::class,'todaysRpt'])->name('todaysRpt');
 //Route::post('voucherPrintRptPDF', [ReportsController::class,'voucherPrintRpt'])->name('voucherPrintRptPDF');
-Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');
+Route::get('rptAsOnDate', [ReportsController::class,'rptAsOnDateView'])->name('rptAsOnDate');
+Route::post('rptAsOnDate', [ReportsController::class,'rptAsOnDate'])->name('rptAsOnDate');
 /************************************
   Menu route
 *************************************/

@@ -131,7 +131,7 @@ class MenuSeeder extends Seeder
             //11
             [
                 'title' => 'Account Transaction',
-                'url' => 'transaction/account',
+                'url' => '/transaction/account',
                 'icon' => '',
                 'roleid' => '3',
                 'order' => '1',
@@ -142,7 +142,7 @@ class MenuSeeder extends Seeder
             //12
             [
                 'title' => 'Reverse Transaction',
-                'url' => 'transaction/reverse',
+                'url' => '/transaction/reverse',
                 'icon' => '',
                 'roleid' => '3',
                 'order' => '2',
@@ -401,6 +401,28 @@ class MenuSeeder extends Seeder
                 'roleid' => '2',
                 'order' => '6',
                 'parent_id' => '29',
+                'created_at' => Carbon::now(),
+                'updated_at' => null,
+            ],
+            //36
+            [
+                'title' => 'End Of Day',
+                'url' => '/endOfDay',
+                'icon' => '',
+                'roleid' => '3',
+                'order' => '3',
+                'parent_id' => '10',
+                'created_at' => Carbon::now(),
+                'updated_at' => null,
+            ],
+            //37
+            [
+                'title' => 'Year Closing',
+                'url' => '/yearClosing',
+                'icon' => 'fas fa-calendar-alt',
+                'roleid' => '2',
+                'order' => '2',
+                'parent_id' => '27',
                 'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
