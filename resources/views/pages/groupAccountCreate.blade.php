@@ -72,30 +72,7 @@
                         {{ session('failed') }}
                     </div>
                     @endif
-                    <!-- sidebar menu  -->
-                    {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
 
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ route('groupAccount.index') }}">
-                                        <i class="far fa-plus-square"></i>
-                                        <span class="nav-text">Create New</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="#">
-                                        <i class="far fa-edit"></i>
-                                        <span class="nav-text">Edit</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> --}}
-
-                    <!-- / sidebar menu-->
                     <!-- content -->
                     {{-- <div id="inner-content" class="d-inline-flex p-3"> --}}
                         <div class="col-md-12 p-1 float-left" >
@@ -152,7 +129,7 @@
                                             </div>
                                             <hr>
                                             <div class="form-group row mb-0">
-                                                <div class="col-md-9 offset-md-3">
+                                                <div class="col-md-12 col text-center">
                                                     <button type="submit" class="btn btn-primary">
                                                     <i class="fas fa-check"></i>
                                                         {{ __('Save') }}

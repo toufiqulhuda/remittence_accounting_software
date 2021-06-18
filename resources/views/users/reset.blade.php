@@ -74,16 +74,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            {{-- <label for="email" class="col-md-2 col-form-label text-md-left">{{ __('E-Mail Address') }}&nbsp;<span class="mandatory">*</span></label>
-                                            <div class="col-md-4">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
 
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div> --}}
                                             <div class="col-md-6">
                                                 <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-check"></i>
@@ -96,52 +87,7 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div class="form-group row">
-
-                                            <label for="exHouse" class="col-md-2 col-form-label text-md-left">{{ __('ExHouse') }}&nbsp;<span class="mandatory">*</span></label>
-                                            <div class="col-md-4">
-                                                <select id="exHouse" class="form-control @error('exHouse') is-invalid @enderror" name="exHouse" required autofocus>
-                                                    <option value="">Choose...</option>
-                                                    {{-- @foreach ($exHouse as  $value)
-                                                        <option value="{{ $value->ExHouseID }}" {{ $user->ExHouseID== $value->ExHouseID ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('exHouse')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <label for="role" class="col-md-2 col-form-label text-md-left">{{ __('User Role') }}&nbsp;<span class="mandatory">*</span></label>
-                                            <div class="col-md-4">
-                                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autofocus>
-                                                    <option value="">Choose...</option>
-                                                    {{-- @foreach ($roles as $key => $value)
-                                                        <option value="{{ $value->roleid }}" {{ $user->roleid== $value->roleid ? 'selected' : '' }}>{{ $value->role_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('role')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-                                        </div> --}}
-                                        {{-- <hr>
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-10 offset-md-2">
-                                                <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-check"></i>
-                                                    {{ __('Search') }}
-                                                </button>
-                                                <button type="reset" class="btn btn-primary">
-                                                    <i class="fas fa-broom"></i>
-                                                    {{ __('Clear') }}
-                                                </button>
-                                            </div>
-                                        </div> --}}
-                                        <!-- </fieldset> -->
+                                        
                                     </form>
                                 </div>
                             </div>

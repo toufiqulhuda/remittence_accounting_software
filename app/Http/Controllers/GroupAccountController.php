@@ -88,13 +88,45 @@ class GroupAccountController extends Controller
 
     public function edit($id)
     {
-        //
+        $accountGroup = AccountGroup::find($id);
+        $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
+        $accHeadType=DB::table('account_main_head')->select('AccHdID','AcctHdName')->orderBy('AccHdID')->get();
+        return view('pages.groupAccountEdit',compact('accountGroup','accHeadType','exHouse'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $AccGrID)
     {
-        //
+
+        $rules = [
+			'exhouseName' => 'required|string|max:11',
+			'AccGrName' => 'required|unique:account_group_detail|string|max:100',
+			'accountHeadType' => 'required|string|max:1',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect()->route('groupAccount.edit',$AccGrID)->withInput()->withErrors($validator);
+		}else{
+            $data = $request->input();
+
+            try{
+                $authUser = Auth::user();
+                $accountGroup = AccountGroup::find($AccGrID);
+                $accountGroup->ExHouseID = !empty($data['exhouseName']) ? $data['exhouseName'] :'';
+                $accountGroup->AccGrName = !empty($data['AccGrName']) ? $data['AccGrName'] : '';
+                $accountGroup->AccHdID   = !empty($data['accountHeadType']) ? $data['accountHeadType'] : '';
+				$accountGroup->UpdatedBy = $authUser->user_id;
+				$accountGroup->updated_at = Carbon::now();
+				$accountGroup->remember_token = $data['_token'];
+                $accountGroup->save();
+                $accountGroup->update($request->all());
+                return redirect()->route('groupAccount.index')
+                                ->with('status','Group Account update successfully.');
+			}
+			catch(Exception $e){
+				return redirect()->route('groupAccount.edit',$AccGrID)->with('failed',"operation failed");
+			}
+        }
     }
 
 

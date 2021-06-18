@@ -86,7 +86,7 @@ class UserController extends Controller
 
     }
     public function show(){
-        return view('users.show');
+        //return view('users.show');
     }
 
     // public function search()
@@ -201,5 +201,59 @@ class UserController extends Controller
         $user = User::find($request->id)->update(['isactive' => $request->status]);
         return response()->json(['success'=>'Status changed successfully.']);
 
+    }
+    public function userProfile(){
+        $userName=Auth::user()->username;
+        $users = DB::table('users AS u')
+                ->leftJoin('exhouse AS ex', 'u.ExHouseID', '=', 'ex.ExHouseID')
+                ->leftJoin('roles AS r', 'u.roleid', '=', 'r.roleid')
+                ->select('u.user_id','u.name','u.email','u.username','ex.ExHouseName','r.role_name', 'u.isactive' )
+                ->where('u.username',$userName)
+                ->first();
+        return view('users.show',compact('users'));
+
+    }
+    public function changePassword(Request $request){
+        //dd($request);
+        $data = $request->input();
+        $oldpassword = !empty($data['oldpassword']) ? $data['oldpassword'] : "";
+        $newpassword = !empty($data['newpassword']) ? $data['newpassword'] : "";
+        $password_confirmation = !empty($data['password_confirmation']) ? $data['password_confirmation'] : "";
+
+        if(!empty($oldpassword) && !empty($newpassword) && !empty($password_confirmation)){
+
+            $hashedPassword = Auth::user()->password;
+            if(\Hash::check($oldpassword , $hashedPassword )){
+                if(!\Hash::check($newpassword , $hashedPassword)){
+                    if( $newpassword === $password_confirmation){
+                        $authUuser = Auth::user();
+                        $user = User::find($authUuser->user_id);
+                        $user->password = bcrypt($newpassword );
+                        $user->UpdatedBy = $authUuser->user_id;
+                        $user->updated_at = Carbon::now();
+                        $user->remember_token = $data['_token'];
+                        $user->save();
+                        $user->update($request->all());
+
+                        return redirect()->route('user-changePass')
+                                    ->with('status','Password Changed Successfully.');
+
+                    }else{
+                        return redirect()->route('user-changePass')
+                                 ->with('failed','New Password and Confirm Password is not the Same.');
+                    }
+
+                }else{
+                    return redirect()->route('user-changePass')
+                                 ->with('failed','Old Password and New Password should be different.');
+                }
+
+            }else{
+                return redirect()->route('user-changePass')
+                                 ->with('failed','Old Password Not matched');
+            }
+        }else{
+            return view('users.changePassword');
+        }
     }
 }
