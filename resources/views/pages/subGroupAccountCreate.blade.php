@@ -73,27 +73,7 @@
                     </div>
                     @endif
                     <!-- sidebar menu  -->
-                    {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
-
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/subGroupAccount/create') }}">
-                                        <i class="far fa-plus-square"></i>
-                                        <span class="nav-text">Create New</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="#">
-                                        <i class="far fa-edit"></i>
-                                        <span class="nav-text">Edit</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> --}}
+                    
 
                     <!-- / sidebar menu-->
                     <!-- content -->
@@ -142,7 +122,7 @@
                                         <div class="form-group row">
                                             <label for="AccSbGrName" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-md-3">
                                                 <input id="AccSbGrName" type="text" class="form-control input-sm @error('AccSbGrName') is-invalid @enderror" Name="AccSbGrName" value="{{ old('AccSbGrName') }}" required autocomplete="AccSbGrName" autofocus>
 
                                                 @error('AccSbGrName')

@@ -45,7 +45,7 @@ class SubGroupAccountController extends Controller
         $rules = [
 			'exhouseName' => 'required|string|max:11',
 			'AccSbGrName' => 'required|unique:account_sub_group_detail|string|max:100',
-			'accountGroupType' => 'required|string|max:1',
+			'accountGroupType' => 'required|string|max:11',
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -91,12 +91,44 @@ class SubGroupAccountController extends Controller
 
     public function edit($id)
     {
-        //
+        $accountSubGroup = AccountSubGroup::find($id);
+        $accGroupType=AccountGroup::select('AccGrID','AccGrName')->orderBy('AccGrID')->get();
+        $exHouse = Exhouse::select('ExHouseID','ExHouseName')->where('isactive','1')->orderBy('ExHouseID')->get();
+        return view('pages.subGroupAccountEdit',compact('accountSubGroup','exHouse','accGroupType'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $AccSbGrID)
     {
-        //
+        //dd($request);
+        $rules = [
+			'exhouseName' => 'required|string|max:11',
+			'AccSbGrName' => 'required|unique:account_sub_group_detail|string|max:100',
+			'accountGType' => 'required|string|max:11',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect()->route('subGroupAccount.edit',$AccSbGrID)->withInput()->withErrors($validator);
+		}else{
+            $data = $request->input();
+            try{
+                $authUser = Auth::user();
+                $accountSubGroup = AccountSubGroup::find($AccSbGrID);
+                $accountSubGroup->ExHouseID = !empty($data['exhouseName']) ? $data['exhouseName'] :'';
+                $accountSubGroup->AccSbGrName = !empty($data['AccSbGrName']) ? $data['AccSbGrName'] : '';
+                $accountSubGroup->AccGrID   = !empty($data['accountGType']) ? $data['accountGType'] : '';
+				$accountSubGroup->UpdatedBy = $authUser->user_id;
+				$accountSubGroup->updated_at = Carbon::now();
+				$accountSubGroup->remember_token = $data['_token'];
+                $accountSubGroup->save();
+                $accountSubGroup->update($request->all());
+                return redirect()->route('subGroupAccount.index')
+                                ->with('status','Sub Group Account update successfully.');
+			}
+			catch(Exception $e){
+				return redirect()->route('subGroupAccount.edit',$AccSbGrID)->with('failed',"operation failed");
+			}
+        }
+
     }
 
 

@@ -36,7 +36,7 @@
                 /* position: relative; */
                 left: 0;
                 float: left;
-                margin-top: 51px;">
+                /* margin-top: 51px;*/">
         @else
             <main class="py-4">
         @endif

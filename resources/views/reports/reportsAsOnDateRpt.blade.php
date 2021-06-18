@@ -128,12 +128,12 @@ $( document ).ready(function() {
                                                         Daily Cash Book
                                                     </label>
                                                 </div>
-                                                <div class="form-check">
+                                                {{-- <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="statementOfAffairsRpt">
                                                     <label class="form-check-label" for="gridRadios3">
                                                         Statement Of Affairs
                                                     </label>
-                                                </div>
+                                                </div> --}}
                                                 <div class="form-check ">
                                                     <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="statAffairsDetailRpt" >
                                                     <label class="form-check-label" for="gridRadios4">

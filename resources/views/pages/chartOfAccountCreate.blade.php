@@ -73,27 +73,7 @@
                     </div>
                     @endif
                     <!-- sidebar menu  -->
-                    {{-- <div class=" layout-sidebar-large d-inline-flex p-1 ">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
 
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ route('chartOfAccount.index') }}">
-                                        <i class="far fa-plus-square"></i>
-                                        <span class="nav-text">Create New</span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="#">
-                                        <i class="far fa-edit"></i>
-                                        <span class="nav-text">Edit </span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> --}}
 
                     <!-- / sidebar menu-->
                     <!-- content -->
@@ -194,6 +174,7 @@
                                         <th>SubGroup Name</th>
                                         <th>Group Name</th>
                                         <th>Account Head</th>
+                                        <th>Balance</th>
                                         <th>Exchange Name</th>
                                         <th>Created By</th>
                                         <th>Create Date</th>
@@ -213,6 +194,7 @@
                                     <td>{{ $coaAcc->AccSbGrCode.'-'.$coaAcc->AccSbGrName }}</td>
                                     <td>{{ $coaAcc->AccGrCode.'-'.$coaAcc->AccGrName }}</td>
                                     <td>{{ $coaAcc->AcctHdName }}</td>
+                                    <td>{{ $coaAcc->Balance }}</td>
                                     <td>{{ $coaAcc->ExHouseName }}</td>
 
                                     <td>{{ $coaAcc->CreatedBy }}</td>

@@ -18,38 +18,20 @@
                 <div class="card-header"><i class="far fa-edit"></i>&nbsp;{{ __('Edit Sub Group Account') }}</div>
 
                 <div class="card-body">
-                    <!-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('status') }}
+                    </div>
+
+                    @elseif(session('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('failed') }}
+                    </div>
                     @endif
                      <!-- sidebar menu  -->
-                    <div class=" layout-sidebar-large d-inline-flex p-1 pull-right">
-                        <div class="sidebar-left open " >
-                            <ul class="navigation-left">
 
-                                <li class="nav-item ">
-                                    <a class="nav-item-hold" href="{{ url('/subGroupAccount/create') }}">
-                                        <i class="far fa-plus-square"></i>
-                                        <span class="nav-text">Create New </span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-item-hold" href="{{ url('/subGroupAccount/edit') }}">
-                                        <i class="far fa-edit"></i>
-                                        <span class="nav-text">Edit </span>
-                                    </a>
-                                    <div class="triangle"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
                     <!-- / sidebar menu-->
                     <!-- content -->
@@ -58,18 +40,20 @@
                     <div class="col-md-10 p-1 float-left" >
                         <div class="card mb-3">
                     <div class="card-body">
-                    <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('register') }}">
+
+                    <form onsubmit="return fromSubmit(this);" method="POST" action="{{route('subGroupAccount.update',$accountSubGroup->AccSbGrID)}}">
                         @csrf
                         @method('PUT')
-                        <!-- <fieldset class="border p-2">
-                        <legend class="w-auto">{{ __('Create User') }}</legend> -->
+
                         <div class="form-group row">
                             <label for="exhouseName" class="col-md-3 col-form-label text-md-left">{{ __('Exchange House Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                             <div class="col-md-9">
                                 <select id="exhouseName" class="form-control @error('exhouseName') is-invalid @enderror" name="exhouseName" required autofocus>
                                     <option selected>Choose...</option>
-                                    <option>...</option>
+                                    @foreach ($exHouse as  $value)
+                                        <option value="{{ $value->ExHouseID }}" {{ ($accountSubGroup->ExHouseID== $value->ExHouseID) ? 'selected' : '' }}>{{ $value->ExHouseName }}</option>
+                                    @endforeach
                                 </select>
                                 @error('exhouseName')
                                     <span class="invalid-feedback" role="alert">
@@ -84,7 +68,9 @@
                             <div class="col-md-9">
                                 <select id="accountGType" class="form-control @error('accountGType') is-invalid @enderror" name="accountGType" required autofocus>
                                     <option selected>Choose...</option>
-                                    <option>...</option>
+                                    @foreach ($accGroupType as  $value)
+                                        <option value="{{ $value->AccGrID }}" {{ ($accountSubGroup->AccGrID== $value->AccGrID) ? 'selected' : '' }}>{{ $value->AccGrName }}</option>
+                                    @endforeach
                                 </select>
                                 @error('accountGType')
                                     <span class="invalid-feedback" role="alert">
@@ -96,22 +82,13 @@
                         <div class="form-group row">
                             <div class=" col-md-12">
                                 <div class="row">
-                                <label for="subAccountGCode" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Code') }}&nbsp;<span class="mandatory">*</span></label>
-                                <div class="col-md-3">
-                                    <input id="subAccountGCode" type="text" class="form-control input-sm @error('subAccountGCode') is-invalid @enderror" subAccountGCode="subAccountGCode" value="{{ old('subAccountGCode') }}" required autocomplete="subAccountGCode" autofocus>
 
-                                    @error('subAccountGCode')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <label for="subAccountGNmae" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
+                                <label for="AccSbGrName" class="col-md-3 col-form-label text-md-left">{{ __('Sub Account Group Name') }}&nbsp;<span class="mandatory">*</span></label>
 
                                 <div class="col-md-3">
-                                    <input id="subAccountGNmae" type="text" class="form-control input-sm @error('subAccountGNmae') is-invalid @enderror" subAccountGNmae="subAccountGNmae" value="{{ old('subAccountGNmae') }}" required autocomplete="subAccountGNmae" autofocus>
+                                    <input id="AccSbGrName" type="text" class="form-control input-sm @error('AccSbGrName') is-invalid @enderror" name="AccSbGrName" value="{{ $accountSubGroup->AccSbGrName }}" required autocomplete="AccSbGrName" autofocus>
 
-                                    @error('subAccountGNmae')
+                                    @error('AccSbGrName')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -120,6 +97,7 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group row mb-0">
                             <div class="col-md-12 col text-center">
                                 <button type="submit" class="btn btn-primary">

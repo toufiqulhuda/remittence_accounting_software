@@ -29,6 +29,8 @@
         </div>
     </div>
 </div>
+<div class="container">
+
 <div class="navbar-area">
     <div class="luvion-responsive-nav">
         <div class="container">
@@ -58,3 +60,5 @@
         </div>
     </div>
 </div>
+</div>
+

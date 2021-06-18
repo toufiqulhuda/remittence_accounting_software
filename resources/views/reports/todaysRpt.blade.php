@@ -167,18 +167,7 @@ function accountActiveInactive(r){
                                                         Transaction Journal
                                                     </label>
                                                 </div>
-                                                {{-- <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios2" value="transactionJournalTransferRpt" onclick="accountActiveInactive(this);">
-                                                    <label class="form-check-label" for="gridRadios2">
-                                                        Transaction Journal Transfer
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="reportName" id="gridRadios3" value="transactionJournalCashRpt" onclick="accountActiveInactive(this);">
-                                                    <label class="form-check-label" for="gridRadios3">
-                                                        Transaction Journal Cash
-                                                    </label>
-                                                </div> --}}
+
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="reportName" id="gridRadios4" value="voucherPrintRpt" onclick="accountActiveInactive(this);">
                                                     <label class="form-check-label" for="gridRadios4">
