@@ -444,7 +444,7 @@ class MenuSeeder extends Seeder
                 'icon' => 'fas fa-play',
                 'roleid' => '3',
                 'order' => '4',
-                'parent_id' => '27',
+                'parent_id' => '10',
                 'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
