@@ -437,6 +437,17 @@ class MenuSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
+            //39
+            [
+                'title' => 'Go to Prv. Date',
+                'url' => '/startDay',
+                'icon' => 'fas fa-play',
+                'roleid' => '3',
+                'order' => '4',
+                'parent_id' => '27',
+                'created_at' => Carbon::now(),
+                'updated_at' => null,
+            ],
 
 
 
