@@ -366,6 +366,7 @@ class TransactionController extends Controller
             Exhouse::where('ExHouseID',Auth::user()->ExHouseID)
                     ->update([
                         'TnxDate'=>date('Y-m-d',strtotime($todayTnxDate)),
+                        'PrevDate'=>date('Y-m-d',strtotime($todayTnxDate.' -1 day')),
                         'UpdatedBy'=>Auth::user()->user_id,
                         'updated_at'=>Carbon::now(),
                     ]);

@@ -67,7 +67,6 @@ Route::view('home','home')->name('home')->middleware(['auth']);
   User route
 *************************************/
 Route::resource('users', UserController::class);
-//Route::get('users-search', [UserController::class,'search'])->name('users-search');
 Route::get('users-search', [UserController::class,'showUserInfoByName']);
 Route::post('users-search', [UserController::class,'showUserInfoByName'])->name('users-search');
 Route::put('users/reset/{user_id}', [UserController::class,'reset'])->name('users-reset');
@@ -102,25 +101,18 @@ Route::post('change-exhousestatus', [ExhouseController::class,'isactive'])->name
   GroupAccount route
 *************************************/
 Route::resource('groupAccount', GroupAccountController::class);
-//Route::get('groupAccount/edit', [HouseKeepingController::class,'groupAccountEdit'])->name('groupAccount-edit');
-//Route::get('groupAccount/create', [HouseKeepingController::class,'groupAccountCreate'])->name('groupAccount-create');
-//Route::post('groupAccount/store', [HouseKeepingController::class,'groupAccountStore'])->name('groupAccount-store');
 /************************************
   SubGroupAccount route
 *************************************/
 Route::resource('subGroupAccount', SubGroupAccountController::class);
-//Route::get('subGroupAccount/edit', [HouseKeepingController::class,'subGroupAccountEdit'])->name('subGroupAccount-edit');
-//Route::get('subGroupAccount/create', [HouseKeepingController::class,'subGroupAccountCreate'])->name('subGroupAccount-create');
 /************************************
   ChartOfAccount route
 *************************************/
 Route::resource('chartOfAccount', ChartOfAccountController::class);
-//Route::get('chartOfAccount/edit', [HouseKeepingController::class,'chartOfAccountEdit'])->name('chartOfAccount-edit');
-//Route::get('chartOfAccount/create', [HouseKeepingController::class,'chartOfAccountCreate'])->name('chartOfAccount-create');
 /************************************
   Transaction route
 *************************************/
-//Route::resource('transactions', TransactionController::class);
+
 Route::get('transaction/account', [TransactionController::class,'accountTransactionCreate'])->name('transaction-account');
 Route::post('transaction/account/store', [TransactionController::class,'accountTransactionStore'])->name('transaction-account-store');
 Route::get('transaction/reverse', [TransactionController::class,'reverseTransactionCreate'])->name('transaction-reverse');
