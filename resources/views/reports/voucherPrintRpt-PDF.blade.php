@@ -65,7 +65,7 @@
                     <td style="width: 25%; text-align: right;">{{$tnx->DrAmt}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="width: 100%; text-align: left;" class="border-bottom">TOTAL (IN WORDS) : DOLLAR</td>
+                    <td colspan="4" style="width: 100%; text-align: left;" class="border-bottom">TOTAL (IN WORDS) : {{NumConvert::word($tnx->DrAmt)}} DOLLAR</td>
                 </tr>
                 <tr>
                     <td colspan="3" style="width: 80%; text-align: right;"></td>
@@ -115,7 +115,7 @@
                     <td style="width: 25%; text-align: right;">{{$tnx->CrAmt}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="width: 100%; text-align: left;" class="border-bottom">TOTAL (IN WORDS) : DOLLAR</td>
+                    <td colspan="4" style="width: 100%; text-align: left;" class="border-bottom">TOTAL (IN WORDS) : {{NumConvert::word($tnx->CrAmt)}} DOLLAR</td>
                 </tr>
                 <tr>
                     <td colspan="3" style="width: 80%; text-align: right;"></td>

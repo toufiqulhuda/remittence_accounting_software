@@ -3,14 +3,13 @@
 
         <div class="row">
             <div class="col-md-12">
-                <img src="{{asset('assets/img/iconlogo.png')}}" style="width: 10%;
-                margin: 5px;
-                float: left;"/>
+                <img src="{{asset('assets/img/banner.jpeg')}}" style="width: 100%;
+                /* margin: 5px;float: left;*/"/>
                 <div style="color: #000065;
                 font-weight: bolder;
-                font-size: 440%;
+                font-size: 540%;
                 text-align: center;
-                letter-spacing: 20px;font-family: Microsoft YaHei;line-height: 122px;">SG QUICKPAY</div>
+                letter-spacing: 0px;font-family: Microsoft YaHei;line-height: 122px;"></div>
             </div>
             {{-- <div class="col-md-6">
                 <div class="loginInfo text-right">
