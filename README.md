@@ -59,3 +59,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Process to go Live
+ 
+1. Copy folder to live server directory
+2. Download Library file using composer
+	#composer update
+3. Configur Database .env file
+4. Migrate 	DB using below command
+	#php artisan migrate
+	#php artisan db:seed
+5. Run the laravel project
+	#php artisan server
+6. Done.
