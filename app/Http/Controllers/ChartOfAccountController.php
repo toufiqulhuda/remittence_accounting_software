@@ -6,6 +6,7 @@ use App\Models\Exhouse;
 use App\Models\AccountGroup;
 use App\Models\AccountSubGroup;
 use App\Models\ChartOfAccount;
+use App\Models\YearClosing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -79,6 +80,19 @@ class ChartOfAccountController extends Controller
 				$coa->updated_at = null;
 				$coa->remember_token = $data['_token'];
 				$coa->save();
+
+                $year = new YearClosing();
+                $year->Type_name = "Year Closing";
+                $year->COACode = $coaCode;
+                $year->Balance = !empty($data['initBalance']) ? $data['initBalance'] : '0.00';
+                $year->ExHouseID = !empty($data['exhouseName']) ? $data['exhouseName'] :'';
+                $year->Year_Closing_Date = Carbon::now();
+                $year->Year_Closing_Execution = Carbon::now();
+                $year->CreatedBy = $authUser->user_id;
+                $year->created_at = Carbon::now();
+                $year->save();
+
+
                 return redirect()->route('chartOfAccount.index')
                                 ->with('status','Sub Group Account created successfully.');
 			}
