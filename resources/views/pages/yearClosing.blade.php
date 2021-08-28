@@ -13,9 +13,9 @@
         });
     });
     function fromSubmit(form){
-        if(!confirm("Do you really want to do this?")) {
-            return false;
-        }
+        // if(!confirm("Do you really want to do this?")) {
+        //     return false;
+        // }
         this.form.submit();
     }
 </script>

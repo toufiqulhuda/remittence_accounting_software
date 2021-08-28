@@ -86,8 +86,8 @@ class ChartOfAccountController extends Controller
                 $year->COACode = $coaCode;
                 $year->Balance = !empty($data['initBalance']) ? $data['initBalance'] : '0.00';
                 $year->ExHouseID = !empty($data['exhouseName']) ? $data['exhouseName'] :'';
-                $year->Year_Closing_Date = Carbon::now();
-                $year->Year_Closing_Execution = Carbon::now();
+                $year->Year_Closing_Date = date (date("Y",strtotime("-1 year")).'-12-31');
+                $year->Year_Closing_Execution = date (date("Y",strtotime("-1 year")).'-12-31');
                 $year->CreatedBy = $authUser->user_id;
                 $year->created_at = Carbon::now();
                 $year->save();

@@ -60,9 +60,9 @@
             document.getElementById('totalCR').style.borderColor='red';
             return false;
         }
-        if(!confirm("Do you really want to do this?")) {
-            return false;
-        }
+        // if(!confirm("Do you really want to do this?")) {
+        //     return false;
+        // }
         this.form.submit();
     }
     function addRow(tableID) {
