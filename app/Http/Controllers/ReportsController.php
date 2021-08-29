@@ -144,7 +144,7 @@ class ReportsController extends Controller
     public function accountTransactionSummaryRpt($frmDate,$toDate,$reportName,$account,$TnxType,$DloadType){
         //dd($reportName);
         $exHouseDtls = Exhouse::select('ExHouseName','Address')->where('ExHouseID',Auth::user()->ExHouseID)->first();
-        $accountNameCode = ChartOfAccount::select("COACode","AccountName","OpenDate",DB::raw("nvl(Balance,0) AS Balance"))->where('COACode',$account)->first();
+        $accountNameCode = ChartOfAccount::select("COACode","AccountName","OpenDate",DB::raw("IFNULL(Balance,0) AS Balance"))->where('COACode',$account)->first();
 
         $bfBal =  DB::table('transactions AS t')
                     ->select('t.VoucherNo',DB::raw("DATE_FORMAT(t.VoucherDate,'%d-%m-%Y') AS VoucherDate"),'t.COACode','coa.AccountName','t.Particulars','t.TnxType','t.DrAmt','t.CrAmt')
@@ -278,13 +278,13 @@ class ReportsController extends Controller
                     ->select('ah.AccHdID','t.COACode','coa.AccountName',
                     DB::raw('case
                             when ah.AccHdID =1 then
-                                nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                            IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                             when ah.AccHdID = 4 then
-                                nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                            IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                             when ah.AccHdID = 2 then
-                                nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                            IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                             when ah.AccHdID = 3 then
-                                nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                            IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                             END AS Balance'))
                     ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
                     ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')

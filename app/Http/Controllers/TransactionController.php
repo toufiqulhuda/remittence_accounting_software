@@ -190,13 +190,13 @@ class TransactionController extends Controller
                         ->select('ah.AccHdID','t.COACode','coa.AccountName',
                         DB::raw('case
                                 when ah.AccHdID =1 then
-                                    nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                                 when ah.AccHdID = 4 then
-                                    nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                                 when ah.AccHdID = 2 then
-                                    nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                                 when ah.AccHdID = 3 then
-                                    nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                                 END AS Balance'))
                         ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
                         ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
@@ -280,13 +280,13 @@ class TransactionController extends Controller
                             ->select('ah.AccHdID','t.COACode','coa.AccountName',
                             DB::raw('case
                                     when ah.AccHdID =1 then
-                                        nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                    IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                                     when ah.AccHdID = 4 then
-                                        nvl(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
+                                    IFNULL(ye.Balance,0)+sum(t.DrAmt) - sum(t.CrAmt)
                                     when ah.AccHdID = 2 then
-                                        nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                    IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                                     when ah.AccHdID = 3 then
-                                        nvl(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
+                                    IFNULL(ye.Balance,0)+sum(t.CrAmt) - sum(t.DrAmt)
                                     END AS Balance'))
                         ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
                         ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
