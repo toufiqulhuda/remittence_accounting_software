@@ -428,7 +428,7 @@ class MenuSeeder extends Seeder
             ],
             //38
             [
-                'title' => 'Go to Prv. Date',
+                'title' => 'Go to Date',
                 'url' => '/startDay',
                 'icon' => 'fas fa-play',
                 'roleid' => '2',
@@ -439,7 +439,7 @@ class MenuSeeder extends Seeder
             ],
             //39
             [
-                'title' => 'Go to Prv. Date',
+                'title' => 'Go to Date',
                 'url' => '/startDay',
                 'icon' => 'fas fa-play',
                 'roleid' => '3',
