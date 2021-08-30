@@ -77,6 +77,7 @@ class ReportsController extends Controller
                         ->where('t.STATUS','=','1')
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                        ->orderBy('t.VoucherDate','ASC')
                         ->get();
                         //dd($tnxs);
         $view='reports.'.$reportName.'-PDF';
@@ -101,6 +102,7 @@ class ReportsController extends Controller
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->whereIn('t.TnxType',$TnxType)
                         ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
+                        ->orderBy('t.VoucherDate','ASC')
                         ->get();
         $view='reports.'.$reportName.'-PDF';
         $data =compact('exHouseDtls','tnxs','frmDate','toDate','TnxType');
@@ -128,6 +130,7 @@ class ReportsController extends Controller
                         ->whereIn('mh.AccHdID',[3,4])
                         ->whereBetween('t.VoucherDate',[$frmDate,$toDate])
                         ->groupBy('mh.AccHdID','mh.AcctHdName','gr.AccGrName','coa.AccountName')
+                        ->orderBy('t.VoucherDate','ASC')
                         ->get();
 
         $view='reports.'.$reportName.'-PDF';
@@ -211,6 +214,7 @@ class ReportsController extends Controller
                         ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                         ->where('t.VoucherDate',$frmDate)
                         ->groupBy('ag.AccGrName','coa.AccountName')
+                        ->orderBy('t.VoucherDate','ASC')
                         ->get();
                         //dd($tnxs);
         $view='reports.'.$reportName.'-PDF';

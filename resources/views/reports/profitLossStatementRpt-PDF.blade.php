@@ -3,7 +3,7 @@
 <head>
 <title>{{ config('app.name', 'Laravel') }}</title>
 <style>
-    @page { margin: 15px; }
+    @page { margin: 15px 50px 15px 50px; }
 
     body{
         font-family: Arial, Helvetica, sans-serif;
