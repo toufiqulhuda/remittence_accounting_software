@@ -1,21 +1,20 @@
 @extends('layouts.withHF')
 
 @section('content')
-{{-- <link href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
-<script src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> --}}
-{{-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> --}}
-<script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
-{{-- <link href="{{ asset('assets/css/gijgo.min.css') }}" rel="stylesheet" type="text/css" /> --}}
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
+<script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script>
 $( document ).ready(function() {
     $('#toDate').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'dd-mm-yyyy'
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true
     });
     $('#frmDate').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'dd-mm-yyyy'
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true
     });
     $("#account").prop('disabled', true);
     // var reportName  = $('input[name="reportName"]:checked').val();

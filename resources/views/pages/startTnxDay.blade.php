@@ -1,15 +1,14 @@
 @extends('layouts.withHF')
 
 @section('content')
-<script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
+<script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('#todayTnxDate').datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'dd-mm-yyyy'
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
         });
     });
     function fromSubmit(form){

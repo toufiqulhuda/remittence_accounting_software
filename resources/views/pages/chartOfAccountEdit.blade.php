@@ -100,46 +100,8 @@ function fromSubmit(form){
                                                 @enderror
                                             </div>
                             </div>
-                            {{-- <div class="form-group row">
-                                <div class=" col-md-12">
-                                    <div class="row">
-                                        <label for="changeAccountName" class="col-md-4 col-form-label text-md-left">{{ __('Changed Account Name') }}&nbsp;<span class="mandatory">*</span></label>
-                                        <div class="col-md-4">
-                                            <input id="changeAccountName" type="text" class="form-control input-sm @error('changeAccountName') is-invalid @enderror" changeAccountName="changeAccountName" value="{{ old('changeAccountName') }}" required autocomplete="changeAccountName" autofocus>
 
-                                            @error('changeAccountName')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-check col-md-4">
-                                            <label class="form-check-label col-form-label col-md-12">
-                                              <input type="checkbox" name="sameAsBefor" id="sameAsBefor" class="form-check-input" value="">&nbsp;Same As Before
-                                            </label>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="form-group row">
-                                <label for="reportingType" class="col-md-4 col-form-label text-md-left">{{ __('Reporting Type') }}&nbsp;<span class="mandatory">*</span></label>
-
-                                <div class="col-md-4">
-                                    <select id="reportingType" class="form-control @error('reportingType') is-invalid @enderror" name="reportingType" required autofocus>
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
-                                    @error('reportingType')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div> --}}
-
-<hr>
+                            <hr>
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 col text-center">
                                     <button type="submit" class="btn btn-primary">
