@@ -247,7 +247,7 @@ class TransactionController extends Controller
                                         'UpdatedBy'=>Auth::user()->user_id,
                                         'updated_at'=>Carbon::now(),
                                     ]);
-                            return redirect()->route('endOfDay')->with('status',"End Of Day Successfully Done.");
+                            return redirect()->route('logout');
                         }catch(Exception $e){
                             return redirect()->route('endOfDay')->with('failed',"Faild to End Of Day.");
                         }
