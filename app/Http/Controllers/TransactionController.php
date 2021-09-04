@@ -300,7 +300,7 @@ class TransactionController extends Controller
                         ->orderBy('t.COACode','asc')
                         ->orderBy('t.VoucherDate','asc')
                         ->get();
-
+                //dd($Tnxs);
                 $capital= array();
                 $assets= array();
                 $a = 0;
@@ -340,7 +340,98 @@ class TransactionController extends Controller
                             $insertData[$key]['CreatedBy']= Auth::user()->user_id;
                             $insertData[$key]['created_at']= date('Y-m-d');
                         }
+                        //dd($insertData);
+                        $income= array();
+                        $expence= array();
+                        $saveData = array();
+                        $autoCOATnx=array();
+                        $autoVouTnx=array();
+                        $i = 0;
+                        $e = 0;
+                        $balance =0;//$debitbal=0; $creditbal=0;
+                        foreach ($Tnxs as $Tnx) {
+                            if(in_array($Tnx->AccHdID,array(3)) && $Tnx->Balance > 0){
+                                $income [$i]= $Tnx->Balance;
+                                $i++;
+                            }elseif (in_array($Tnx->AccHdID,array(4)) && $Tnx->Balance > 0){
+                                $expence [$e]= $Tnx->Balance;
+                                $e++;
+                            }elseif (in_array($Tnx->AccHdID,array(3)) && $Tnx->Balance < 0){
+                                $income [$i]= abs($Tnx->Balance);
+                                $i++;
+                            }elseif (in_array($Tnx->AccHdID,array(4)) && $Tnx->Balance < 0){
+                                $expence [$e]= abs($Tnx->Balance);
+                                $e++;
+                            }
+
+                        }
+                        if(count($income) > 0 && count($expence) > 0){
+                            $balance = array_sum($income) - array_sum($expence);
+
+                            $tnxQry = DB::table('transactions AS t')
+                            ->select('t.COACode','t.TnxType','t.DrAmt','t.CrAmt')
+                            ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
+                            ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
+                            ->JOIN ('account_group_detail AS ag' , 'ag.AccGrID','=','asg.AccGrID')
+                            ->JOIN ('account_main_head AS ah',  'ah.AccHdID','=','ag.AccHdID')
+                            ->leftJOIN ('year_closing_details AS ye' , 'ye.COACode','=','t.COACode')
+                            ->where('t.STATUS','=','1')
+                            ->whereBetween('ah.AccHdID',[3,4])
+                            ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
+                            ->whereBetween('t.VoucherDate',[DB::raw("DATE_ADD(ye.Year_Closing_Date, INTERVAL 1 DAY)"),date('Y-m-d',strtotime($closingYear))])
+                            ->orderBy('t.COACode','asc')
+                            ->orderBy('t.VoucherDate','asc')
+                            ->get();
+                            $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
+                            $VoucherNo = Transactions::selectRAW('IFNULL(MAX(VoucherNo),0)+1 AS VoucherNo')
+                                        ->where('VoucherDate','=',$VoucherDate['TnxDate'])
+                                        ->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
+                            $VrNo = $VoucherNo['VoucherNo'];
+                            $autoCOATnx = [
+                                'VoucherNo' => $VrNo,
+                                'VoucherDate' => date('Y-m-d',strtotime($closingYear)),
+                                'ExHouseID' => Auth::user()->ExHouseID,
+                                'TnxType' => 'T',
+                                'Particulars' => 'Auto posted end of year for '.date('Y',strtotime($closingYear)),
+                                'COACode' => '20101003',
+                                'DrAmt' => ($balance < 0) ? abs($balance) : '0.00',
+                                'CrAmt' => ($balance >= 0) ? abs($balance) : '0.00',
+                                'Status' => '1',
+                                'CreatedBy' => Auth::user()->user_id,
+                                'created_at' => Carbon::now(),
+                                'AuthorizeBy' => Null,
+                                'AuthorizeDate' => Null,
+                                'remember_token' => Null
+                            ];
+                            //dd($autoCOATnx);
+                            $saveData[0] = $autoCOATnx;
+                            foreach ($tnxQry as $key => $Tqry) {
+                                $vNO = $VrNo+1;
+                                $autoVouTnx = [
+                                    'VoucherNo' => $vNO+$key,
+                                    'VoucherDate' => date('Y-m-d',strtotime($closingYear)),
+                                    'ExHouseID' => Auth::user()->ExHouseID,
+                                    'TnxType' => $Tqry->TnxType,
+                                    'Particulars' => 'Auto posted end of year for '.date('Y',strtotime($closingYear)),
+                                    'COACode' => $Tqry->COACode,
+                                    'DrAmt' => $Tqry->CrAmt,
+                                    'CrAmt' => $Tqry->DrAmt,
+                                    'Status' => '1',
+                                    'CreatedBy' => Auth::user()->user_id,
+                                    'created_at' => Carbon::now(),
+                                    'AuthorizeBy' => Null,
+                                    'AuthorizeDate' => Null,
+                                    'remember_token' => Null
+                                ];
+                                array_push($saveData,$autoVouTnx);
+                            }
+
+
+
+                        }
+                        //dd($saveData);
                         DB::table('year_closing_details')->insert($insertData);
+                        DB::table('transactions')->insert($saveData);
                         return redirect()->route('yearClosing')->with('status',"Year Closing Successfully Done.");
                     }
                 }
