@@ -105,7 +105,7 @@ function accountActiveInactive(r){
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
-                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('todaysRpt') }}">
+                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('todaysRpt') }}" target="_blank">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group row">

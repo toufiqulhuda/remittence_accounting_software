@@ -1,4 +1,4 @@
-@extends('layouts.withHF')
+@extends('layouts.withoutHF')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">

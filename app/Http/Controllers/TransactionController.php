@@ -369,7 +369,7 @@ class TransactionController extends Controller
                             $balance = array_sum($income) - array_sum($expence);
 
                             $tnxQry = DB::table('transactions AS t')
-                            ->select('t.COACode','t.TnxType','t.DrAmt','t.CrAmt')
+                            ->select('t.COACode','t.TnxType',DB::raw('sum(t.DrAmt) as DrAmt'),DB::raw('sum(t.CrAmt) as CrAmt'))
                             ->Join('chart_of_account AS coa','coa.COACode','=','t.COACode')
                             ->JOIN ('account_sub_group_detail AS asg', 'asg.AccSbGrID','=','coa.AccSbGrID')
                             ->JOIN ('account_group_detail AS ag' , 'ag.AccGrID','=','asg.AccGrID')
@@ -379,9 +379,11 @@ class TransactionController extends Controller
                             ->whereBetween('ah.AccHdID',[3,4])
                             ->where('t.ExHouseID','=',Auth::user()->ExHouseID)
                             ->whereBetween('t.VoucherDate',[DB::raw("DATE_ADD(ye.Year_Closing_Date, INTERVAL 1 DAY)"),date('Y-m-d',strtotime($closingYear))])
+                            ->groupBy('t.COACode')
                             ->orderBy('t.COACode','asc')
                             ->orderBy('t.VoucherDate','asc')
                             ->get();
+                            //dd($tnxQry);
                             $VoucherDate = Exhouse::select('TnxDate')->where('ExHouseID','=',Auth::user()->ExHouseID)->first();
                             $VoucherNo = Transactions::selectRAW('IFNULL(MAX(VoucherNo),0)+1 AS VoucherNo')
                                         ->where('VoucherDate','=',$VoucherDate['TnxDate'])
@@ -461,7 +463,7 @@ class TransactionController extends Controller
                         'UpdatedBy'=>Auth::user()->user_id,
                         'updated_at'=>Carbon::now(),
                     ]);
-            return redirect()->route('startDay')->with('status',"Today's Transaction Date set Successfully.");
+            return redirect()->route('home')->with('status',"Today's Transaction Date set Successfully.");
         }catch(Exception $e){
             return redirect()->route('startDay')->with('failed',"Faild to set Start Date.");
         }

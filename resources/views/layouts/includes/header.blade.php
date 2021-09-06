@@ -11,20 +11,6 @@
                 text-align: center;
                 letter-spacing: 0px;font-family: Microsoft YaHei;line-height: 122px;"></div>
             </div>
-            {{-- <div class="col-md-6">
-                <div class="loginInfo text-right">
-                    Online Accounting Software<br>
-                    @php
-                    //echo $user = Auth::();
-                    // $data = $request->session()->all();
-                    // print_r($data);
-
-
-                    @endphp<br>
-                    Address<br>
-                    Login Date : 12-Dec-2021</div>
-            </div> --}}
-
         </div>
     </div>
 </div>
@@ -44,7 +30,11 @@
             </div>
         </div>
     </div>
-
+    @php
+    $isSameData = DB::select("select count(ex.ExHouseID) as samedate from exhouse as ex where ex.PrevDate < ex.TnxDate and ex.ExHouseID='".Auth::user()->ExHouseID."'");
+    //dd($isSameData[0]->samedate)
+    @endphp
+    @if ($isSameData[0]->samedate > 0)
     <div class="luvion-nav">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
@@ -53,11 +43,15 @@
                     {{-- <img src="{{asset('assets/img/black-logo.png')}}" alt="logo"> --}}
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+
                     @include('layouts.includes.menu')
                 </div>
             </nav>
         </div>
     </div>
+    @else
+        <script>window.location = "/startDay";</script>
+    @endif
 </div>
 </div>
 

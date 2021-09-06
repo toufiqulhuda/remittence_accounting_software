@@ -69,7 +69,7 @@ $( document ).ready(function() {
                     <div class="col-md-12 p-1 float-left" >
                         <div class="card mb-3">
                             <div class="card-body">
-                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('rptAsOnDate') }}">
+                                <form onsubmit="return fromSubmit(this);" method="POST" action="{{ route('rptAsOnDate') }}" target="_blank">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group">
